@@ -36,6 +36,7 @@ import { FallbackMap, fallbackPositions } from "./fallback-map";
 import { useCampusAmbience } from "./use-campus-ambience";
 import { CampusAmbienceControls } from "./campus-ambience-controls";
 import { HeroTitle } from "./hero-title";
+import { SectionMenu } from "./section-menu";
 import { INITIAL_WALK_STATE, type WalkCommand, type WalkState } from "@/lib/campus-walk";
 import "./campus-environment.css";
 import "./campus-hero.css";
@@ -310,11 +311,6 @@ export default function Exhibition() {
         >
           {!active && <HeroTitle />}
 
-          {!active && !walking && !fallback && (
-            <button id="walk-around" className="walk-start" type="button" disabled={!ready} onClick={startWalking}>
-              <Footprints size={18} /> Walk Around <ArrowRight size={16} />
-            </button>
-          )}
           {walkingOutside && (
             <div className="walk-toolbar">
               <div className="walk-guidance">
@@ -415,6 +411,11 @@ export default function Exhibition() {
 
           {!active && (
             <div className="hero-dock">
+              {!walking && !fallback && (
+                <button id="walk-around" className="walk-start" type="button" disabled={!ready} onClick={startWalking}>
+                  <Footprints size={18} /> Walk Around <ArrowRight size={16} />
+                </button>
+              )}
               {walkingOutside && (
                 <div className="walk-progress">
                   {nearbySection && !walkState.automatic && campusView === "arrival" ? (
@@ -437,30 +438,20 @@ export default function Exhibition() {
               <div className="hero-navigation-row">
                 <div className="hero-section-selector">
                   <label htmlFor="section-selector">{walkingOutside ? "WALK TO AN EXHIBITION" : "YOUR JOURNEY"}</label>
-                  <select
+                  <SectionMenu
                     id="section-selector"
-                    aria-label="Choose an exhibition section"
-                    value=""
-                    onChange={(event) => {
-                      const id = Number(event.target.value);
-                      if (id >= 1 && id <= 6) selectDestination(id);
-                    }}
-                  >
-                    <option value="" disabled>{walkingOutside ? "Walk to a dome · 6 destinations" : "Choose a section · 6 destinations"}</option>
-                    {sections.map((section) => (
-                      <option key={section.id} value={section.id}>
-                        {String(section.id).padStart(2, "0")} · {section.title}
-                      </option>
-                    ))}
-                  </select>
+                    label="Choose an exhibition section"
+                    placeholder={walkingOutside ? "Walk to a dome · 6 destinations" : "Choose a section · 6 destinations"}
+                    heading={walkingOutside ? "Walk to an exhibition" : "Explore the exhibition"}
+                    visited={visited}
+                    onSelect={selectDestination}
+                  />
                 </div>
                 {walkingOutside && (
                   <div className="hero-section-selector walk-direct-selector">
                     <label htmlFor="direct-section-selector">OR OPEN A SECTION DIRECTLY</label>
-                    <select id="direct-section-selector" aria-label="Open a section directly" value="" onChange={(event) => { const id = Number(event.target.value); if (id >= 1 && id <= 6) navigate(id); }}>
-                      <option value="" disabled>Open a section directly</option>
-                      {sections.map((section) => <option key={section.id} value={section.id}>{String(section.id).padStart(2, "0")} · {section.title}</option>)}
-                    </select>
+                    <SectionMenu id="direct-section-selector" label="Open a section directly" placeholder="Open a section directly"
+                      heading="Open an exhibition" visited={visited} onSelect={navigate} />
                   </div>
                 )}
                 <div className="hero-camera-controls" role="group" aria-label="Campus camera controls">

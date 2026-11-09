@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { sectionTitles } from "./exhibition-fixtures";
+import { expectSectionChoices } from "./section-menu-helpers";
 
 // Independent expectations from the requested campus arrangement, not app imports.
 const expectedPavilions = [
@@ -96,7 +97,7 @@ for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844
     else {
       const selector = page.getByRole("combobox", { name: "Choose an exhibition section", exact: true });
       await expect(selector).toBeVisible();
-      for (const title of sectionTitles) await expect(selector.locator("option").filter({ hasText: title })).toHaveCount(1);
+      await expectSectionChoices(page);
     }
     await page.screenshot({ path: testInfo.outputPath("entrance-campus.png"), fullPage: true });
     await page.getByRole("button", { name: "Campus Map", exact: true }).click();

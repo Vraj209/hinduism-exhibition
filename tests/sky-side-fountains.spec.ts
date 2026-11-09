@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import * as THREE from "three";
 import { sectionTitles } from "./exhibition-fixtures";
+import { chooseSection, expectSectionChoices } from "./section-menu-helpers";
 import { makeDomedPavilion } from "../lib/domed-pavilion";
 
 type Fountain = {
@@ -172,7 +173,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     }
     const selector = page.getByRole("combobox", { name: "Choose an exhibition section", exact: true });
     await expect(selector).toBeInViewport({ ratio: 1 });
-    for (const title of sectionTitles) await expect(selector.locator("option").filter({ hasText: title })).toHaveCount(1);
+    await expectSectionChoices(page);
     if (viewport.width === 1440) {
       for (let id = 1; id <= 6; id++) await expect(page.locator(`#destination-${id}`)).toBeInViewport({ ratio: 1 });
     }
@@ -301,7 +302,7 @@ test("approaching either side makes that fountain more prominent and preserves a
   for (const [id, sideIndex] of [[2, 0], [5, 1]]) {
     const initial = await json<SpatialSource[]>(canvas, "data-side-fountain-sound");
     const samples: { presence: number; difference: number; gainDifference: number }[] = [];
-    await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption(String(id));
+    await chooseSection(page, id);
     const world = page.getByRole("region", { name: `${sectionTitles[id - 1]} exhibition gallery`, exact: true });
     await expect.poll(async () => {
       const spatial = await json<SpatialSource[]>(canvas, "data-side-fountain-sound");

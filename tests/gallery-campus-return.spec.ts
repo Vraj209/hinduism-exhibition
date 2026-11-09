@@ -1,4 +1,5 @@
 import { expect, test, type Locator } from "@playwright/test";
+import { chooseSection } from "./section-menu-helpers";
 
 async function walkPose(canvas: Locator) {
   return {
@@ -27,7 +28,7 @@ test("gallery visits preserve the outdoor position and look direction across exh
   expect(Number(outside.yaw)).toBeGreaterThan(0);
   expect(Number(outside.pitch)).toBeGreaterThan(0);
 
-  await page.getByRole("combobox", { name: "Open a section directly", exact: true }).selectOption("1");
+  await chooseSection(page, 1, "Open a section directly");
   await expect(canvas).toHaveAttribute("data-walk-suspended", "true");
   await expect(page.getByRole("link", { name: "Back to Campus", exact: true })).toBeVisible();
   expect(await walkPose(canvas)).toEqual(outside);

@@ -68,10 +68,10 @@
 }
 .hero-section-selector { flex: 0 1 300px; min-width: 0; }
 .hero-section-selector label { display: block; margin-bottom: 6px; font-size: 8px; letter-spacing: 1.6px; }
-.hero-section-selector select {
+.hero-section-selector .section-menu-trigger {
   width: 100%;
   min-height: 44px;
-  padding: 10px 32px 10px 12px;
+  padding: 10px 12px;
   border: 1px solid #b7a58a;
   border-radius: 3px;
   background-color: #fbf6edf5;
@@ -104,11 +104,11 @@
 .hero-icon-control { width: 44px; padding: 10px; }
 .hero-look-controls .hero-icon-control { background: #fbf6ede0; }
 .hero-control:hover:not(:disabled),
-.hero-section-selector select:hover { background-color: #fffaf2; border-color: #886540; }
+.hero-section-selector .section-menu-trigger:hover { background-color: #fffaf2; border-color: #886540; }
 .hero-control:disabled { opacity: .48; cursor: default; }
 .hero-control[aria-pressed="true"] { background: #e7dcc9; border-color: #886540; }
 .hero-control:focus-visible,
-.hero-section-selector select:focus-visible { outline: 2px solid #8f4f31; outline-offset: 3px; }
+.hero-section-selector .section-menu-trigger:focus-visible { outline: 2px solid #8f4f31; outline-offset: 3px; }
 .campus-hero .hero-environment-row.campus-environment-bar {
   display: flex;
   width: 100%;
@@ -150,7 +150,7 @@
   .hero-navigation-row { flex-direction: column; align-items: stretch; gap: 8px; }
   .hero-section-selector { flex: 0 0 auto; width: 100%; }
   .hero-section-selector label { display: none; }
-  .hero-section-selector select { min-height: 42px; font-size: 11px; background-color: #fcf7eff5; }
+  .hero-section-selector .section-menu-trigger { min-height: 42px; font-size: 11px; background-color: #fcf7eff5; }
   .hero-camera-controls { justify-content: space-between; gap: 5px; }
   .hero-control { min-height: 42px; padding: 8px 9px; font-size: 9px; gap: 5px; }
   .hero-icon-control { width: 36px; padding: 8px; }
@@ -187,7 +187,7 @@
   .hero-dock { left: 14px; right: 14px; bottom: 8px; gap: 5px; }
   .hero-navigation-row { flex-direction: row; align-items: end; gap: 8px; }
   .hero-section-selector { flex: 1 1 200px; }
-  .hero-section-selector select { min-height: 38px; font-size: 10px; }
+  .hero-section-selector .section-menu-trigger { min-height: 38px; font-size: 10px; }
   .hero-section-selector label { display: none; }
   .hero-camera-controls { flex: 0 0 auto; }
   .hero-control { min-height: 38px; font-size: 9px; }
@@ -197,11 +197,10 @@
 }
 
 .campus-hero {
-  --hero-title-size: min(clamp(3.5rem, calc(1.25rem + 11vw), 12.5rem), 22svh);
+  --hero-title-size: min(clamp(4.5rem, calc(1.5rem + 14vw), 16rem), 28svh);
   --hero-title-top: max(env(safe-area-inset-top), clamp(12px, 3svh, 36px));
   /* Reserve the line box and flourish padding before the font arrives. */
   --hero-title-height: calc(var(--hero-title-size) * 1.35);
-  --hero-title-gap: clamp(8px, 1.2svh, 16px);
 }
 
 .hero-title {
@@ -227,14 +226,12 @@
 .campus-hero[data-view="map"],
 .campus-hero[data-fallback="true"] {
   --hero-title-top: max(8px, env(safe-area-inset-top));
-  --hero-title-size: 36px;
-  --hero-title-gap: 8px;
+  --hero-title-size: 44px;
 }
 
 @media (max-height: 500px) {
   .campus-hero {
     --hero-title-top: max(4px, env(safe-area-inset-top));
-    --hero-title-size: clamp(36px, 11svh, 52px);
-    --hero-title-gap: 4px;
+    --hero-title-size: clamp(44px, 14svh, 68px);
   }
 }

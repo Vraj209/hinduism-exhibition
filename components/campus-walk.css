@@ -1,10 +1,7 @@
 /* Walking controls sit at the edges and preserve the garden's central view. */
 .walk-start {
-  position: absolute;
-  z-index: 6;
-  top: calc(var(--hero-title-top) + var(--hero-title-height) + var(--hero-title-gap));
-  left: 50%;
-  transform: translateX(-50%);
+  align-self: center;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -92,7 +89,7 @@
 .campus-hero[data-walking="true"] .map-pin { width: 44px; height: 44px; padding: 7px; }
 .campus-hero[data-walking="true"] .map-pin .pin-title { top: 43px; }
 .campus-hero[data-walking="true"] .hero-control,
-.campus-hero[data-walking="true"] .hero-section-selector select,
+.campus-hero[data-walking="true"] .hero-section-selector .section-menu-trigger,
 .campus-hero[data-walking="true"] .garden-motion-button,
 .campus-hero[data-walking="true"] .campus-ambience-toggle { min-height: 44px; }
 .campus-hero[data-walking="true"] .hero-icon-control { min-width: 44px; }
@@ -132,7 +129,7 @@
   .campus-hero[data-walking="true"] .hero-dock { left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); gap: 7px; }
   .campus-hero[data-walking="true"] .hero-navigation-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .campus-hero[data-walking="true"] .hero-camera-controls { display: none; }
-  .campus-hero[data-walking="true"] .hero-section-selector select { font-size: 10px; padding-left: 9px; padding-right: 22px; }
+  .campus-hero[data-walking="true"] .hero-section-selector .section-menu-trigger { font-size: 10px; padding-inline: 9px; gap: 6px; }
   .walk-progress { align-items: stretch; flex-direction: column; gap: 5px; }
   .walk-status { font-size: 10px; padding: 6px 9px; }
   .walk-route-actions { justify-content: space-between; }

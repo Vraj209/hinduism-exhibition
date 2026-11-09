@@ -1,0 +1,178 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "fontSize": 225.6,
+    "text": {
+      "x": 323.84375,
+      "y": 43.546875,
+      "right": 1116.15625,
+      "bottom": 314.546875
+    },
+    "button": {
+      "x": 632.046875,
+      "y": 714,
+      "right": 807.953125,
+      "bottom": 762
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "fontSize": 167.36,
+    "text": {
+      "x": 218.109375,
+      "y": 34.765625,
+      "right": 805.890625,
+      "bottom": 235.765625
+    },
+    "button": {
+      "x": 424.046875,
+      "y": 582,
+      "right": 599.953125,
+      "bottom": 630
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 834,
+    "height": 1194,
+    "fontSize": 140.76,
+    "text": {
+      "x": 169.828125,
+      "y": 45.875,
+      "right": 664.15625,
+      "bottom": 213.875
+    },
+    "button": {
+      "x": 329.046875,
+      "y": 1008,
+      "right": 504.953125,
+      "bottom": 1056
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "fontSize": 131.52,
+    "text": {
+      "x": 153.046875,
+      "y": 39.859375,
+      "right": 614.953125,
+      "bottom": 197.859375
+    },
+    "button": {
+      "x": 296.046875,
+      "y": 838,
+      "right": 471.953125,
+      "bottom": 886
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "fontSize": 78.6,
+    "text": {
+      "x": 56.96875,
+      "y": 31.171875,
+      "right": 333.015625,
+      "bottom": 125.171875
+    },
+    "button": {
+      "x": 107.046875,
+      "y": 632,
+      "right": 282.953125,
+      "bottom": 680
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 320,
+    "height": 568,
+    "fontSize": 72,
+    "text": {
+      "x": 33.5625,
+      "y": 22.21875,
+      "right": 286.4375,
+      "bottom": 108.21875
+    },
+    "button": {
+      "x": 72.046875,
+      "y": 362,
+      "right": 247.953125,
+      "bottom": 410
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 844,
+    "height": 390,
+    "fontSize": 54.6,
+    "text": {
+      "x": 326.109375,
+      "y": 7.453125,
+      "right": 517.875,
+      "bottom": 72.453125
+    },
+    "button": {
+      "x": 338.046875,
+      "y": 258,
+      "right": 505.953125,
+      "bottom": 302
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": true,
+    "clearOfControls": true,
+    "noOverflow": true
+  },
+  {
+    "width": 568,
+    "height": 320,
+    "fontSize": 44.8,
+    "text": {
+      "x": 205.328125,
+      "y": 6.46875,
+      "right": 362.671875,
+      "bottom": 60.46875
+    },
+    "button": {
+      "x": 200.046875,
+      "y": 188,
+      "right": 367.953125,
+      "bottom": 232
+    },
+    "textFits": true,
+    "buttonFits": true,
+    "bottomPlacement": false,
+    "clearOfControls": true,
+    "noOverflow": true
+  }
+]

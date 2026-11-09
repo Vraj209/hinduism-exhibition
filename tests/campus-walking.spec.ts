@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { sectionTitles } from "./exhibition-fixtures";
+import { chooseSection, expectSectionChoices } from "./section-menu-helpers";
 
 const metersPerUnit = (255 * 0.3048) / 24.8;
 
@@ -104,7 +105,7 @@ test("clicking a path creates a route, dragging only looks, and Stop and Go Dire
   expect(await position(canvas)).toEqual(stopped);
   await assertEyeHeight(canvas);
 
-  await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption("6");
+  await chooseSection(page, 6);
   await expect(canvas).toHaveAttribute("data-walk-target-dome", "6");
   await expect(canvas).toHaveAttribute("data-walk-automatic", "true");
   const route = JSON.parse((await canvas.getAttribute("data-walk-route"))!) as number[][];
@@ -126,7 +127,7 @@ test("all six walking destinations enter their exhibition and return outside the
   page.on("pageerror", error => errors.push(error.message));
   const canvas = await beginWalk(page, true);
   for (let id = 1; id <= 6; id++) {
-    await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption(String(id));
+    await chooseSection(page, id);
     await expect(canvas).toHaveAttribute("data-walk-near-dome", String(id));
     await expect(canvas).toHaveAttribute("data-walk-automatic", "false");
     await assertEyeHeight(canvas);
@@ -155,7 +156,7 @@ test("all six walking destinations enter their exhibition and return outside the
 
 test("ordinary walking doorway travel reveals the gallery and restores the outdoor landing", async ({ page }) => {
   const canvas = await beginWalk(page);
-  await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption("1");
+  await chooseSection(page, 1);
   await page.getByRole("button", { name: "Go Directly", exact: true }).click();
   await expect(canvas).toHaveAttribute("data-walk-near-dome", "1");
   const outside = await position(canvas);
@@ -187,10 +188,9 @@ test("gallery return preserves location and sound before campus map, entrance an
   await expect(ambience).toHaveAttribute("data-enabled", "true");
   await expect(ambience).toHaveAttribute("data-status", "playing");
   const entranceFoliage = Number(await canvas.getAttribute("data-foliage-presence"));
-  const selector = page.getByRole("combobox", { name: "Choose an exhibition section", exact: true });
   const sounds = async () => JSON.parse((await canvas.getAttribute("data-side-fountain-sound"))!) as { presence: number }[];
   async function enter(id: number) {
-    await selector.selectOption(String(id));
+    await chooseSection(page, id);
     await expect(canvas).toHaveAttribute("data-walk-near-dome", String(id));
     const outside = await position(canvas);
     if (id === 1 || id === 6) {
@@ -278,8 +278,8 @@ test.describe("touch walking", () => {
     await assertEyeHeight(canvas);
     const selector = page.getByRole("combobox", { name: "Choose an exhibition section", exact: true });
     await expect(selector).toBeInViewport({ ratio: 1 });
-    expect(await selector.locator("option").count()).toBe(7);
-    await selector.selectOption("3");
+    await expectSectionChoices(page);
+    await chooseSection(page, 3);
     await expect(canvas).toHaveAttribute("data-walk-target-dome", "3");
     await page.getByRole("button", { name: "Go Directly", exact: true }).tap();
     await expect(canvas).toHaveAttribute("data-walk-near-dome", "3");

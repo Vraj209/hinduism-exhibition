@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { sectionTitles } from "./exhibition-fixtures";
+import { expectSectionChoices } from "./section-menu-helpers";
 
 type ObservedAudioWindow = Window & { __gardenContexts: AudioContext[] };
 const browserErrors = new WeakMap<Page, string[]>();
@@ -116,7 +117,7 @@ test("desktop and mobile gardens move around a stationary camera with reduced mo
     } else {
       const selector = page.getByRole("combobox", { name: "Choose an exhibition section", exact: true });
       await expect(selector).toBeInViewport({ ratio: 1 });
-      for (const title of sectionTitles) await expect(selector.locator("option").filter({ hasText: title })).toHaveCount(1);
+      await expectSectionChoices(page);
     }
   }
   for (const key of ["leaves", "jets", "splashes"] as const) {

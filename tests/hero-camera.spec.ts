@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { sectionSlugs, sectionTitles } from "./exhibition-fixtures";
+import { chooseSection, expectSectionChoices } from "./section-menu-helpers";
 
 const metersPerUnit = (255 * 0.3048) / 24.8;
 const walkingSurface = 0.02;
@@ -42,9 +43,7 @@ async function assertSelector(page: Page) {
   const selector = page.getByRole("combobox", { name: "Choose an exhibition section", exact: true });
   await expect(selector).toBeVisible();
   await expect(selector).toBeInViewport({ ratio: 1 });
-  const options = selector.locator("option").filter({ hasText: /^0?[1-6]\s/ });
-  await expect(options).toHaveCount(6);
-  for (const title of sectionTitles) await expect(selector.locator("option").filter({ hasText: title })).toHaveCount(1);
+  await expectSectionChoices(page);
   return selector;
 }
 
@@ -73,6 +72,10 @@ for (const viewport of [
     await expect(page.getByRole("button", { name: "Reset View", exact: true })).toBeInViewport({ ratio: 1 });
     await assertSelector(page);
     if (viewport.width === 1440) {
+      await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).click();
+      await page.screenshot({ path: "docs/design/custom-section-menu/1440-campus-open.png" });
+      await page.locator('[data-section-menu="true"]').screenshot({ path: "docs/design/custom-section-menu/desktop-menu.png" });
+      await page.keyboard.press("Escape");
       for (let id = 1; id <= 6; id++) {
         const label = page.locator(`#destination-${id}`);
         await expect(label).toBeVisible();
@@ -130,8 +133,8 @@ test("mobile selector reaches an off-axis section and restores the visitor's pre
   await page.getByRole("button", { name: "Look left", exact: true }).click();
   await expect.poll(async () => Number(await canvas.getAttribute("data-look-offset"))).toBeLessThan(-0.01);
   const saved = await pose(canvas);
-  const selector = await assertSelector(page);
-  await selector.selectOption("6");
+  await assertSelector(page);
+  await chooseSection(page, 6);
   const world = page.getByRole("region", { name: `${sectionTitles[5]} exhibition gallery`, exact: true });
   await expect(world).toHaveAttribute("data-arrived", "true");
   await expect(page).toHaveURL(new RegExp(`#section-${sectionSlugs[5]}`));
@@ -182,7 +185,7 @@ test("look and reset requests made during the return journey settle on the reque
     await right.click();
     await right.click();
     await expect(canvas).toHaveAttribute("data-look-offset", "0.2000");
-    await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption("6");
+    await chooseSection(page, 6);
     const world = page.getByRole("region", { name: `${sectionTitles[5]} exhibition gallery`, exact: true });
     await expect(world).toHaveAttribute("data-arrived", "true");
     await world.getByRole("link", { name: "Back to Campus", exact: true }).click();

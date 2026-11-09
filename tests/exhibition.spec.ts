@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { chooseSection } from "./section-menu-helpers";
 import {
   sectionTitles as titles,
   sectionSlugs as slugs,
@@ -202,9 +203,7 @@ for (const viewport of [
       await expect(page.getByRole("button", { name: "Reset View", exact: true })).toBeInViewport({ ratio: 1 });
       await expect(page.getByRole("button", { name: "Campus Map", exact: true })).toBeInViewport({ ratio: 1 });
     }
-    await page
-      .getByRole("combobox", { name: "Choose an exhibition section", exact: true })
-      .selectOption("1");
+    await chooseSection(page, 1);
     const world = await arrived(page, 0);
     await world.locator(".gallery-back").click();
     await expect(

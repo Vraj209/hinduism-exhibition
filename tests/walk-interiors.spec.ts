@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { chooseSection } from "./section-menu-helpers";
 
 test("all six galleries suspend walking and restore the outdoor view after reading", async ({ page }) => {
   test.setTimeout(60_000);
@@ -13,7 +14,7 @@ test("all six galleries suspend walking and restore the outdoor view after readi
   for (let id = 1; id <= 6; id++) {
     const position = await canvas.getAttribute("data-walk-position");
     const yaw = await canvas.getAttribute("data-walk-yaw");
-    await page.getByRole("combobox", { name: "Open a section directly", exact: true }).selectOption(String(id));
+    await chooseSection(page, id, "Open a section directly");
     await expect(page.locator(".dome-gallery")).toHaveAttribute("data-arrived", "true");
     await expect(canvas).toHaveAttribute("data-walk-suspended", "true");
     await expect(page.locator(".dome-gallery canvas")).toHaveCount(0);
@@ -38,13 +39,13 @@ test("mobile walking controls and gallery navigation pass accessibility checks",
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
   await page.getByRole("button", { name: "Walk Around", exact: true }).click();
-  await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption("3");
+  await chooseSection(page, 3);
   await expect(page.getByRole("button", { name: "Stop", exact: true })).toBeVisible();
   const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
   const campus = await new AxeBuilder({ page }).include(".campus-hero").withTags(tags).analyze();
   expect(campus.violations).toEqual([]);
   await page.getByRole("button", { name: "Stop", exact: true }).click();
-  await page.getByRole("combobox", { name: "Open a section directly", exact: true }).selectOption("4");
+  await chooseSection(page, 4, "Open a section directly");
   await expect(page.locator(".dome-gallery")).toHaveAttribute("data-arrived", "true");
   await expect(page.locator(".campus-webgl canvas")).toHaveAttribute("data-walk-suspended", "true");
   await page.getByRole("button", { name: "Scroll to Discover", exact: true }).click();
