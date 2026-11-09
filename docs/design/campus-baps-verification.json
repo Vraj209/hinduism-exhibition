@@ -1,0 +1,92 @@
+{
+  "overview": {
+    "engine": "three.js r187",
+    "geometryTriangles": "265234",
+    "triangles": "530326",
+    "drawCalls": "96",
+    "cameraZoom": "1.000",
+    "cameraType": "orthographic",
+    "cameraPhase": "overview",
+    "cameraFov": "0",
+    "overviewZoom": "1.000",
+    "cameraTarget": "0.000,1.000,0.000",
+    "cameraPosition": "30.000,34.000,42.000"
+  },
+  "arrivals": [
+    {
+      "id": 1,
+      "phase": "inside",
+      "position": "-9.850,2.300,8.000"
+    },
+    {
+      "id": 2,
+      "phase": "inside",
+      "position": "-12.000,2.300,-4.000"
+    },
+    {
+      "id": 3,
+      "phase": "inside",
+      "position": "0.000,2.300,-11.000"
+    },
+    {
+      "id": 4,
+      "phase": "inside",
+      "position": "12.000,2.300,-4.000"
+    },
+    {
+      "id": 5,
+      "phase": "inside",
+      "position": "11.000,2.300,8.000"
+    },
+    {
+      "id": 6,
+      "phase": "inside",
+      "position": "0.000,2.300,14.000"
+    }
+  ],
+  "zoomReturn": "exact pose, target and zoom restored",
+  "interruption": "1→6→3→map settled at overview",
+  "mobile": {
+    "width": 390,
+    "height": 430,
+    "labels": [
+      {
+        "id": 1,
+        "x": 22.87555095977552,
+        "y": 38.30553198391182,
+        "visible": true
+      },
+      {
+        "id": 2,
+        "x": 35.711227737738895,
+        "y": 27.456524955741713,
+        "visible": true
+      },
+      {
+        "id": 3,
+        "x": 64.53095484297742,
+        "y": 24.69855806894535,
+        "visible": true
+      },
+      {
+        "id": 4,
+        "x": 76.39790129807564,
+        "y": 45.07782508815126,
+        "visible": true
+      },
+      {
+        "id": 5,
+        "x": 60.1716683900842,
+        "y": 52.43527185323984,
+        "visible": true
+      },
+      {
+        "id": 6,
+        "x": 34.258132253441154,
+        "y": 50.33990543534619,
+        "visible": true
+      }
+    ]
+  },
+  "errors": []
+}

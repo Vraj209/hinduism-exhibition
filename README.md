@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hinduism — a living exhibition
 
-## Getting Started
+A Next.js 16 / React 19 digital exhibition with a real Three.js architectural campus, six source-backed destinations, a researched festival collection, and a complete server-rendered reading view.
 
-First, run the development server:
+## Run
 
-```bash
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open **http://localhost:3000**. The local development server expects the `localhost` origin; use it instead of `127.0.0.1`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run lint
+npx tsc --noEmit
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+With the development or production server already running:
 
-## Learn More
+```sh
+npm run test:e2e
+```
 
-To learn more about Next.js, take a look at the following resources:
+The Playwright configuration uses the locally installed Chrome channel. Set `PLAYWRIGHT_BASE_URL` to test another local server; see `playwright.config.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Experience
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- The campus follows one entrance-to-mandir axis. Domes 1, 2 and 3 run from nearest to farthest on the left; domes 6, 5 and 4 face them on the right. A long fountain garden, continuous side walks and short inward approaches connect all six destinations.
+- The full-screen opening stands at the entrance, 1.7 metres above the paving in the scene's calibrated scale, looking along the garden toward the Robbinsville Akshardham Mahamandir. The level perspective camera stays still until the visitor deliberately looks around.
+- Drag horizontally, use the Look left / Look right buttons, or focus the scene and press the arrow keys. Home or Reset View restores the central axis. Campus Map opens the optional overhead view; the lightweight SVG map preserves the same arrangement.
+- Explore the Exhibition begins the six-section journey. Readable pavilion labels, a compact six-section selector and the numbered index allow free exploration. Phones frame the garden and mandir first, with limited horizontal looking to discover the wings.
+- Every pavilion opens a full-screen 3D environment with visitor-controlled moments, accessible HTML captions, and an expanded summary drawer. Five sections have three moments each; Festivals now has fourteen individually researched celebrations.
+- A cancellable approach travels through the selected entrance, followed by a short interior arrival. Reduced motion removes travel. “Read summary now” allows reading immediately.
+- Shareable hashes include the moment: `/#section-hindu-festivals/story-2`. Section-only links resume optional saved progress; explicit story links take precedence. Browser Back and Forward restore the route.
+- The previous campus camera and zoom are restored on return. Visit markers and story progress use optional local storage; denied storage does not block navigation.
+- Pause stops ambient movement. Opening a summary also pauses the scene. The camera stays fixed between story moments while objects and lighting dissolve.
+- Garden atmosphere uses a shared breeze for branches, leaves, flowers, landmark pennants, fountain ripples and rustling. Sparse leaves fall, settle and slide gently during gusts. “Pause motion” is independent of sound; reduced motion keeps the garden still.
+- Soft cloud layers drift with the shared wind, with restrained sunlight changes and matching cloud shadows on the actual architecture and garden. Two carved-stone fountains frame the entrance garden, with central plumes, inward jets, falling water and spray. The original five axial fountain groups remain. Extended side walks join the near crosswalk around both fountains.
+- Each side fountain has a separate water source, distance falloff and stereo position through the existing ambience controls. Their combined water level is bounded; no sound starts automatically. Portrait framing includes both fountains at the same 1.7-metre eye height, with a diagonal field-of-view cap through square viewports.
+- “Enable Ambience” starts original stereo fountain, air and leaf textures with mute and volume controls. Fountain presence and stereo position follow the camera; outdoor sound fades and suspends indoors, then returns to the visitor’s chosen level outside. Hidden tabs suspend audio and rendering. The separate interior sound starts only after Sound on is pressed; neither soundscape contains narration or religious recordings.
+- Static scene shows a rendered image of the current world and story. WebGL failure selects it automatically. Twenty-nine moments each have a desktop render and a separately composed mobile render.
+- `/read` contains every section and all twenty-nine story summaries in server-rendered HTML, usable without JavaScript or WebGL.
+- Mobile keeps the scene immersive with reachable controls, scrollable summaries, and constrained reading areas in short landscape windows.
 
-## Deploy on Vercel
+## Source boundaries
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`docs/Takeaways for gutko.pdf` is the source for the original six section messages: one page, six takeaways, and three subdivisions within the final section. The six exact titles and source order are retained in `content/exhibition.ts`. The PDF is also served as `/exhibition-source.pdf`, with page links in both reading experiences.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The source supplies no floor plan, full exhibition panels, photographs, artifacts, named festivals, detailed stories, approved Hindi content, or 3D models. The surrounding campus is the exhibition owner’s design, with the axial arrangement specified in the later revision request. The referenced hand-drawn sketch was not available in this chat; the layout preview was checked against the written placement instructions, and comparison with the drawing remains pending.
+
+The six approved exhibition domes retain their New Delhi Akshardham-inspired architecture and thematic carvings. The central landmark is a **photo-based reconstruction of the Robbinsville Akshardham Mahamandir**, informed by official front and oblique photographs and BAPS architectural information. Its overall proportions preserve the published 255-foot width, 345-foot length and 191-foot height. No verified authorized model or measured plans were available; tower placement, rear elevations, stair geometry and carving detail remain approximate. The exhibition grounds do not represent the actual Robbinsville campus, and the mandir is not a seventh section.
+
+The interiors draw on original studies of Akshardham mandapams and BAPS havelis, with carved timber, faceted pillars, nonfigurative relief and stepped ceilings. At the user’s request, Festivals now adds fourteen named celebrations researched from linked official BAPS sources. These additions are clearly separated from the supplied PDF and are not presented as a complete Hindu calendar. The remaining fifteen moments explore the original section phrases. The treatment of Sant — Guru and Satpurush is attributed to this exhibition's devotional perspective.
+
+The public `/references` page records architectural sources, festival references, credits and asset status. Full audit and mapping are in `docs/design/baps-visual-audit.md` and `docs/design/asset-register.md`.
+
+The approved pavilion family uses six domed exhibition buildings. Verified archival photographs of Delhi's Exhibition Hall 1 inform the stepped plinths, banded walls, sculpted pilasters and projecting eaves. The large dome proportions and six-building arrangement are original design decisions. Each pavilion has a source-based hero relief, related wall panels, and smaller motifs on the dome drum and entrance pillars; matching motifs continue inside. The entrance camera pauses briefly on the relief before passing through the centered doorway.
+
+See the [current sky and side-fountain verification](docs/design/sky-side-fountains-verification.md), [preceding entrance hero verification](docs/design/hero-entrance-verification.md), [axial layout preview](docs/design/campus-layout-preview.md), [Robbinsville reconstruction references and limits](docs/design/robbinsville-mandir-reference.md), and [preceding campus layout verification](docs/design/campus-layout-verification.md). The [exterior reference and carving plan](docs/design/domed-pavilions-reference-plan.md), [thematic geometry plan](docs/design/thematic-relief-plan.md), and [domed pavilion verification](docs/design/domed-pavilions-verification.md) preserve the approved pavilion evidence. The [BAPS revision verification](docs/design/baps-verification.md) and [interior rendering evidence](docs/design/interior-baps-rendering.md) record the preceding visual revision. The [asset register](docs/design/asset-register.md) retains provenance across revisions.
+
+## Project structure
+
+| File                                                       | Responsibility                                                                   |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `content/exhibition.ts`                                    | Shared source-backed content, exact titles, source references                    |
+| `lib/campus.ts`                                            | Axial campus coordinates, inward pavilion orientations and camera poses          |
+| `lib/campus-landscape.ts`                                  | Garden, connected paths, trees, low fountains and animated water                 |
+| `lib/robbinsville-mandir.ts`                               | Photo-based Robbinsville landmark with documented geometric limits               |
+| `lib/domed-pavilion.ts`                                    | Preserved six-pavilion architecture and thematic exterior details                |
+| `components/campus-scene.tsx`                              | Campus assembly, lighting, raycasting, projection, camera travel and GPU cleanup |
+| `components/exhibition.tsx`                                | Campus navigation, browser history, preferences and fallback                     |
+| `components/section-experience.tsx`                        | World interface, summaries, progress, transitions and static mode                |
+| `components/world-scene.tsx`                               | Six 3D interiors, story dissolves, ambient light and GPU lifecycle               |
+| `lib/world-architecture.ts`                                | Interior palettes and moment-specific lighting                                   |
+| `lib/world-geometry.ts` / `lib/world-garden.ts`            | Shared batched interior geometry and garden architecture                         |
+| `content/festivals.ts`                                     | Fourteen researched celebrations with official sources and tradition labels      |
+| `lib/festival-world.ts`                                    | Individually authored festival object tableaux                                   |
+| `content/stories.ts`                                       | Twenty-nine moments, individual source links and scene descriptions              |
+| `components/use-ambient-sound.ts`                          | Gesture-gated synthesized sound and audio cleanup                                |
+| `components/fallback-map.tsx` / `public/campus-layout.svg` | Lightweight overhead schematic and six matching selectable pin anchors           |
+| `app/read/`                                                | Server-rendered reading route and native anchor navigation                       |
+| `public/fonts/`                                            | Self-hosted Cormorant Garamond and DM Sans with SIL licenses                     |
+| `docs/exhibition-source-outline.md`                        | PDF audit and six-section outline                                                |
+| `docs/design/experience-plan.md`                           | Campus, six concepts, materials, interactions and asset budgets                  |
+| `docs/design/verification.md`                              | Measured checks, budgets and limitations                                         |
+| `tests/exhibition.spec.ts` / `tests/immersive.spec.ts`     | Campus, world, accessibility and fallback regression tests                       |
+| `docs/design/phase-2-storyboard.md`                        | First-world storyboard, asset list and source mapping                            |
+| `docs/design/phase-2-verification.md`                      | Phase 2 regression evidence and limitations                                      |
+
+## Asset strategy
+
+Architecture is generated from reusable, materially batched geometry: profiled pillars, scalloped arches, lattice, curved domes, raised plinths and layered cornices. Thematic reliefs use bevelled extrusions, sculpted solid forms, recessed fields and raised mouldings that cast real shadows. Stone grain is a tiny procedural texture. Garden motion is capped at 30 fps on desktop and 20 fps on mobile; foliage shadows refresh at 8/4 Hz. The environment stops when paused, reduced motion is preferred, the campus is out of view, a pavilion has been entered, or the document is hidden. Camera travel renders only during its transition. Fountain reflections use a single low-resolution capture of the actual architecture, with no recurring reflection pass. Mobile reduces foliage and particle counts, pixel ratio, shadow size and reflection resolution. Interior ambient movement remains capped at 24 fps, with a stable camera while reading. Three.js loads separately from the accessible interface. The SVG campus schematic and twenty-nine desktop/mobile poster pairs provide lightweight alternatives. The earlier rendered campus overview remains a historical asset and is no longer the active fallback. Mobile world images are rendered with a separate camera composition, not cropped from the desktop image.
+
+See [environmental realism verification](docs/design/environmental-realism.md) and [original ambience signal/source evidence](docs/design/environment-audio-verification.md) for current behavior, measured limits and validation.
+
+Fonts are local WOFF2 files (about 73 KB combined). All assets are local and architecture is original geometry. No real-person likenesses, sacred inscriptions or documentary festival photographs have been fabricated. Festival scenes are original object studies, including a simple Shivaling form in its relevant festival context; no existing sacred sculpture is reproduced. Official photographs remain linked research references because public redistribution permission has not been supplied. Optional audio is synthesized locally; there are no external audio requests, analytics or remote fonts.

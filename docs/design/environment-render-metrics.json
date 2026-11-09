@@ -1,0 +1,403 @@
+{
+  "capturedAt": "2026-11-09T15:05:54.119Z",
+  "baseURL": "http://localhost:3001",
+  "browser": "156.0.8078.80",
+  "views": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "overhead": false,
+      "screenshot": "environment-desktop.png",
+      "canvas": {
+        "engine": "three.js r187",
+        "geometryTriangles": "539424",
+        "motion": "ambient",
+        "renderCount": "60",
+        "environmentTime": "2.233",
+        "environmentQuality": "desktop",
+        "environmentDetails": "{\"driftingLeaves\":11,\"foliageClusters\":366,\"flowerCount\":216,\"shadowDeformation\":true,\"jetDroplets\":200,\"splashDroplets\":120,\"reflectionSize\":128,\"fountainJets\":40}",
+        "driftingLeaves": "11",
+        "jetDroplets": "200",
+        "splashDroplets": "120",
+        "windStrength": "0.4915",
+        "windGust": "0.3544",
+        "waterPresence": "0.2215",
+        "waterPan": "0.0000",
+        "maxDrawCalls": "137",
+        "maxRenderTriangles": "1072728",
+        "triangles": "545844",
+        "drawCalls": "72",
+        "campusLayout": "axial",
+        "campusView": "arrival",
+        "mandirPosition": "0,0,-49",
+        "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+        "cameraZoom": "1.000",
+        "cameraType": "orthographic",
+        "cameraPhase": "overview",
+        "cameraFov": "0",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,0.000,-19.000",
+        "cameraPosition": "0.000,58.000,68.000"
+      },
+      "audio": {
+        "status": "playing",
+        "enabled": "true",
+        "audioContext": "running",
+        "waterPresence": "0.2215",
+        "waterPan": "0.0000",
+        "windStrength": "0.4915",
+        "gust": "0.3544",
+        "outdoorGain": "0.2784",
+        "audioUpdates": "23"
+      },
+      "labels": [
+        {
+          "name": "01 Hindu Jivan Shaili. The way we live can itself be a form of worship.",
+          "visible": true,
+          "rect": {
+            "x": 534.75,
+            "y": 477.46875,
+            "width": 97.90625,
+            "height": 59
+          }
+        },
+        {
+          "name": "02 Hindu Riti/Parampara. Rituals remind us of our duties, our relationships, and a connection to something greater.",
+          "visible": true,
+          "rect": {
+            "x": 525.3671875,
+            "y": 393.46875,
+            "width": 116.671875,
+            "height": 59
+          }
+        },
+        {
+          "name": "03 Hindu Manyata. The exhibition introduces Hindu belief through the journey of the atma, or soul.",
+          "visible": true,
+          "rect": {
+            "x": 540.21875,
+            "y": 309.46875,
+            "width": 86.96875,
+            "height": 59
+          }
+        },
+        {
+          "name": "04 Hindu Festivals. Festivals express victories of light over darkness, truth over ego, and love over separation.",
+          "visible": true,
+          "rect": {
+            "x": 812.6484375,
+            "y": 309.46875,
+            "width": 87.265625,
+            "height": 59
+          }
+        },
+        {
+          "name": "05 Hindu Mulyo. Values rooted in Hindu tradition come alive in everyday acts of kindness.",
+          "visible": true,
+          "rect": {
+            "x": 818.78125,
+            "y": 393.46875,
+            "width": 75,
+            "height": 59
+          }
+        },
+        {
+          "name": "06 Hindu Sanskruti Ādhār Stambh. The exhibition brings together Shastra, Mandir, and Sant — Guru as three sustaining pillars.",
+          "visible": true,
+          "rect": {
+            "x": 776.609375,
+            "y": 477.46875,
+            "width": 159.34375,
+            "height": 59
+          }
+        }
+      ],
+      "pixelEvidence": {
+        "active": {
+          "changedPixelsAboveTwo": 2962,
+          "totalPixels": 732672,
+          "maximumChannelDifference": 70,
+          "meanChannelDifference": 0.04647600381434894
+        },
+        "paused": {
+          "changedPixelsAboveTwo": 0,
+          "totalPixels": 732672,
+          "maximumChannelDifference": 0,
+          "meanChannelDifference": 0
+        },
+        "cameraStable": true
+      },
+      "errors": []
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "overhead": false,
+      "screenshot": "environment-mobile.png",
+      "canvas": {
+        "engine": "three.js r187",
+        "geometryTriangles": "502480",
+        "motion": "ambient",
+        "renderCount": "51",
+        "environmentTime": "2.250",
+        "environmentQuality": "mobile",
+        "environmentDetails": "{\"driftingLeaves\":5,\"foliageClusters\":246,\"flowerCount\":216,\"shadowDeformation\":true,\"jetDroplets\":80,\"splashDroplets\":40,\"reflectionSize\":64,\"fountainJets\":40}",
+        "driftingLeaves": "5",
+        "jetDroplets": "80",
+        "splashDroplets": "40",
+        "windStrength": "0.4949",
+        "windGust": "0.3591",
+        "waterPresence": "0.2215",
+        "waterPan": "0.0000",
+        "maxDrawCalls": "136",
+        "maxRenderTriangles": "997972",
+        "triangles": "504876",
+        "drawCalls": "72",
+        "campusLayout": "axial",
+        "campusView": "arrival",
+        "mandirPosition": "0,0,-49",
+        "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+        "cameraZoom": "1.000",
+        "cameraType": "orthographic",
+        "cameraPhase": "overview",
+        "cameraFov": "0",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,0.000,-19.000",
+        "cameraPosition": "0.000,58.000,68.000"
+      },
+      "audio": {
+        "status": "playing",
+        "enabled": "true",
+        "audioContext": "running",
+        "waterPresence": "0.2215",
+        "waterPan": "0.0000",
+        "windStrength": "0.4949",
+        "gust": "0.3591",
+        "outdoorGain": "0.2784",
+        "audioUpdates": "23"
+      },
+      "labels": [
+        {
+          "name": "01 Hindu Jivan Shaili. The way we live can itself be a form of worship.",
+          "visible": true,
+          "rect": {
+            "x": 86.84375,
+            "y": 461.984375,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "name": "02 Hindu Riti/Parampara. Rituals remind us of our duties, our relationships, and a connection to something greater.",
+          "visible": true,
+          "rect": {
+            "x": 86.84375,
+            "y": 405.1875,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "name": "03 Hindu Manyata. The exhibition introduces Hindu belief through the journey of the atma, or soul.",
+          "visible": true,
+          "rect": {
+            "x": 86.84375,
+            "y": 348.40625,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "name": "04 Hindu Festivals. Festivals express victories of light over darkness, truth over ego, and love over separation.",
+          "visible": true,
+          "rect": {
+            "x": 271.140625,
+            "y": 348.40625,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "name": "05 Hindu Mulyo. Values rooted in Hindu tradition come alive in everyday acts of kindness.",
+          "visible": true,
+          "rect": {
+            "x": 271.140625,
+            "y": 405.1875,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "name": "06 Hindu Sanskruti Ādhār Stambh. The exhibition brings together Shastra, Mandir, and Sant — Guru as three sustaining pillars.",
+          "visible": true,
+          "rect": {
+            "x": 271.140625,
+            "y": 461.984375,
+            "width": 32,
+            "height": 32
+          }
+        }
+      ],
+      "pixelEvidence": {
+        "active": {
+          "changedPixelsAboveTwo": 328,
+          "totalPixels": 184900,
+          "maximumChannelDifference": 73,
+          "meanChannelDifference": 0.021249323958896702
+        },
+        "paused": {
+          "changedPixelsAboveTwo": 0,
+          "totalPixels": 184900,
+          "maximumChannelDifference": 0,
+          "meanChannelDifference": 0
+        },
+        "cameraStable": true
+      },
+      "errors": []
+    },
+    {
+      "name": "overhead",
+      "width": 1440,
+      "height": 1000,
+      "overhead": true,
+      "screenshot": "environment-overhead.png",
+      "canvas": {
+        "engine": "three.js r187",
+        "geometryTriangles": "539424",
+        "motion": "ambient",
+        "renderCount": "70",
+        "environmentTime": "2.217",
+        "environmentQuality": "desktop",
+        "environmentDetails": "{\"driftingLeaves\":11,\"foliageClusters\":366,\"flowerCount\":216,\"shadowDeformation\":true,\"jetDroplets\":200,\"splashDroplets\":120,\"reflectionSize\":128,\"fountainJets\":40}",
+        "driftingLeaves": "11",
+        "jetDroplets": "200",
+        "splashDroplets": "120",
+        "windStrength": "0.4938",
+        "windGust": "0.3575",
+        "waterPresence": "0.1780",
+        "waterPan": "0.0000",
+        "maxDrawCalls": "137",
+        "maxRenderTriangles": "1072728",
+        "triangles": "545844",
+        "drawCalls": "72",
+        "campusLayout": "axial",
+        "campusView": "map",
+        "mandirPosition": "0,0,-49",
+        "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+        "cameraZoom": "1.000",
+        "cameraType": "orthographic",
+        "cameraPhase": "overview",
+        "cameraFov": "0",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,0.000,-19.000",
+        "cameraPosition": "0.000,110.000,-18.900"
+      },
+      "audio": {
+        "status": "playing",
+        "enabled": "true",
+        "audioContext": "running",
+        "waterPresence": "0.1780",
+        "waterPan": "0.0000",
+        "windStrength": "0.4891",
+        "gust": "0.3512",
+        "outdoorGain": "0.2784",
+        "audioUpdates": "23"
+      },
+      "labels": [
+        {
+          "name": "01 Hindu Jivan Shaili. The way we live can itself be a form of worship.",
+          "visible": true,
+          "rect": {
+            "x": 572.34375,
+            "y": 609.296875,
+            "width": 97.90625,
+            "height": 59
+          }
+        },
+        {
+          "name": "02 Hindu Riti/Parampara. Rituals remind us of our duties, our relationships, and a connection to something greater.",
+          "visible": true,
+          "rect": {
+            "x": 562.9609375,
+            "y": 499.640625,
+            "width": 116.671875,
+            "height": 59
+          }
+        },
+        {
+          "name": "03 Hindu Manyata. The exhibition introduces Hindu belief through the journey of the atma, or soul.",
+          "visible": true,
+          "rect": {
+            "x": 577.8125,
+            "y": 390,
+            "width": 86.96875,
+            "height": 59
+          }
+        },
+        {
+          "name": "04 Hindu Festivals. Festivals express victories of light over darkness, truth over ego, and love over separation.",
+          "visible": true,
+          "rect": {
+            "x": 775.0546875,
+            "y": 390,
+            "width": 87.265625,
+            "height": 59
+          }
+        },
+        {
+          "name": "05 Hindu Mulyo. Values rooted in Hindu tradition come alive in everyday acts of kindness.",
+          "visible": true,
+          "rect": {
+            "x": 781.1875,
+            "y": 499.640625,
+            "width": 75,
+            "height": 59
+          }
+        },
+        {
+          "name": "06 Hindu Sanskruti Ādhār Stambh. The exhibition brings together Shastra, Mandir, and Sant — Guru as three sustaining pillars.",
+          "visible": true,
+          "rect": {
+            "x": 739.015625,
+            "y": 609.296875,
+            "width": 159.34375,
+            "height": 59
+          }
+        }
+      ],
+      "pixelEvidence": {
+        "active": {
+          "changedPixelsAboveTwo": 2539,
+          "totalPixels": 732672,
+          "maximumChannelDifference": 60,
+          "meanChannelDifference": 0.03499292088865595
+        },
+        "paused": {
+          "changedPixelsAboveTwo": 0,
+          "totalPixels": 732672,
+          "maximumChannelDifference": 0,
+          "meanChannelDifference": 0
+        },
+        "cameraStable": true
+      },
+      "errors": []
+    }
+  ],
+  "sourceHashes": {
+    "components/campus-scene.tsx": "0263bd374f4cca49a541a55c06b6fc86a924fa25d583407aa96d094ceb5e148b",
+    "components/exhibition.tsx": "743832bdeda112945b529a102a6b7a5ff3622e7b182945e87e1bad78c5b3d745",
+    "components/use-campus-ambience.ts": "011d0cb7d29f6e1eb3b5820599c75bb8eb15f6bade3fe311cb3cfafe2392e405",
+    "components/campus-ambience-controls.tsx": "325ace51239fdb0d781cf433806367c0845ec8a2d269b40da60e03799fe779df",
+    "components/campus-ambience-controls.css": "0ca72c504b5aa713c5394d133497e390bf302f6b7d7bb3ab8ea55b28e655b733",
+    "components/campus-environment.css": "0696223706f92785710bf697df986718bd1cc4976055a0912f381919253e7939",
+    "lib/campus-environment.ts": "55fc423d9f170a9d4bbbd4ea54f429e22f8b0682cb668c94d10892e53b9122c7",
+    "lib/campus-landscape.ts": "1a29e662aa310816c616cfb13820958e47e4116f195b2f22e3bfd9b0434e6c43",
+    "lib/campus-vegetation.ts": "b0bb6a821868fd43cff93773a3f3b1fc562cf3680c93482b33c2e4f9525a85b4",
+    "lib/campus-water.ts": "03503850bd0a518715e29212795306c19b8cc485707b204652b4e45b302413bd",
+    "lib/campus-audio.ts": "bb6f1c4ffe22f8862197891df05a71bc3dee2c1252daf7f78b44c3fed3cbf7fe",
+    "lib/campus-pennant.ts": "1f849c67b4555c02a8c98f24ef8d655a4ae2404ee2c69c66b2356023a3a3ac12",
+    "lib/robbinsville-mandir.ts": "34063cd071ebfe6decf0782715b32c087d7bbe78618d1036656fc84ebb6d14a2"
+  }
+}

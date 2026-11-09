@@ -1,0 +1,140 @@
+.references-page {
+  max-width: 1160px;
+  margin: auto;
+  padding: 45px 6% 70px;
+  color: #493325;
+}
+.reference-back {
+  font-size: 12px;
+  display: inline-block;
+  padding: 12px 0;
+  color: #7c3d30;
+}
+.references-page > header {
+  padding: 55px 0 65px;
+  border-bottom: 1px solid #d6bda0;
+  max-width: 800px;
+}
+.references-page > header > svg {
+  width: 80px;
+  height: 70px;
+  color: #9a6549;
+  margin-bottom: 20px;
+}
+.reference-eyebrow {
+  font:
+    10px var(--font-body),
+    sans-serif;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #8a4b39;
+}
+.references-page h1 {
+  font-size: clamp(45px, 5.5vw, 72px);
+  line-height: 1.03;
+  margin: 18px 0 24px;
+}
+.references-page h2 {
+  font-size: 35px;
+  line-height: 1.1;
+  margin: 0 0 23px;
+}
+.references-page p {
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 760px;
+  color: #68513d;
+}
+.references-page section {
+  padding: 45px 0;
+  border-bottom: 1px solid #d6bda0;
+}
+.references-page a {
+  text-underline-offset: 5px;
+}
+.references-page section a {
+  display: inline-block;
+  text-decoration: underline;
+  font-size: 12px;
+  margin: 16px 22px 0 0;
+  color: #7c3d30;
+}
+.reference-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 45px;
+}
+.reference-grid article > svg {
+  width: 45px;
+  height: 45px;
+  color: #9c583e;
+  margin: 10px 0 17px;
+}
+.reference-grid h3 {
+  font-size: 29px;
+  margin: 12px 0 15px;
+}
+.reference-grid h4 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin: 24px 0 6px;
+}
+.reference-grid .reference-eyebrow {
+  font-size: 9px;
+  line-height: 1.6;
+  color: #8a4b39;
+}
+.reference-grid .reference-material {
+  font-size: 11px;
+  color: #78533d;
+  margin-top: 18px;
+}
+.reference-festivals ol {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 23px 35px;
+}
+.reference-festivals li {
+  display: grid;
+  border-top: 1px solid #dfcbb1;
+  padding-top: 17px;
+}
+.reference-festivals strong {
+  font:
+    25px var(--font-display),
+    Georgia,
+    serif;
+}
+.reference-festivals span {
+  font-size: 11px;
+  color: #78614e;
+  margin-top: 7px;
+}
+.references-page footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding-top: 30px;
+}
+@media (max-width: 650px) {
+  .references-page {
+    padding-inline: 7%;
+  }
+  .reference-grid,
+  .reference-festivals ol {
+    grid-template-columns: 1fr;
+  }
+  .references-page > header {
+    padding-top: 35px;
+  }
+  .references-page h2 {
+    font-size: 30px;
+  }
+  .references-page p {
+    font-size: 13px;
+  }
+}

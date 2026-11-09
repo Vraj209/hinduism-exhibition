@@ -1,0 +1,157 @@
+{
+  "errors": [],
+  "metrics": {
+    "hero": [
+      {
+        "triangles": 1816,
+        "width": 2.4,
+        "height": 0.92,
+        "depth": 0.16
+      },
+      {
+        "triangles": 2004,
+        "width": 2.4,
+        "height": 0.92,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1632,
+        "width": 2.4,
+        "height": 0.92,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1960,
+        "width": 2.4,
+        "height": 0.92,
+        "depth": 0.16
+      },
+      {
+        "triangles": 2268,
+        "width": 2.4,
+        "height": 0.92,
+        "depth": 0.16
+      },
+      {
+        "triangles": 2260,
+        "width": 2.4,
+        "height": 0.92,
+        "depth": 0.16
+      }
+    ],
+    "pillar": [
+      {
+        "triangles": 1328,
+        "width": 0.65,
+        "height": 1.6,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1432,
+        "width": 0.65,
+        "height": 1.6,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1468,
+        "width": 0.65,
+        "height": 1.6,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1808,
+        "width": 0.65,
+        "height": 1.6,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1620,
+        "width": 0.65,
+        "height": 1.6,
+        "depth": 0.16
+      },
+      {
+        "triangles": 1724,
+        "width": 0.65,
+        "height": 1.6,
+        "depth": 0.16
+      }
+    ],
+    "band": [
+      {
+        "triangles": 260,
+        "width": 1.05,
+        "height": 0.24,
+        "depth": 0.035
+      },
+      {
+        "triangles": 264,
+        "width": 1.05,
+        "height": 0.24,
+        "depth": 0.035
+      },
+      {
+        "triangles": 192,
+        "width": 1.05,
+        "height": 0.24,
+        "depth": 0.035
+      },
+      {
+        "triangles": 360,
+        "width": 1.05,
+        "height": 0.24,
+        "depth": 0.035
+      },
+      {
+        "triangles": 448,
+        "width": 1.05,
+        "height": 0.24,
+        "depth": 0.035
+      },
+      {
+        "triangles": 232,
+        "width": 1.05,
+        "height": 0.24,
+        "depth": 0.035
+      }
+    ],
+    "medallion": [
+      {
+        "triangles": 196,
+        "width": 0.28,
+        "height": 0.42,
+        "depth": 0.07
+      },
+      {
+        "triangles": 168,
+        "width": 0.28,
+        "height": 0.42,
+        "depth": 0.07
+      },
+      {
+        "triangles": 132,
+        "width": 0.28,
+        "height": 0.42,
+        "depth": 0.07
+      },
+      {
+        "triangles": 216,
+        "width": 0.28,
+        "height": 0.42,
+        "depth": 0.07
+      },
+      {
+        "triangles": 260,
+        "width": 0.28,
+        "height": 0.42,
+        "depth": 0.07
+      },
+      {
+        "triangles": 152,
+        "width": 0.28,
+        "height": 0.42,
+        "depth": 0.07
+      }
+    ]
+  }
+}

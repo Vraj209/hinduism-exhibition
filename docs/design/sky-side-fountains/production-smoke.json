@@ -1,0 +1,20 @@
+{
+  "errors": [],
+  "returnedTargetMatches": true,
+  "sideFountainCount": 2,
+  "cloudLayers": 3,
+  "eyeHeight": "1.700",
+  "sound": {
+    "status": "playing",
+    "enabled": "true",
+    "audioContext": "running",
+    "waterPresence": "0.4863",
+    "waterPan": "-0.0998",
+    "sideFountainSources": "2",
+    "sideFountainAudio": "[{\"id\":\"left\",\"gain\":0.3171597421169281,\"pan\":-0.2923402786254883,\"cutoff\":3199.476806640625},{\"id\":\"right\",\"gain\":0.3433915376663208,\"pan\":0.3329194188117981,\"cutoff\":3520.758056640625}]",
+    "windStrength": "0.5269",
+    "gust": "0.4084",
+    "outdoorGain": "0.2784",
+    "audioUpdates": "16"
+  }
+}

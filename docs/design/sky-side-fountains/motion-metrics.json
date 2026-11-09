@@ -1,0 +1,154 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "elapsed": 5001.60000000149,
+    "renderedFrames": 110,
+    "effectiveFps": 21.992962252072783,
+    "simulatedSeconds": 4.9830000000000005,
+    "cameraStable": true,
+    "cloudMoved": true,
+    "geometryTriangles": "583526",
+    "drawCalls": "88",
+    "environment": {
+      "driftingLeaves": 11,
+      "foliageClusters": 366,
+      "flowerCount": 252,
+      "shadowDeformation": true,
+      "jetDroplets": 200,
+      "splashDroplets": 120,
+      "reflectionSize": 128,
+      "fountainJets": 40,
+      "sideFountainCount": 2,
+      "sideFountainJets": 26,
+      "sideJetDroplets": 560,
+      "sideSplashDroplets": 144,
+      "sideReflectionSize": 64,
+      "sideFountainBounds": [
+        {
+          "id": "left",
+          "x": -6,
+          "z": 29,
+          "radius": 2.1000003814697266,
+          "groundMinY": 0.014999999664723873,
+          "stoneMaxY": 0.8199999928474426,
+          "waterPeakY": 3.349197879598031,
+          "minX": -8.100000381469727,
+          "maxX": -3.9000000953674316,
+          "minZ": 26.899999618530273,
+          "maxZ": 31.100000381469727,
+          "staticGeometryMin": [
+            -8.100000381469727,
+            0.014999999664723873,
+            26.899999618530273
+          ],
+          "staticGeometryMax": [
+            -3.9000000953674316,
+            3.299999952316284,
+            31.100000381469727
+          ]
+        },
+        {
+          "id": "right",
+          "x": 6,
+          "z": 29,
+          "radius": 2.1000003814697266,
+          "groundMinY": 0.014999999664723873,
+          "stoneMaxY": 0.8199999928474426,
+          "waterPeakY": 3.3493952528421658,
+          "minX": 3.9000000953674316,
+          "maxX": 8.100000381469727,
+          "minZ": 26.899999618530273,
+          "maxZ": 31.100000381469727,
+          "staticGeometryMin": [
+            3.9000000953674316,
+            0.014999999664723873,
+            26.899999618530273
+          ],
+          "staticGeometryMax": [
+            8.100000381469727,
+            3.299999952316284,
+            31.100000381469727
+          ]
+        }
+      ]
+    },
+    "lookSettledWallMs": 337
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "elapsed": 5001.699999999255,
+    "renderedFrames": 94,
+    "effectiveFps": 18.793610172544135,
+    "simulatedSeconds": 4.9990000000000006,
+    "cameraStable": true,
+    "cloudMoved": true,
+    "geometryTriangles": "531990",
+    "drawCalls": "86",
+    "environment": {
+      "driftingLeaves": 5,
+      "foliageClusters": 246,
+      "flowerCount": 252,
+      "shadowDeformation": true,
+      "jetDroplets": 80,
+      "splashDroplets": 40,
+      "reflectionSize": 64,
+      "fountainJets": 40,
+      "sideFountainCount": 2,
+      "sideFountainJets": 26,
+      "sideJetDroplets": 220,
+      "sideSplashDroplets": 56,
+      "sideReflectionSize": 32,
+      "sideFountainBounds": [
+        {
+          "id": "left",
+          "x": -6,
+          "z": 29,
+          "radius": 2.1000003814697266,
+          "groundMinY": 0.014999999664723873,
+          "stoneMaxY": 0.8199999928474426,
+          "waterPeakY": 3.3425034179325634,
+          "minX": -8.100000381469727,
+          "maxX": -3.9000000953674316,
+          "minZ": 26.899999618530273,
+          "maxZ": 31.100000381469727,
+          "staticGeometryMin": [
+            -8.100000381469727,
+            0.014999999664723873,
+            26.899999618530273
+          ],
+          "staticGeometryMax": [
+            -3.9000000953674316,
+            3.299999952316284,
+            31.100000381469727
+          ]
+        },
+        {
+          "id": "right",
+          "x": 6,
+          "z": 29,
+          "radius": 2.1000003814697266,
+          "groundMinY": 0.014999999664723873,
+          "stoneMaxY": 0.8199999928474426,
+          "waterPeakY": 3.346141527798584,
+          "minX": 3.9000000953674316,
+          "maxX": 8.100000381469727,
+          "minZ": 26.899999618530273,
+          "maxZ": 31.100000381469727,
+          "staticGeometryMin": [
+            3.9000000953674316,
+            0.014999999664723873,
+            26.899999618530273
+          ],
+          "staticGeometryMax": [
+            8.100000381469727,
+            3.299999952316284,
+            31.100000381469727
+          ]
+        }
+      ]
+    },
+    "lookSettledWallMs": 318
+  }
+]

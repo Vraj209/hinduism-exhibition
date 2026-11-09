@@ -1,0 +1,13 @@
+{
+  "verifiedAfterCapture": true,
+  "hashes": {
+    "components/world-scene.tsx": "17a4101d33490c2e2ae0c38ccec91eba3adef6c8204fdd66cfb3457ddb447340",
+    "lib/festival-world.ts": "0a9bcced832f8d8a80981bcb86a379960d11a28cee604428ee3401d2576537a4",
+    "content/festivals.ts": "7e953d62a190abbcbcde35b77b80af16e3d80a34f56f797a83d6c5188f2ed3ac",
+    "lib/world-geometry.ts": "c16ddace36b629cab3a4493118190ec710976ff9fb59abf21c66ec0415027be9",
+    "lib/world-garden.ts": "6adb4417f86f0c16fbd338471c9ec5cb1a976a9fef76e07cf8cd96924b29fc85",
+    "lib/world-architecture.ts": "e6f45eaf7b49e1cf934a1fd4e18823c75e7c310c49c18a5972782329fbd32d07",
+    "lib/interior-carving.ts": "acfae80aa1001b7817f4684498dba7cbd1419abe49704e4ca15e03138f89855b",
+    "lib/pavilion-reliefs.ts": "dd8aad95ac29f8aaa4cafbb544f89d0527d877accf088eaa977e18e277c7543d"
+  }
+}

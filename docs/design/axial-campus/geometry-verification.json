@@ -1,0 +1,112 @@
+{
+  "mandirBounds": {
+    "min": [
+      -12.399999618530273,
+      -5.7220457705398076e-8,
+      -70.02794075012207
+    ],
+    "max": [
+      12.399999618530273,
+      18.575685501098633,
+      -36.47500038146973
+    ],
+    "size": [
+      24.799999237060547,
+      18.57568555831909,
+      33.552940368652344
+    ]
+  },
+  "officialRatios": {
+    "depthToWidth": 1.3529411764705883,
+    "heightToWidth": 0.7490196078431373
+  },
+  "generatedRatios": {
+    "depthToWidth": 1.3529411855187319,
+    "heightToWidth": 0.7490196020070845
+  },
+  "northWalkZ": [
+    -36,
+    -32
+  ],
+  "stairClearance": 0.47500038146972656,
+  "pairCenters": [
+    [
+      {
+        "id": 1,
+        "position": [
+          -18,
+          0,
+          18
+        ],
+        "rotation": 1.5707963267948966
+      },
+      {
+        "id": 6,
+        "position": [
+          18,
+          0,
+          18
+        ],
+        "rotation": -1.5707963267948966
+      }
+    ],
+    [
+      {
+        "id": 2,
+        "position": [
+          -18,
+          0,
+          -2
+        ],
+        "rotation": 1.5707963267948966
+      },
+      {
+        "id": 5,
+        "position": [
+          18,
+          0,
+          -2
+        ],
+        "rotation": -1.5707963267948966
+      }
+    ],
+    [
+      {
+        "id": 3,
+        "position": [
+          -18,
+          0,
+          -22
+        ],
+        "rotation": 1.5707963267948966
+      },
+      {
+        "id": 4,
+        "position": [
+          18,
+          0,
+          -22
+        ],
+        "rotation": -1.5707963267948966
+      }
+    ]
+  ],
+  "garden": {
+    "width": 18,
+    "length": 60,
+    "centerZ": -3
+  },
+  "basin": {
+    "width": 4.2,
+    "length": 52,
+    "centerZ": -3
+  },
+  "fountains": [
+    -25,
+    -14,
+    -3,
+    8,
+    19
+  ],
+  "note": "Display geometry only; published outer proportions do not verify individual architectural details. User sketch unavailable."
+}

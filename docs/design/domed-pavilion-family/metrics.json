@@ -1,0 +1,309 @@
+{
+  "overview": {
+    "engine": "three.js r187",
+    "geometryTriangles": "271162",
+    "maxDrawCalls": "92",
+    "maxRenderTriangles": "542182",
+    "triangles": "271162",
+    "drawCalls": "47",
+    "cameraZoom": "1.000",
+    "cameraType": "orthographic",
+    "cameraPhase": "overview",
+    "cameraFov": "0",
+    "overviewZoom": "1.000",
+    "cameraTarget": "0.000,1.000,0.000",
+    "cameraPosition": "30.000,34.000,42.000"
+  },
+  "projections": [
+    {
+      "id": 1,
+      "x": 24.586101800150033,
+      "y": 27.921666477499773,
+      "visible": true
+    },
+    {
+      "id": 2,
+      "x": 36.612321484007616,
+      "y": 12.859165767724361,
+      "visible": true
+    },
+    {
+      "id": 3,
+      "x": 63.61458832134821,
+      "y": 14.7208231588202,
+      "visible": true
+    },
+    {
+      "id": 4,
+      "x": 74.73316878378257,
+      "y": 33.16815548876986,
+      "visible": true
+    },
+    {
+      "id": 5,
+      "x": 59.53021182494375,
+      "y": 46.53824038845815,
+      "visible": true
+    },
+    {
+      "id": 6,
+      "x": 35.25086265187279,
+      "y": 44.338099835344885,
+      "visible": true
+    }
+  ],
+  "arrivals": [
+    {
+      "id": 1,
+      "relief": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "144658",
+        "drawCalls": "33",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "relief",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "-11.000,3.700,9.700",
+        "cameraPosition": "-10.400,3.800,15.800"
+      },
+      "settled": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "144358",
+        "drawCalls": "31",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "inside",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "-11.000,2.200,1.000",
+        "cameraPosition": "-11.000,2.300,8.000"
+      }
+    },
+    {
+      "id": 2,
+      "relief": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "143662",
+        "drawCalls": "27",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "relief",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "-12.000,3.700,-2.300",
+        "cameraPosition": "-11.400,3.800,3.800"
+      },
+      "settled": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "71774",
+        "drawCalls": "17",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "inside",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "-12.000,2.200,-11.000",
+        "cameraPosition": "-12.000,2.300,-4.000"
+      }
+    },
+    {
+      "id": 3,
+      "relief": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "64322",
+        "drawCalls": "23",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "relief",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,3.700,-9.300",
+        "cameraPosition": "0.600,3.800,-3.200"
+      },
+      "settled": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "63226",
+        "drawCalls": "16",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "inside",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,2.200,-18.000",
+        "cameraPosition": "0.000,2.300,-11.000"
+      }
+    },
+    {
+      "id": 4,
+      "relief": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "149470",
+        "drawCalls": "28",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "relief",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "12.000,3.700,-2.300",
+        "cameraPosition": "12.600,3.800,3.800"
+      },
+      "settled": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "73714",
+        "drawCalls": "17",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "inside",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "12.000,2.200,-11.000",
+        "cameraPosition": "12.000,2.300,-4.000"
+      }
+    },
+    {
+      "id": 5,
+      "relief": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "159126",
+        "drawCalls": "34",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "relief",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "11.000,3.700,9.700",
+        "cameraPosition": "11.600,3.800,15.800"
+      },
+      "settled": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "149978",
+        "drawCalls": "31",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "inside",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "11.000,2.200,1.000",
+        "cameraPosition": "11.000,2.300,8.000"
+      }
+    },
+    {
+      "id": 6,
+      "relief": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "270938",
+        "drawCalls": "46",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "relief",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,3.700,15.700",
+        "cameraPosition": "0.600,3.800,21.800"
+      },
+      "settled": {
+        "engine": "three.js r187",
+        "geometryTriangles": "271162",
+        "maxDrawCalls": "92",
+        "maxRenderTriangles": "542182",
+        "triangles": "247098",
+        "drawCalls": "44",
+        "cameraZoom": "1.000",
+        "cameraType": "perspective",
+        "cameraPhase": "inside",
+        "cameraFov": "48.000",
+        "overviewZoom": "1.000",
+        "cameraTarget": "0.000,2.200,7.000",
+        "cameraPosition": "0.000,2.300,14.000"
+      }
+    }
+  ],
+  "mobileProjections": [
+    {
+      "id": 1,
+      "x": 22.87555095977552,
+      "y": 34.56442089487993,
+      "visible": true
+    },
+    {
+      "id": 2,
+      "x": 35.711227737738895,
+      "y": 24.03380629981892,
+      "visible": true
+    },
+    {
+      "id": 3,
+      "x": 64.53095484297742,
+      "y": 25.335342935163542,
+      "visible": true
+    },
+    {
+      "id": 4,
+      "x": 76.39790129807564,
+      "y": 38.23238777630568,
+      "visible": true
+    },
+    {
+      "id": 5,
+      "x": 60.1716683900842,
+      "y": 47.57978724832612,
+      "visible": true
+    },
+    {
+      "id": 6,
+      "x": 34.258132253441154,
+      "y": 46.04160758837339,
+      "visible": true
+    }
+  ],
+  "cancelDuringRelief": {
+    "engine": "three.js r187",
+    "geometryTriangles": "271162",
+    "maxDrawCalls": "92",
+    "maxRenderTriangles": "542182",
+    "triangles": "271162",
+    "drawCalls": "47",
+    "cameraZoom": "1.000",
+    "cameraType": "orthographic",
+    "cameraPhase": "overview",
+    "cameraFov": "0",
+    "overviewZoom": "1.000",
+    "cameraTarget": "0.000,1.000,0.000",
+    "cameraPosition": "30.000,34.000,42.000"
+  },
+  "errors": []
+}

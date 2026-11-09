@@ -1,0 +1,660 @@
+{
+  "source": "lib/pavilion-reliefs.ts",
+  "caseCount": 72,
+  "checks": [
+    "finite geometry attributes",
+    "position + normal + uv",
+    "no material groups",
+    "exact physical bounds including bevels"
+  ],
+  "cases": [
+    {
+      "section": 1,
+      "variant": "hero",
+      "motif": 0,
+      "triangles": 1816,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "hero",
+      "motif": 1,
+      "triangles": 1320,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "hero",
+      "motif": 2,
+      "triangles": 1972,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "panel",
+      "motif": 0,
+      "triangles": 1816,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "panel",
+      "motif": 1,
+      "triangles": 1320,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "panel",
+      "motif": 2,
+      "triangles": 1972,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "pillar",
+      "motif": 0,
+      "triangles": 1328,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "pillar",
+      "motif": 1,
+      "triangles": 1668,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "pillar",
+      "motif": 2,
+      "triangles": 1836,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 1,
+      "variant": "band",
+      "motif": 0,
+      "triangles": 260,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 1,
+      "variant": "band",
+      "motif": 1,
+      "triangles": 172,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 1,
+      "variant": "band",
+      "motif": 2,
+      "triangles": 232,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 2,
+      "variant": "hero",
+      "motif": 0,
+      "triangles": 2004,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "hero",
+      "motif": 1,
+      "triangles": 1800,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "hero",
+      "motif": 2,
+      "triangles": 1440,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "panel",
+      "motif": 0,
+      "triangles": 2004,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "panel",
+      "motif": 1,
+      "triangles": 1800,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "panel",
+      "motif": 2,
+      "triangles": 1440,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "pillar",
+      "motif": 0,
+      "triangles": 1432,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "pillar",
+      "motif": 1,
+      "triangles": 1584,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "pillar",
+      "motif": 2,
+      "triangles": 1584,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 2,
+      "variant": "band",
+      "motif": 0,
+      "triangles": 264,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 2,
+      "variant": "band",
+      "motif": 1,
+      "triangles": 264,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 2,
+      "variant": "band",
+      "motif": 2,
+      "triangles": 264,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 3,
+      "variant": "hero",
+      "motif": 0,
+      "triangles": 1632,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "hero",
+      "motif": 1,
+      "triangles": 1428,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "hero",
+      "motif": 2,
+      "triangles": 1440,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "panel",
+      "motif": 0,
+      "triangles": 1632,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "panel",
+      "motif": 1,
+      "triangles": 1428,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "panel",
+      "motif": 2,
+      "triangles": 1440,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "pillar",
+      "motif": 0,
+      "triangles": 1468,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "pillar",
+      "motif": 1,
+      "triangles": 1500,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "pillar",
+      "motif": 2,
+      "triangles": 1704,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 3,
+      "variant": "band",
+      "motif": 0,
+      "triangles": 192,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 3,
+      "variant": "band",
+      "motif": 1,
+      "triangles": 192,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 3,
+      "variant": "band",
+      "motif": 2,
+      "triangles": 192,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 4,
+      "variant": "hero",
+      "motif": 0,
+      "triangles": 1960,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "hero",
+      "motif": 1,
+      "triangles": 1904,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "hero",
+      "motif": 2,
+      "triangles": 1800,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "panel",
+      "motif": 0,
+      "triangles": 1960,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "panel",
+      "motif": 1,
+      "triangles": 1904,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "panel",
+      "motif": 2,
+      "triangles": 1800,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "pillar",
+      "motif": 0,
+      "triangles": 1808,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "pillar",
+      "motif": 1,
+      "triangles": 1620,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "pillar",
+      "motif": 2,
+      "triangles": 1620,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 4,
+      "variant": "band",
+      "motif": 0,
+      "triangles": 360,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 4,
+      "variant": "band",
+      "motif": 1,
+      "triangles": 360,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 4,
+      "variant": "band",
+      "motif": 2,
+      "triangles": 360,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 5,
+      "variant": "hero",
+      "motif": 0,
+      "triangles": 2268,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "hero",
+      "motif": 1,
+      "triangles": 1864,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "hero",
+      "motif": 2,
+      "triangles": 1804,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "panel",
+      "motif": 0,
+      "triangles": 2268,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "panel",
+      "motif": 1,
+      "triangles": 1864,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "panel",
+      "motif": 2,
+      "triangles": 1804,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "pillar",
+      "motif": 0,
+      "triangles": 1620,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "pillar",
+      "motif": 1,
+      "triangles": 1484,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "pillar",
+      "motif": 2,
+      "triangles": 1560,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 5,
+      "variant": "band",
+      "motif": 0,
+      "triangles": 448,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 5,
+      "variant": "band",
+      "motif": 1,
+      "triangles": 448,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 5,
+      "variant": "band",
+      "motif": 2,
+      "triangles": 448,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 6,
+      "variant": "hero",
+      "motif": 0,
+      "triangles": 2260,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "hero",
+      "motif": 1,
+      "triangles": 2260,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "hero",
+      "motif": 2,
+      "triangles": 2260,
+      "width": 2.4,
+      "height": 0.92,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "panel",
+      "motif": 0,
+      "triangles": 1328,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "panel",
+      "motif": 1,
+      "triangles": 1820,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "panel",
+      "motif": 2,
+      "triangles": 1632,
+      "width": 1.8,
+      "height": 1.65,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "pillar",
+      "motif": 0,
+      "triangles": 1724,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "pillar",
+      "motif": 1,
+      "triangles": 2020,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "pillar",
+      "motif": 2,
+      "triangles": 1376,
+      "width": 0.65,
+      "height": 1.6,
+      "depth": 0.16
+    },
+    {
+      "section": 6,
+      "variant": "band",
+      "motif": 0,
+      "triangles": 232,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 6,
+      "variant": "band",
+      "motif": 1,
+      "triangles": 212,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    },
+    {
+      "section": 6,
+      "variant": "band",
+      "motif": 2,
+      "triangles": 212,
+      "width": 1.05,
+      "height": 0.24,
+      "depth": 0.035
+    }
+  ]
+}

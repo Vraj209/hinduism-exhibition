@@ -1,0 +1,540 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "543458",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "desktop",
+      "environmentDetails": "{\"driftingLeaves\":11,\"foliageClusters\":366,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":200,\"splashDroplets\":120,\"reflectionSize\":128,\"fountainJets\":40}",
+      "driftingLeaves": "11",
+      "jetDroplets": "200",
+      "splashDroplets": "120",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "73",
+      "maxRenderTriangles": "549878",
+      "triangles": "549878",
+      "drawCalls": "73",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "62.227",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Use lightweight map",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "width": 1280,
+    "height": 720,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "543458",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "desktop",
+      "environmentDetails": "{\"driftingLeaves\":11,\"foliageClusters\":366,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":200,\"splashDroplets\":120,\"reflectionSize\":128,\"fountainJets\":40}",
+      "driftingLeaves": "11",
+      "jetDroplets": "200",
+      "splashDroplets": "120",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "73",
+      "maxRenderTriangles": "549878",
+      "triangles": "549878",
+      "drawCalls": "73",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "57.022",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Use lightweight map",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "width": 834,
+    "height": 1194,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "543458",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "desktop",
+      "environmentDetails": "{\"driftingLeaves\":11,\"foliageClusters\":366,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":200,\"splashDroplets\":120,\"reflectionSize\":128,\"fountainJets\":40}",
+      "driftingLeaves": "11",
+      "jetDroplets": "200",
+      "splashDroplets": "120",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "69",
+      "maxRenderTriangles": "545846",
+      "triangles": "545846",
+      "drawCalls": "69",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "58.000",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Use lightweight map",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "506514",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "mobile",
+      "environmentDetails": "{\"driftingLeaves\":5,\"foliageClusters\":246,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":80,\"splashDroplets\":40,\"reflectionSize\":64,\"fountainJets\":40}",
+      "driftingLeaves": "5",
+      "jetDroplets": "80",
+      "splashDroplets": "40",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "59",
+      "maxRenderTriangles": "427726",
+      "triangles": "427726",
+      "drawCalls": "59",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "58.000",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Use lightweight map",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "width": 320,
+    "height": 568,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "506514",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "mobile",
+      "environmentDetails": "{\"driftingLeaves\":5,\"foliageClusters\":246,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":80,\"splashDroplets\":40,\"reflectionSize\":64,\"fountainJets\":40}",
+      "driftingLeaves": "5",
+      "jetDroplets": "80",
+      "splashDroplets": "40",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "61",
+      "maxRenderTriangles": "428046",
+      "triangles": "428046",
+      "drawCalls": "61",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "58.000",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Use lightweight map",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "width": 844,
+    "height": 390,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "543458",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "desktop",
+      "environmentDetails": "{\"driftingLeaves\":11,\"foliageClusters\":366,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":200,\"splashDroplets\":120,\"reflectionSize\":128,\"fountainJets\":40}",
+      "driftingLeaves": "11",
+      "jetDroplets": "200",
+      "splashDroplets": "120",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "73",
+      "maxRenderTriangles": "549878",
+      "triangles": "549878",
+      "drawCalls": "73",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "48.096",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "width": 640,
+    "height": 360,
+    "errors": [],
+    "data": {
+      "engine": "three.js r187",
+      "geometryTriangles": "506514",
+      "motion": "still",
+      "renderCount": "7",
+      "environmentTime": "0.000",
+      "environmentQuality": "mobile",
+      "environmentDetails": "{\"driftingLeaves\":5,\"foliageClusters\":246,\"flowerCount\":252,\"shadowDeformation\":true,\"jetDroplets\":80,\"splashDroplets\":40,\"reflectionSize\":64,\"fountainJets\":40}",
+      "driftingLeaves": "5",
+      "jetDroplets": "80",
+      "splashDroplets": "40",
+      "windStrength": "0.3847",
+      "windGust": "0.2172",
+      "waterPresence": "0.4863",
+      "waterPan": "0.0000",
+      "maxDrawCalls": "73",
+      "maxRenderTriangles": "508910",
+      "triangles": "508910",
+      "drawCalls": "73",
+      "campusLayout": "axial",
+      "campusView": "arrival",
+      "mandirPosition": "0,0,-49",
+      "pavilionPositions": "[{\"id\":1,\"position\":[-18,0,18],\"rotation\":1.5707963267948966},{\"id\":2,\"position\":[-18,0,-2],\"rotation\":1.5707963267948966},{\"id\":3,\"position\":[-18,0,-22],\"rotation\":1.5707963267948966},{\"id\":4,\"position\":[18,0,-22],\"rotation\":-1.5707963267948966},{\"id\":5,\"position\":[18,0,-2],\"rotation\":-1.5707963267948966},{\"id\":6,\"position\":[18,0,18],\"rotation\":-1.5707963267948966}]",
+      "lookOffset": "0.0000",
+      "eyeHeightMeters": "1.700",
+      "metersPerUnit": "3.134032258",
+      "cameraZoom": "1.000",
+      "cameraType": "perspective",
+      "cameraPhase": "overview",
+      "cameraFov": "57.022",
+      "overviewZoom": "1.000",
+      "cameraTarget": "0.000,0.562,-49.000",
+      "cameraPosition": "0.000,0.562,46.000"
+    },
+    "overflow": false,
+    "controls": [
+      {
+        "name": "Explore the Exhibition",
+        "visible": true
+      },
+      {
+        "name": "Choose an exhibition section",
+        "visible": true
+      },
+      {
+        "name": "Look left",
+        "visible": true
+      },
+      {
+        "name": "Look right",
+        "visible": true
+      },
+      {
+        "name": "Campus Map",
+        "visible": true
+      },
+      {
+        "name": "Reset View",
+        "visible": true
+      },
+      {
+        "name": "Reduced motion",
+        "visible": true
+      },
+      {
+        "name": "Enable Ambience",
+        "visible": true
+      }
+    ]
+  }
+]
