@@ -66,6 +66,15 @@ export const expectedMomentTitles = [
   ["Shastra — Scripture", "Mandir", "Sant — Guru"],
 ];
 
+export const expectedMomentIds = [
+  ["food-and-everyday-life", "what-we-wear", "the-language-of-song"],
+  ["remembering-our-duties", "remembering-our-relationships", "a-connection-to-something-greater"],
+  ["atma-the-soul", "the-atmas-journey", "a-map-for-reflection"],
+  expectedFestivals.map((festival) => festival.id),
+  ["human-values", "rooted-in-tradition", "an-act-of-kindness"],
+  ["shastra-scripture", "mandir-sacred-space", "sant-guru-living-guidance"],
+];
+
 export function expectedStorySource(sectionIndex: number, storyIndex: number) {
   return sectionIndex === 3
     ? expectedFestivals[storyIndex].sourceUrl

@@ -30,6 +30,10 @@ export type WorldSceneProps = {
   active: boolean;
   paused: boolean;
   reducedMotion: boolean;
+  walkMode?: boolean;
+  walkView?: "entrance" | "gallery" | "courtyard";
+  walkAction?: { sequence: number; type: "stop" | "direct" | "resume" } | null;
+  onWalkMovingChange?: (moving: boolean) => void;
   onReady: () => void;
   onSettled: () => void;
   onError: () => void;
@@ -418,6 +422,44 @@ export default function WorldScene(props: WorldSceneProps) {
     const lookTarget = new THREE.Vector3(1.4, 3.15, -5);
     camera.position.copy(startCamera);
     camera.lookAt(lookTarget);
+    // These authored paths share the floor level and stay clear of every story's
+    // pool, display plinths, pillars, benches and raised planting. A scalar
+    // distance along the same polyline keeps the return route equally safe.
+    const walkX = config.id === 2 ? 3.5 : config.id === 5 ? 4 : 0.5;
+    const walkY = config.id === 5 ? 1.7555 : config.id === 4 ? 1.74 : 1.75;
+    const walkPath = [
+      new THREE.Vector3(walkX, walkY, 12),
+      new THREE.Vector3(walkX, walkY, 8),
+      new THREE.Vector3(walkX, walkY, config.id === 4 ? 5.4 : 4),
+    ];
+    if (config.id === 4) walkPath.push(new THREE.Vector3(-1.8, walkY, 5.4));
+    const walkLengths = [0];
+    for (let index = 1; index < walkPath.length; index++)
+      walkLengths.push(walkLengths[index - 1] + walkPath[index].distanceTo(walkPath[index - 1]));
+    const walkStops = { entrance: 0, gallery: 4, courtyard: walkLengths.at(-1)! };
+    let walkMode = !!propsRef.current.walkMode;
+    let walkView = propsRef.current.walkView ?? "entrance";
+    let walkDistance = 0, walkDestination = 0, walkSpeed = 0;
+    let walkActionSequence = -1, publishedWalking = false;
+    function placeWalker() {
+      for (let index = 1; index < walkPath.length; index++) {
+        if (walkDistance <= walkLengths[index] + 0.0001) {
+          const part = (walkDistance - walkLengths[index - 1]) / (walkLengths[index] - walkLengths[index - 1]);
+          camera.position.lerpVectors(walkPath[index - 1], walkPath[index], THREE.MathUtils.clamp(part, 0, 1));
+          break;
+        }
+      }
+      lookTarget.set(4, camera.position.y, -5);
+      camera.lookAt(lookTarget);
+    }
+    function publishWalking() {
+      const moving = walkMode && Math.abs(walkDestination - walkDistance) > 0.001;
+      if (moving !== publishedWalking) {
+        publishedWalking = moving;
+        propsRef.current.onWalkMovingChange?.(moving);
+      }
+    }
+    if (walkMode) placeWalker();
     const palette: Palette = {};
     const colors: Record<string, string> = {
       rose: config.stone,
@@ -670,6 +712,14 @@ export default function WorldScene(props: WorldSceneProps) {
         .join(",");
       renderer.domElement.dataset.motion =
         paused || reduced || !active ? "still" : "ambient";
+      renderer.domElement.dataset.cameraPosition = camera.position.toArray().map(value => value.toFixed(4)).join(",");
+      renderer.domElement.dataset.cameraTarget = lookTarget.toArray().map(value => value.toFixed(4)).join(",");
+      renderer.domElement.dataset.walkMode = String(walkMode);
+      renderer.domElement.dataset.walkView = walkView;
+      renderer.domElement.dataset.walkMoving = String(publishedWalking);
+      renderer.domElement.dataset.walkDistance = walkDistance.toFixed(4);
+      renderer.domElement.dataset.walkRoute = JSON.stringify(walkPath.map(point => point.toArray()));
+      if (walkMode) renderer.domElement.dataset.eyeHeightMeters = "1.700";
     }
     function request() {
       if (!disposed && !frame && !document.hidden)
@@ -681,7 +731,8 @@ export default function WorldScene(props: WorldSceneProps) {
       const elapsed = lastRender ? Math.min(0.1, (now - lastRender) / 1000) : 0;
       if (
         now - lastRender < 1000 / (config.id === 4 ? 24 : 12) &&
-        transition === null
+        transition === null &&
+        !publishedWalking
       ) {
         request();
         return;
@@ -702,17 +753,28 @@ export default function WorldScene(props: WorldSceneProps) {
         stageWeights = transition.stageFrom.map((weight, index) =>
           THREE.MathUtils.lerp(weight, transition!.stageTo[index], ease),
         );
-        camera.position.lerpVectors(
-          transition.cameraFrom,
-          transition.cameraTo,
-          ease,
-        );
-        camera.lookAt(lookTarget);
+        if (!walkMode) {
+          camera.position.lerpVectors(transition.cameraFrom, transition.cameraTo, ease);
+          camera.lookAt(lookTarget);
+        }
         applyMood();
         if (t === 1) {
           transition = null;
           propsRef.current.onSettled();
         }
+      }
+      if (active && walkMode && !paused && publishedWalking) {
+        const remaining = Math.abs(walkDestination - walkDistance);
+        const desiredSpeed = Math.min(1.3, Math.sqrt(2 * 1.8 * remaining));
+        walkSpeed = THREE.MathUtils.damp(walkSpeed, desiredSpeed, 5, elapsed);
+        const step = Math.min(remaining, walkSpeed * elapsed);
+        walkDistance += Math.sign(walkDestination - walkDistance) * step;
+        if (remaining - step < 0.006) {
+          walkDistance = walkDestination;
+          walkSpeed = 0;
+        }
+        placeWalker();
+        publishWalking();
       }
       if (active && !paused && !reduced) {
         ambientTime += elapsed;
@@ -731,13 +793,34 @@ export default function WorldScene(props: WorldSceneProps) {
         waterMaterial.uniforms.uTime.value = ambientTime;
       }
       render();
-      if (transition || (active && !paused && !reduced)) request();
+      if (transition || (active && !paused && (!reduced || publishedWalking))) request();
     }
     function update(next: WorldSceneProps) {
       paused = next.paused;
       reduced = next.reducedMotion;
       const wasActive = active;
       active = next.active;
+      const wasWalking = walkMode;
+      walkMode = !!next.walkMode;
+      const nextView = next.walkView ?? "entrance";
+      if (walkMode && (!wasWalking || !wasActive)) {
+        walkDistance = 0;
+        walkSpeed = 0;
+        placeWalker();
+      }
+      if (walkMode && (walkView !== nextView || !wasWalking || !wasActive))
+        walkDestination = walkStops[nextView];
+      walkView = nextView;
+      if (walkMode && next.walkAction && next.walkAction.sequence !== walkActionSequence) {
+        walkActionSequence = next.walkAction.sequence;
+        if (next.walkAction.type === "stop") walkDestination = walkDistance;
+        else if (next.walkAction.type === "resume") walkDestination = walkStops[walkView];
+        else walkDistance = walkDestination;
+        walkSpeed = 0;
+      }
+      if (walkMode && reduced) walkDistance = walkDestination;
+      if (walkMode) placeWalker();
+      publishWalking();
       const mood =
         config.moods[Math.min(next.storyIndex, config.moods.length - 1)] ??
         config.moods[0];
@@ -761,8 +844,10 @@ export default function WorldScene(props: WorldSceneProps) {
       }
       if (!active) {
         transition = null;
-        camera.position.copy(startCamera);
-        camera.lookAt(lookTarget);
+        if (!walkMode) {
+          camera.position.copy(startCamera);
+          camera.lookAt(lookTarget);
+        }
       }
       if (paused || reduced) {
         cancelAnimationFrame(frame);
@@ -770,12 +855,15 @@ export default function WorldScene(props: WorldSceneProps) {
         if (transition) {
           currentMood = cloneMood(transition.to);
           stageWeights = [...transition.stageTo];
-          camera.position.copy(transition.cameraTo);
-          camera.lookAt(lookTarget);
+          if (!walkMode) {
+            camera.position.copy(transition.cameraTo);
+            camera.lookAt(lookTarget);
+          }
           transition = null;
           propsRef.current.onSettled();
         }
         applyMood();
+        lastRender = 0;
         render();
       } else request();
     }
@@ -784,8 +872,9 @@ export default function WorldScene(props: WorldSceneProps) {
         height = host!.clientHeight || 900;
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
-      camera.fov = width < 600 ? 61 : 44;
-      lookTarget.set(width < 600 ? 3.6 : 1.4, width < 600 ? 2 : 3.15, -5);
+      camera.fov = width < 600 ? 61 : walkMode ? 56 : 44;
+      if (walkMode) lookTarget.set(4, camera.position.y, -5);
+      else lookTarget.set(width < 600 ? 3.6 : 1.4, width < 600 ? 2 : 3.15, -5);
       camera.lookAt(lookTarget);
       camera.updateProjectionMatrix();
       render();

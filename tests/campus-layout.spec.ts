@@ -126,7 +126,7 @@ for (const reducedMotion of [false, true]) {
     }
     const saved = await pose(campus);
     await page.locator("#destination-6").click();
-    const world = page.getByRole("region", { name: `${sectionTitles[5]} immersive experience`, exact: true });
+    const world = page.getByRole("region", { name: `${sectionTitles[5]} exhibition gallery`, exact: true });
     await expect(world).toHaveAttribute("data-arrived", "true");
     const inside = (await campus.getAttribute("data-camera-position"))!.split(",").map(Number);
     const target = (await campus.getAttribute("data-camera-target"))!.split(",").map(Number);
@@ -135,7 +135,7 @@ for (const reducedMotion of [false, true]) {
     expect(inside[2]).toBeCloseTo(18, 2);
     expect(target[0]).toBeGreaterThan(inside[0]);
     expect(target[2]).toBeCloseTo(18, 2);
-    await world.getByRole("link", { name: "Back to map", exact: true }).click();
+    await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
     await expect(campus).toHaveAttribute("data-camera-phase", "overview");
     expect(await pose(campus)).toEqual(saved);
     await expect(page.locator("#destination-6")).toBeFocused();
@@ -150,10 +150,13 @@ test("moving directly between sections leaves through the current doorway first"
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/#section-hindu-jivan-shaili");
   const campus = page.locator(".campus-webgl canvas");
-  const first = page.getByRole("region", { name: `${sectionTitles[0]} immersive experience`, exact: true });
+  const first = page.getByRole("region", { name: `${sectionTitles[0]} exhibition gallery`, exact: true });
   await expect(first).toHaveAttribute("data-arrived", "true");
-  await first.getByRole("button", { name: "Read summary", exact: true }).click();
-  await page.locator(".world-summary").getByRole("link", { name: "Next section", exact: true }).click();
+  for (let moment = 2; moment <= 5; moment++) {
+    await first.getByRole("button", { name: "Next story", exact: true }).click();
+    await expect(first.getByRole("progressbar")).toHaveAttribute("aria-valuenow", String(moment));
+  }
+  await first.getByRole("link", { name: "Next Exhibition", exact: true }).click();
   const samples: number[][] = [];
   await expect.poll(async () => {
     const sample = await campus.evaluate((canvas) => ({
@@ -171,7 +174,7 @@ test("moving directly between sections leaves through the current doorway first"
     expect(z).toBeCloseTo(18, 2);
   }
   expect(samples.at(-1)![0]).toBeGreaterThanOrEqual(samples[0][0]);
-  await expect(page.getByRole("region", { name: `${sectionTitles[1]} immersive experience`, exact: true }))
+  await expect(page.getByRole("region", { name: `${sectionTitles[1]} exhibition gallery`, exact: true }))
     .toHaveAttribute("data-arrived", "true");
   expect(errors).toEqual([]);
 });

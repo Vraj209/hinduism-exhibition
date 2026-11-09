@@ -1,0 +1,1342 @@
+[
+  {
+    "device": "1440x1000 desktop Chrome",
+    "errors": [],
+    "seconds": 5.022799999997019,
+    "ambientFrames": 111,
+    "rafMedian": 16.699999999999818,
+    "rafP95": 16.799999999999727,
+    "drawCalls": 123,
+    "triangles": 664594,
+    "crowd": {
+      "count": 28,
+      "maximum": 28,
+      "budget": 28,
+      "groups": 13,
+      "moving": 28,
+      "paused": false,
+      "updates": 123,
+      "time": 5.583099999999993,
+      "scaleMetersPerUnit": 3.1340322580645164,
+      "spaceMeters": 1.0969112903225806,
+      "quality": 0,
+      "framePressureMs": 7.09,
+      "visible": 28,
+      "detail": {
+        "near": 1,
+        "mid": 8,
+        "far": 19
+      },
+      "visitors": [
+        {
+          "id": 0,
+          "active": true,
+          "groupId": 0,
+          "position": [
+            -1.7057,
+            0.02,
+            39.2236
+          ],
+          "speed": 0.2425,
+          "distance": 0.8204,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "0:sari:#9a4652:#d8b775:0:bun:earrings:1.61:1",
+          "heightMeters": 1.61,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#9a4652",
+            "accent": "#d8b775",
+            "lower": "#e4d5bb",
+            "skin": "#a46f4d",
+            "hair": "bun",
+            "age": "young adult",
+            "heightMeters": 1.61,
+            "build": 1,
+            "pattern": 0,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 1,
+          "active": true,
+          "groupId": 0,
+          "position": [
+            -1.2943,
+            0.02,
+            38.8695
+          ],
+          "speed": 0.2462,
+          "distance": 0.9595,
+          "activity": "walking",
+          "outfit": "kurta",
+          "signature": "1:kurta:#d6c4a2:#a58359:1:short:stole:1.79:0.96",
+          "heightMeters": 1.79,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#d6c4a2",
+            "accent": "#a58359",
+            "lower": "#cfc0a5",
+            "skin": "#694b3a",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.79,
+            "build": 0.96,
+            "pattern": 1,
+            "accessory": "stole"
+          }
+        },
+        {
+          "id": 2,
+          "active": true,
+          "groupId": 0,
+          "position": [
+            -1.5,
+            0.02,
+            39.6425
+          ],
+          "speed": 0.25,
+          "distance": 1.0835,
+          "activity": "walking",
+          "outfit": "salwar",
+          "signature": "2:salwar:#397d79:#c6a56c:2:braid:bangles:1.26:0.86",
+          "heightMeters": 1.26,
+          "appearance": {
+            "outfit": "salwar",
+            "color": "#397d79",
+            "accent": "#c6a56c",
+            "lower": "#a9a58f",
+            "skin": "#d0a17b",
+            "hair": "braid",
+            "age": "child",
+            "heightMeters": 1.26,
+            "build": 0.86,
+            "pattern": 2,
+            "accessory": "bangles"
+          }
+        },
+        {
+          "id": 3,
+          "active": true,
+          "groupId": 1,
+          "position": [
+            -13.416,
+            0.5664,
+            18.29
+          ],
+          "speed": 0.2335,
+          "distance": 1.5224,
+          "activity": "entering dome",
+          "outfit": "waistcoat",
+          "signature": "3:waistcoat:#344f70:#c2a27e:3:parted:glasses:1.73:1.18",
+          "heightMeters": 1.73,
+          "appearance": {
+            "outfit": "waistcoat",
+            "color": "#344f70",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#b78158",
+            "hair": "parted",
+            "age": "young adult",
+            "heightMeters": 1.73,
+            "build": 1.18,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 4,
+          "active": true,
+          "groupId": 1,
+          "position": [
+            -12.7553,
+            0.3021,
+            18.29
+          ],
+          "speed": 0.2369,
+          "distance": 1.6125,
+          "activity": "entering dome",
+          "outfit": "anarkali",
+          "signature": "4:anarkali:#b87948:#efd8aa:0:waves:earrings:1.58:0.94",
+          "heightMeters": 1.58,
+          "appearance": {
+            "outfit": "anarkali",
+            "color": "#b87948",
+            "accent": "#efd8aa",
+            "lower": "#cfc0a5",
+            "skin": "#926147",
+            "hair": "waves",
+            "age": "adult",
+            "heightMeters": 1.58,
+            "build": 0.94,
+            "pattern": 0,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 5,
+          "active": true,
+          "groupId": 2,
+          "position": [
+            -3.65,
+            0.06,
+            7.5833
+          ],
+          "speed": 0.2328,
+          "distance": 1.6647,
+          "activity": "walking",
+          "outfit": "dhoti",
+          "signature": "5:dhoti:#ddd1b2:#ad8750:1:silver:glasses:1.655:1.05",
+          "heightMeters": 1.655,
+          "appearance": {
+            "outfit": "dhoti",
+            "color": "#ddd1b2",
+            "accent": "#ad8750",
+            "lower": "#a9a58f",
+            "skin": "#795039",
+            "hair": "silver",
+            "age": "older adult",
+            "heightMeters": 1.655,
+            "build": 1.05,
+            "pattern": 1,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 6,
+          "active": true,
+          "groupId": 2,
+          "position": [
+            -3.65,
+            0.06,
+            8.2432
+          ],
+          "speed": 0.2364,
+          "distance": 1.7578,
+          "activity": "walking",
+          "outfit": "sherwani",
+          "signature": "6:sherwani:#6a567b:#bdaa7b:2:short:brooch:1.83:1.02",
+          "heightMeters": 1.83,
+          "appearance": {
+            "outfit": "sherwani",
+            "color": "#6a567b",
+            "accent": "#bdaa7b",
+            "lower": "#e4d5bb",
+            "skin": "#c3916b",
+            "hair": "short",
+            "age": "young adult",
+            "heightMeters": 1.83,
+            "build": 1.02,
+            "pattern": 2,
+            "accessory": "brooch"
+          }
+        },
+        {
+          "id": 7,
+          "active": true,
+          "groupId": 2,
+          "position": [
+            -3.65,
+            0.06,
+            8.9031
+          ],
+          "speed": 0.24,
+          "distance": 1.8509,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "7:sari:#38756b:#a58359:3:bun:stole:1.61:0.96",
+          "heightMeters": 1.61,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#38756b",
+            "accent": "#a58359",
+            "lower": "#cfc0a5",
+            "skin": "#795039",
+            "hair": "bun",
+            "age": "adult",
+            "heightMeters": 1.61,
+            "build": 0.96,
+            "pattern": 3,
+            "accessory": "stole"
+          }
+        },
+        {
+          "id": 8,
+          "active": true,
+          "groupId": 3,
+          "position": [
+            12.7761,
+            0.3105,
+            18.29
+          ],
+          "speed": 0.2588,
+          "distance": 2.029,
+          "activity": "leaving dome",
+          "outfit": "kurta",
+          "signature": "8:kurta:#976a43:#c6a56c:0:short:bangles:1.79:1.12",
+          "heightMeters": 1.79,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#976a43",
+            "accent": "#c6a56c",
+            "lower": "#a9a58f",
+            "skin": "#c3916b",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.79,
+            "build": 1.12,
+            "pattern": 0,
+            "accessory": "bangles"
+          }
+        },
+        {
+          "id": 9,
+          "active": true,
+          "groupId": 3,
+          "position": [
+            13.4348,
+            0.5739,
+            18.29
+          ],
+          "speed": 0.2626,
+          "distance": 2.1234,
+          "activity": "leaving dome",
+          "outfit": "salwar",
+          "signature": "9:salwar:#b76f82:#c2a27e:1:braid:glasses:1.18:0.86",
+          "heightMeters": 1.18,
+          "appearance": {
+            "outfit": "salwar",
+            "color": "#b76f82",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#a46f4d",
+            "hair": "braid",
+            "age": "child",
+            "heightMeters": 1.18,
+            "build": 0.86,
+            "pattern": 1,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 10,
+          "active": true,
+          "groupId": 4,
+          "position": [
+            -3.3,
+            0.06,
+            29.311
+          ],
+          "speed": 0.1843,
+          "distance": 1.759,
+          "activity": "walking",
+          "outfit": "waistcoat",
+          "signature": "10:waistcoat:#77774e:#efd8aa:2:parted:earrings:1.73:0.94",
+          "heightMeters": 1.73,
+          "appearance": {
+            "outfit": "waistcoat",
+            "color": "#77774e",
+            "accent": "#efd8aa",
+            "lower": "#cfc0a5",
+            "skin": "#694b3a",
+            "hair": "parted",
+            "age": "adult",
+            "heightMeters": 1.73,
+            "build": 0.94,
+            "pattern": 2,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 11,
+          "active": true,
+          "groupId": 5,
+          "position": [
+            1.2943,
+            0.02,
+            37.724
+          ],
+          "speed": 0.2413,
+          "distance": 2.1503,
+          "activity": "walking",
+          "outfit": "anarkali",
+          "signature": "11:anarkali:#486c8d:#ad8750:3:waves:glasses:1.58:1.05",
+          "heightMeters": 1.58,
+          "appearance": {
+            "outfit": "anarkali",
+            "color": "#486c8d",
+            "accent": "#ad8750",
+            "lower": "#a9a58f",
+            "skin": "#d0a17b",
+            "hair": "waves",
+            "age": "adult",
+            "heightMeters": 1.58,
+            "build": 1.05,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 12,
+          "active": true,
+          "groupId": 5,
+          "position": [
+            1.7057,
+            0.02,
+            38.0408
+          ],
+          "speed": 0.245,
+          "distance": 2.2439,
+          "activity": "walking",
+          "outfit": "dhoti",
+          "signature": "12:dhoti:#b49a70:#bdaa7b:0:silver:brooch:1.69:1.02",
+          "heightMeters": 1.69,
+          "appearance": {
+            "outfit": "dhoti",
+            "color": "#b49a70",
+            "accent": "#bdaa7b",
+            "lower": "#e4d5bb",
+            "skin": "#b78158",
+            "hair": "silver",
+            "age": "young adult",
+            "heightMeters": 1.69,
+            "build": 1.02,
+            "pattern": 0,
+            "accessory": "brooch"
+          }
+        },
+        {
+          "id": 13,
+          "active": true,
+          "groupId": 5,
+          "position": [
+            1.5,
+            0.02,
+            38.5316
+          ],
+          "speed": 0.2487,
+          "distance": 2.3374,
+          "activity": "walking",
+          "outfit": "sherwani",
+          "signature": "13:sherwani:#803e4d:#d8b775:1:short:earrings:1.83:1",
+          "heightMeters": 1.83,
+          "appearance": {
+            "outfit": "sherwani",
+            "color": "#803e4d",
+            "accent": "#d8b775",
+            "lower": "#cfc0a5",
+            "skin": "#926147",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.83,
+            "build": 1,
+            "pattern": 1,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 14,
+          "active": true,
+          "groupId": 6,
+          "position": [
+            3.8,
+            0.06,
+            -3.1543
+          ],
+          "speed": 0.2781,
+          "distance": 2.5747,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "14:sari:#bc8651:#c6a56c:2:silver:bangles:1.5750000000000002:1.12",
+          "heightMeters": 1.5750000000000002,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#bc8651",
+            "accent": "#c6a56c",
+            "lower": "#a9a58f",
+            "skin": "#b78158",
+            "hair": "silver",
+            "age": "older adult",
+            "heightMeters": 1.5750000000000002,
+            "build": 1.12,
+            "pattern": 2,
+            "accessory": "bangles"
+          }
+        },
+        {
+          "id": 15,
+          "active": true,
+          "groupId": 6,
+          "position": [
+            3.8,
+            0.06,
+            -3.9248
+          ],
+          "speed": 0.2619,
+          "distance": 2.5572,
+          "activity": "walking",
+          "outfit": "kurta",
+          "signature": "15:kurta:#728993:#c2a27e:3:short:glasses:1.79:1.18",
+          "heightMeters": 1.79,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#728993",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#926147",
+            "hair": "short",
+            "age": "young adult",
+            "heightMeters": 1.79,
+            "build": 1.18,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 16,
+          "active": true,
+          "groupId": 7,
+          "position": [
+            -10.43,
+            0.02,
+            -13.1015
+          ],
+          "speed": 0.2561,
+          "distance": 2.5978,
+          "activity": "walking",
+          "outfit": "salwar",
+          "signature": "16:salwar:#6f537b:#efd8aa:0:braid:earrings:1.66:0.94",
+          "heightMeters": 1.66,
+          "appearance": {
+            "outfit": "salwar",
+            "color": "#6f537b",
+            "accent": "#efd8aa",
+            "lower": "#cfc0a5",
+            "skin": "#795039",
+            "hair": "braid",
+            "age": "adult",
+            "heightMeters": 1.66,
+            "build": 0.94,
+            "pattern": 0,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 17,
+          "active": true,
+          "groupId": 7,
+          "position": [
+            -9.97,
+            0.02,
+            -13.7879
+          ],
+          "speed": 0.26,
+          "distance": 2.6926,
+          "activity": "walking",
+          "outfit": "waistcoat",
+          "signature": "17:waistcoat:#6c8063:#ad8750:1:parted:glasses:1.73:1.05",
+          "heightMeters": 1.73,
+          "appearance": {
+            "outfit": "waistcoat",
+            "color": "#6c8063",
+            "accent": "#ad8750",
+            "lower": "#a9a58f",
+            "skin": "#c3916b",
+            "hair": "parted",
+            "age": "adult",
+            "heightMeters": 1.73,
+            "build": 1.05,
+            "pattern": 1,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 18,
+          "active": true,
+          "groupId": 8,
+          "position": [
+            -14.9416,
+            0.86,
+            -1.71
+          ],
+          "speed": 0.2233,
+          "distance": 2.5607,
+          "activity": "entering dome",
+          "outfit": "anarkali",
+          "signature": "18:anarkali:#c17d65:#bdaa7b:2:waves:brooch:1.58:1.02",
+          "heightMeters": 1.58,
+          "appearance": {
+            "outfit": "anarkali",
+            "color": "#c17d65",
+            "accent": "#bdaa7b",
+            "lower": "#e4d5bb",
+            "skin": "#a46f4d",
+            "hair": "waves",
+            "age": "young adult",
+            "heightMeters": 1.58,
+            "build": 1.02,
+            "pattern": 2,
+            "accessory": "brooch"
+          }
+        },
+        {
+          "id": 19,
+          "active": true,
+          "groupId": 9,
+          "position": [
+            11.603,
+            0.055,
+            -22.2975
+          ],
+          "speed": 0.2472,
+          "distance": 2.7666,
+          "activity": "walking",
+          "outfit": "dhoti",
+          "signature": "19:dhoti:#c3ad8b:#d8b775:3:silver:earrings:1.655:1",
+          "heightMeters": 1.655,
+          "appearance": {
+            "outfit": "dhoti",
+            "color": "#c3ad8b",
+            "accent": "#d8b775",
+            "lower": "#cfc0a5",
+            "skin": "#694b3a",
+            "hair": "silver",
+            "age": "older adult",
+            "heightMeters": 1.655,
+            "build": 1,
+            "pattern": 3,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 20,
+          "active": true,
+          "groupId": 9,
+          "position": [
+            12.1844,
+            0.0738,
+            -21.8074
+          ],
+          "speed": 0.2328,
+          "distance": 2.7597,
+          "activity": "leaving dome",
+          "outfit": "sherwani",
+          "signature": "20:sherwani:#316b71:#a58359:0:short:stole:1.83:0.96",
+          "heightMeters": 1.83,
+          "appearance": {
+            "outfit": "sherwani",
+            "color": "#316b71",
+            "accent": "#a58359",
+            "lower": "#a9a58f",
+            "skin": "#d0a17b",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.83,
+            "build": 0.96,
+            "pattern": 0,
+            "accessory": "stole"
+          }
+        },
+        {
+          "id": 21,
+          "active": true,
+          "groupId": 10,
+          "position": [
+            9.97,
+            0.02,
+            -16.8058
+          ],
+          "speed": 0.2463,
+          "distance": 2.9078,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "21:sari:#6c587e:#c2a27e:1:bun:glasses:1.61:1.18",
+          "heightMeters": 1.61,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#6c587e",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#694b3a",
+            "hair": "bun",
+            "age": "young adult",
+            "heightMeters": 1.61,
+            "build": 1.18,
+            "pattern": 1,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 22,
+          "active": true,
+          "groupId": 10,
+          "position": [
+            10.43,
+            0.02,
+            -16.1249
+          ],
+          "speed": 0.25,
+          "distance": 3.0018,
+          "activity": "walking",
+          "outfit": "kurta",
+          "signature": "22:kurta:#b49461:#efd8aa:2:short:earrings:1.32:0.86",
+          "heightMeters": 1.32,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#b49461",
+            "accent": "#efd8aa",
+            "lower": "#cfc0a5",
+            "skin": "#d0a17b",
+            "hair": "short",
+            "age": "child",
+            "heightMeters": 1.32,
+            "build": 0.86,
+            "pattern": 2,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 23,
+          "active": true,
+          "groupId": 10,
+          "position": [
+            10.2,
+            0.02,
+            -15.8167
+          ],
+          "speed": 0.2538,
+          "distance": 3.0957,
+          "activity": "walking",
+          "outfit": "salwar",
+          "signature": "23:salwar:#437a8e:#ad8750:3:braid:glasses:1.66:1.05",
+          "heightMeters": 1.66,
+          "appearance": {
+            "outfit": "salwar",
+            "color": "#437a8e",
+            "accent": "#ad8750",
+            "lower": "#a9a58f",
+            "skin": "#b78158",
+            "hair": "braid",
+            "age": "adult",
+            "heightMeters": 1.66,
+            "build": 1.05,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 24,
+          "active": true,
+          "groupId": 11,
+          "position": [
+            2.1176,
+            0.02,
+            -34.3
+          ],
+          "speed": 0.2163,
+          "distance": 2.9596,
+          "activity": "walking",
+          "outfit": "waistcoat",
+          "signature": "24:waistcoat:#91584c:#bdaa7b:0:parted:brooch:1.73:1.02",
+          "heightMeters": 1.73,
+          "appearance": {
+            "outfit": "waistcoat",
+            "color": "#91584c",
+            "accent": "#bdaa7b",
+            "lower": "#e4d5bb",
+            "skin": "#926147",
+            "hair": "parted",
+            "age": "young adult",
+            "heightMeters": 1.73,
+            "build": 1.02,
+            "pattern": 0,
+            "accessory": "brooch"
+          }
+        },
+        {
+          "id": 25,
+          "active": true,
+          "groupId": 11,
+          "position": [
+            1.3673,
+            0.02,
+            -34.3
+          ],
+          "speed": 0.2037,
+          "distance": 2.9623,
+          "activity": "walking",
+          "outfit": "anarkali",
+          "signature": "25:anarkali:#6e8b71:#d8b775:1:waves:earrings:1.58:1",
+          "heightMeters": 1.58,
+          "appearance": {
+            "outfit": "anarkali",
+            "color": "#6e8b71",
+            "accent": "#d8b775",
+            "lower": "#cfc0a5",
+            "skin": "#795039",
+            "hair": "waves",
+            "age": "adult",
+            "heightMeters": 1.58,
+            "build": 1,
+            "pattern": 1,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 26,
+          "active": true,
+          "groupId": 12,
+          "position": [
+            3.12,
+            0.06,
+            25.7501
+          ],
+          "speed": 0.2167,
+          "distance": 3.1079,
+          "activity": "walking",
+          "outfit": "dhoti",
+          "signature": "26:dhoti:#c8b39a:#a58359:2:silver:stole:1.655:0.96",
+          "heightMeters": 1.655,
+          "appearance": {
+            "outfit": "dhoti",
+            "color": "#c8b39a",
+            "accent": "#a58359",
+            "lower": "#a9a58f",
+            "skin": "#c3916b",
+            "hair": "silver",
+            "age": "older adult",
+            "heightMeters": 1.655,
+            "build": 0.96,
+            "pattern": 2,
+            "accessory": "stole"
+          }
+        },
+        {
+          "id": 27,
+          "active": true,
+          "groupId": 12,
+          "position": [
+            3.12,
+            0.06,
+            26.4117
+          ],
+          "speed": 0.22,
+          "distance": 3.1993,
+          "activity": "walking",
+          "outfit": "sherwani",
+          "signature": "27:sherwani:#626785:#c6a56c:3:short:bangles:1.83:1.12",
+          "heightMeters": 1.83,
+          "appearance": {
+            "outfit": "sherwani",
+            "color": "#626785",
+            "accent": "#c6a56c",
+            "lower": "#e4d5bb",
+            "skin": "#a46f4d",
+            "hair": "short",
+            "age": "young adult",
+            "heightMeters": 1.83,
+            "build": 1.12,
+            "pattern": 3,
+            "accessory": "bangles"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "device": "390x844 Chrome mobile emulation",
+    "errors": [],
+    "seconds": 5.00409999999404,
+    "ambientFrames": 96,
+    "rafMedian": 16.699999999999818,
+    "rafP95": 16.700000000000728,
+    "drawCalls": 107,
+    "triangles": 576098,
+    "crowd": {
+      "count": 16,
+      "maximum": 16,
+      "budget": 16,
+      "groups": 7,
+      "moving": 16,
+      "paused": false,
+      "updates": 102,
+      "time": 5.3831999999999915,
+      "scaleMetersPerUnit": 3.1340322580645164,
+      "spaceMeters": 1.0969112903225806,
+      "quality": 0,
+      "framePressureMs": 3.95,
+      "visible": 16,
+      "detail": {
+        "near": 0,
+        "mid": 7,
+        "far": 9
+      },
+      "visitors": [
+        {
+          "id": 0,
+          "active": true,
+          "groupId": 0,
+          "position": [
+            -1.7057,
+            0.02,
+            39.264
+          ],
+          "speed": 0.2425,
+          "distance": 0.78,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "0:sari:#9a4652:#d8b775:0:bun:earrings:1.61:1",
+          "heightMeters": 1.61,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#9a4652",
+            "accent": "#d8b775",
+            "lower": "#e4d5bb",
+            "skin": "#a46f4d",
+            "hair": "bun",
+            "age": "young adult",
+            "heightMeters": 1.61,
+            "build": 1,
+            "pattern": 0,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 1,
+          "active": true,
+          "groupId": 0,
+          "position": [
+            -1.2943,
+            0.02,
+            38.927
+          ],
+          "speed": 0.2463,
+          "distance": 0.902,
+          "activity": "walking",
+          "outfit": "kurta",
+          "signature": "1:kurta:#d6c4a2:#a58359:1:short:stole:1.79:0.96",
+          "heightMeters": 1.79,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#d6c4a2",
+            "accent": "#a58359",
+            "lower": "#cfc0a5",
+            "skin": "#694b3a",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.79,
+            "build": 0.96,
+            "pattern": 1,
+            "accessory": "stole"
+          }
+        },
+        {
+          "id": 2,
+          "active": true,
+          "groupId": 0,
+          "position": [
+            -1.5,
+            0.02,
+            39.6842
+          ],
+          "speed": 0.25,
+          "distance": 1.0418,
+          "activity": "walking",
+          "outfit": "salwar",
+          "signature": "2:salwar:#397d79:#c6a56c:2:braid:bangles:1.26:0.86",
+          "heightMeters": 1.26,
+          "appearance": {
+            "outfit": "salwar",
+            "color": "#397d79",
+            "accent": "#c6a56c",
+            "lower": "#a9a58f",
+            "skin": "#d0a17b",
+            "hair": "braid",
+            "age": "child",
+            "heightMeters": 1.26,
+            "build": 0.86,
+            "pattern": 2,
+            "accessory": "bangles"
+          }
+        },
+        {
+          "id": 3,
+          "active": true,
+          "groupId": 1,
+          "position": [
+            -13.3694,
+            0.5478,
+            18.29
+          ],
+          "speed": 0.2334,
+          "distance": 1.4757,
+          "activity": "entering dome",
+          "outfit": "waistcoat",
+          "signature": "3:waistcoat:#344f70:#c2a27e:3:parted:glasses:1.73:1.18",
+          "heightMeters": 1.73,
+          "appearance": {
+            "outfit": "waistcoat",
+            "color": "#344f70",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#b78158",
+            "hair": "parted",
+            "age": "young adult",
+            "heightMeters": 1.73,
+            "build": 1.18,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 4,
+          "active": true,
+          "groupId": 1,
+          "position": [
+            -12.708,
+            0.2832,
+            18.29
+          ],
+          "speed": 0.2369,
+          "distance": 1.5651,
+          "activity": "entering dome",
+          "outfit": "anarkali",
+          "signature": "4:anarkali:#b87948:#efd8aa:0:waves:earrings:1.58:0.94",
+          "heightMeters": 1.58,
+          "appearance": {
+            "outfit": "anarkali",
+            "color": "#b87948",
+            "accent": "#efd8aa",
+            "lower": "#cfc0a5",
+            "skin": "#926147",
+            "hair": "waves",
+            "age": "adult",
+            "heightMeters": 1.58,
+            "build": 0.94,
+            "pattern": 0,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 5,
+          "active": true,
+          "groupId": 2,
+          "position": [
+            -3.65,
+            0.06,
+            7.6298
+          ],
+          "speed": 0.2328,
+          "distance": 1.6182,
+          "activity": "walking",
+          "outfit": "dhoti",
+          "signature": "5:dhoti:#ddd1b2:#ad8750:1:silver:glasses:1.655:1.05",
+          "heightMeters": 1.655,
+          "appearance": {
+            "outfit": "dhoti",
+            "color": "#ddd1b2",
+            "accent": "#ad8750",
+            "lower": "#a9a58f",
+            "skin": "#795039",
+            "hair": "silver",
+            "age": "older adult",
+            "heightMeters": 1.655,
+            "build": 1.05,
+            "pattern": 1,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 6,
+          "active": true,
+          "groupId": 2,
+          "position": [
+            -3.65,
+            0.06,
+            8.2904
+          ],
+          "speed": 0.2364,
+          "distance": 1.7106,
+          "activity": "walking",
+          "outfit": "sherwani",
+          "signature": "6:sherwani:#6a567b:#bdaa7b:2:short:brooch:1.83:1.02",
+          "heightMeters": 1.83,
+          "appearance": {
+            "outfit": "sherwani",
+            "color": "#6a567b",
+            "accent": "#bdaa7b",
+            "lower": "#e4d5bb",
+            "skin": "#c3916b",
+            "hair": "short",
+            "age": "young adult",
+            "heightMeters": 1.83,
+            "build": 1.02,
+            "pattern": 2,
+            "accessory": "brooch"
+          }
+        },
+        {
+          "id": 7,
+          "active": true,
+          "groupId": 2,
+          "position": [
+            -3.65,
+            0.06,
+            8.951
+          ],
+          "speed": 0.24,
+          "distance": 1.803,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "7:sari:#38756b:#a58359:3:bun:stole:1.61:0.96",
+          "heightMeters": 1.61,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#38756b",
+            "accent": "#a58359",
+            "lower": "#cfc0a5",
+            "skin": "#795039",
+            "hair": "bun",
+            "age": "adult",
+            "heightMeters": 1.61,
+            "build": 0.96,
+            "pattern": 3,
+            "accessory": "stole"
+          }
+        },
+        {
+          "id": 8,
+          "active": true,
+          "groupId": 3,
+          "position": [
+            12.8279,
+            0.3311,
+            18.29
+          ],
+          "speed": 0.2588,
+          "distance": 1.9773,
+          "activity": "leaving dome",
+          "outfit": "kurta",
+          "signature": "8:kurta:#976a43:#c6a56c:0:short:bangles:1.79:1.12",
+          "heightMeters": 1.79,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#976a43",
+            "accent": "#c6a56c",
+            "lower": "#a9a58f",
+            "skin": "#c3916b",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.79,
+            "build": 1.12,
+            "pattern": 0,
+            "accessory": "bangles"
+          }
+        },
+        {
+          "id": 9,
+          "active": true,
+          "groupId": 3,
+          "position": [
+            13.4873,
+            0.5949,
+            18.29
+          ],
+          "speed": 0.2626,
+          "distance": 2.0709,
+          "activity": "leaving dome",
+          "outfit": "salwar",
+          "signature": "9:salwar:#b76f82:#c2a27e:1:braid:glasses:1.18:0.86",
+          "heightMeters": 1.18,
+          "appearance": {
+            "outfit": "salwar",
+            "color": "#b76f82",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#a46f4d",
+            "hair": "braid",
+            "age": "child",
+            "heightMeters": 1.18,
+            "build": 0.86,
+            "pattern": 1,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 10,
+          "active": true,
+          "groupId": 4,
+          "position": [
+            -3.3,
+            0.06,
+            29.3479
+          ],
+          "speed": 0.1843,
+          "distance": 1.7221,
+          "activity": "walking",
+          "outfit": "waistcoat",
+          "signature": "10:waistcoat:#77774e:#efd8aa:2:parted:earrings:1.73:0.94",
+          "heightMeters": 1.73,
+          "appearance": {
+            "outfit": "waistcoat",
+            "color": "#77774e",
+            "accent": "#efd8aa",
+            "lower": "#cfc0a5",
+            "skin": "#694b3a",
+            "hair": "parted",
+            "age": "adult",
+            "heightMeters": 1.73,
+            "build": 0.94,
+            "pattern": 2,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 11,
+          "active": true,
+          "groupId": 5,
+          "position": [
+            1.2943,
+            0.02,
+            37.7722
+          ],
+          "speed": 0.2413,
+          "distance": 2.1021,
+          "activity": "walking",
+          "outfit": "anarkali",
+          "signature": "11:anarkali:#486c8d:#ad8750:3:waves:glasses:1.58:1.05",
+          "heightMeters": 1.58,
+          "appearance": {
+            "outfit": "anarkali",
+            "color": "#486c8d",
+            "accent": "#ad8750",
+            "lower": "#a9a58f",
+            "skin": "#d0a17b",
+            "hair": "waves",
+            "age": "adult",
+            "heightMeters": 1.58,
+            "build": 1.05,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        },
+        {
+          "id": 12,
+          "active": true,
+          "groupId": 5,
+          "position": [
+            1.7057,
+            0.02,
+            38.0898
+          ],
+          "speed": 0.245,
+          "distance": 2.1949,
+          "activity": "walking",
+          "outfit": "dhoti",
+          "signature": "12:dhoti:#b49a70:#bdaa7b:0:silver:brooch:1.69:1.02",
+          "heightMeters": 1.69,
+          "appearance": {
+            "outfit": "dhoti",
+            "color": "#b49a70",
+            "accent": "#bdaa7b",
+            "lower": "#e4d5bb",
+            "skin": "#b78158",
+            "hair": "silver",
+            "age": "young adult",
+            "heightMeters": 1.69,
+            "build": 1.02,
+            "pattern": 0,
+            "accessory": "brooch"
+          }
+        },
+        {
+          "id": 13,
+          "active": true,
+          "groupId": 5,
+          "position": [
+            1.5,
+            0.02,
+            38.5813
+          ],
+          "speed": 0.2487,
+          "distance": 2.2877,
+          "activity": "walking",
+          "outfit": "sherwani",
+          "signature": "13:sherwani:#803e4d:#d8b775:1:short:earrings:1.83:1",
+          "heightMeters": 1.83,
+          "appearance": {
+            "outfit": "sherwani",
+            "color": "#803e4d",
+            "accent": "#d8b775",
+            "lower": "#cfc0a5",
+            "skin": "#926147",
+            "hair": "short",
+            "age": "adult",
+            "heightMeters": 1.83,
+            "build": 1,
+            "pattern": 1,
+            "accessory": "earrings"
+          }
+        },
+        {
+          "id": 14,
+          "active": true,
+          "groupId": 6,
+          "position": [
+            3.8,
+            0.06,
+            -3.2099
+          ],
+          "speed": 0.2781,
+          "distance": 2.5191,
+          "activity": "walking",
+          "outfit": "sari",
+          "signature": "14:sari:#bc8651:#c6a56c:2:silver:bangles:1.5750000000000002:1.12",
+          "heightMeters": 1.5750000000000002,
+          "appearance": {
+            "outfit": "sari",
+            "color": "#bc8651",
+            "accent": "#c6a56c",
+            "lower": "#a9a58f",
+            "skin": "#b78158",
+            "hair": "silver",
+            "age": "older adult",
+            "heightMeters": 1.5750000000000002,
+            "build": 1.12,
+            "pattern": 2,
+            "accessory": "bangles"
+          }
+        },
+        {
+          "id": 15,
+          "active": true,
+          "groupId": 6,
+          "position": [
+            3.8,
+            0.06,
+            -3.9771
+          ],
+          "speed": 0.2619,
+          "distance": 2.5049,
+          "activity": "walking",
+          "outfit": "kurta",
+          "signature": "15:kurta:#728993:#c2a27e:3:short:glasses:1.79:1.18",
+          "heightMeters": 1.79,
+          "appearance": {
+            "outfit": "kurta",
+            "color": "#728993",
+            "accent": "#c2a27e",
+            "lower": "#e4d5bb",
+            "skin": "#926147",
+            "hair": "short",
+            "age": "young adult",
+            "heightMeters": 1.79,
+            "build": 1.18,
+            "pattern": 3,
+            "accessory": "glasses"
+          }
+        }
+      ]
+    }
+  }
+]

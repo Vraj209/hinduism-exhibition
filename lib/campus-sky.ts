@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import { CAMPUS_WIND_DIRECTION } from "./campus-environment";
 
+// Readable over a few seconds at the entrance, while still a gentle downwind drift.
+const CLOUD_DRIFT = 1.6;
+
 // Original periodic density field. Its broad forms and fine edges are generated
 // once; animation only changes sampling coordinates, with no per-frame texture upload.
 function makeCloudField(size: number) {
@@ -73,18 +76,23 @@ export function makeCampusSky(mobile: boolean) {
     fragmentShader: `
       uniform sampler2D cloudTexture;
       uniform vec2 cloudOffset;
+      uniform float cloudTime;
       varying vec3 skyWorld;
       float density(vec2 uv, float threshold) {
         float broad = texture2D(cloudTexture, uv).r;
-        float detail = texture2D(cloudTexture, uv * 3.7 + vec2(.27, .41)).r;
+        // Slow shape evolution plus incommensurate scales prevent a recognizable
+        // tiled sheet. Advection remains in the shared prevailing wind direction.
+        vec2 evolve = vec2(sin(cloudTime * .0071), cos(cloudTime * .0053) - 1.) * .035;
+        float detail = texture2D(cloudTexture, uv * 3.731 + vec2(.27, .41) + evolve).r;
+        ${mobile ? "" : "broad = broad * .84 + texture2D(cloudTexture, uv * .613 + vec2(.61, .17) - evolve * .4).r * .16;"}
         return smoothstep(threshold, threshold + .16, broad + (detail - .5) * .12);
       }
       void main() {
         vec3 ray = normalize(skyWorld - cameraPosition);
         float elevation = max(0., ray.y);
-        vec3 horizon = vec3(.82, .85, .81);
-        vec3 zenith = vec3(.32, .52, .66);
-        vec3 color = mix(horizon, zenith, pow(clamp(elevation, 0., 1.), .58));
+        vec3 horizon = vec3(.72, .80, .84);
+        vec3 zenith = vec3(.22, .43, .62);
+        vec3 color = mix(horizon, zenith, pow(clamp(elevation, 0., 1.), .45));
         // Different altitudes, scales and densities give perspective depth.
         // The haze band around the horizon leaves the mandir silhouette clear.
         if (ray.y > .035) {
@@ -153,7 +161,7 @@ export function makeCampusSky(mobile: boolean) {
   let sunFactor = 1;
   function update(seconds: number) {
     uniforms.cloudTime.value = seconds;
-    uniforms.cloudOffset.value.set(CAMPUS_WIND_DIRECTION.x * seconds * .24, CAMPUS_WIND_DIRECTION.z * seconds * .24);
+    uniforms.cloudOffset.value.set(CAMPUS_WIND_DIRECTION.x * seconds * CLOUD_DRIFT, CAMPUS_WIND_DIRECTION.z * seconds * CLOUD_DRIFT);
     const offset = uniforms.cloudOffset.value;
     const sunCover = THREE.MathUtils.smoothstep(field.sample((-47.04 - offset.x) / 210 + .14, (47.04 - offset.y) / 210 + .35), .57, .73);
     sunFactor = 1 - sunCover * .025;
@@ -164,7 +172,7 @@ export function makeCampusSky(mobile: boolean) {
     group,
     attachShadows,
     update,
-    diagnostics: { cloudLayers, textureSize, shadowTextureSamples: 1, cloudDriftUnitsPerSecond: .24 },
+    diagnostics: { cloudLayers, textureSize, densitySamples: mobile ? 2 : 3, shadowTextureSamples: 1, cloudDriftUnitsPerSecond: CLOUD_DRIFT },
     snapshot: () => ({ time: uniforms.cloudTime.value, offset: uniforms.cloudOffset.value.toArray(), shadowOffset: uniforms.cloudOffset.value.toArray(), sunFactor }),
     dispose() { field.texture.dispose(); sky.geometry.dispose(); material.dispose(); },
   };

@@ -127,6 +127,14 @@ export function useCampusAmbience({
       waterPresence: received?.sample.waterPresence ?? 0.22,
       waterPan: received?.sample.waterPan ?? 0,
       sideFountains: received?.sample.sideFountains ?? fallbackSideFountains,
+      foliagePresence: received?.sample.foliagePresence ?? 0.3,
+      visitors: received?.sample.visitors
+        ? {
+            ...received.sample.visitors,
+            // Motion samples expire when animation pauses or stops rendering.
+            motion: now - received.received < 600 ? received.sample.visitors.motion : 0,
+          }
+        : undefined,
       outdoor:
         received && now - received.received < 600
           ? received.sample.outdoor
@@ -140,6 +148,13 @@ export function useCampusAmbience({
       element.dataset.audioContext = graph.context.state;
       element.dataset.waterPresence = sample.waterPresence.toFixed(4);
       element.dataset.waterPan = sample.waterPan.toFixed(4);
+      element.dataset.foliagePresence = sample.foliagePresence!.toFixed(4);
+      element.dataset.visitorAudio = JSON.stringify({
+        presence: sample.visitors?.presence ?? 0,
+        motion: sample.visitors?.motion ?? 0,
+        footsteps: graph.layers.footsteps.gain.gain.value,
+        conversation: graph.layers.conversation.gain.gain.value,
+      });
       element.dataset.sideFountainSources = String(Object.keys(graph.sideFountains).length);
       element.dataset.sideFountainAudio = JSON.stringify(
         Object.entries(graph.sideFountains).map(([id, layer]) => ({
@@ -150,6 +165,7 @@ export function useCampusAmbience({
         })),
       );
       element.dataset.windStrength = wind.strength.toFixed(4);
+      element.dataset.birdAudio = JSON.stringify(graph.birds.snapshot());
       element.dataset.gust = wind.gust.toFixed(4);
       element.dataset.outdoorGain = output.toFixed(4);
       element.dataset.audioUpdates = String(++updatesRef.current);

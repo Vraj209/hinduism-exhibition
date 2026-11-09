@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { sectionTitles } from "./exhibition-fixtures";
 
-test("each pavilion reveals its entrance relief before entering the matching world", async ({
+test("each pavilion reveals its entrance relief before entering the matching gallery", async ({
   page,
 }) => {
   test.setTimeout(60_000);
@@ -22,12 +22,12 @@ test("each pavilion reveals its entrance relief before entering the matching wor
     await expect(campus).toHaveAttribute("data-camera-position", position!);
     await expect(campus).toHaveAttribute("data-camera-target", target!);
     const world = page.getByRole("region", {
-      name: `${sectionTitles[index]} immersive experience`,
+      name: `${sectionTitles[index]} exhibition gallery`,
       exact: true,
     });
     await expect(world).toHaveAttribute("data-arrived", "true");
-    await expect(world.locator(".world-copy h2")).toBeFocused();
-    await world.getByRole("link", { name: "Back to map", exact: true }).click();
+    await expect(world.locator(".gallery-opening h1")).toBeFocused();
+    await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
     await expect(campus).toHaveAttribute("data-camera-phase", "overview");
     await expect(page.locator(`#destination-${index + 1}`)).toBeFocused();
   }
@@ -46,7 +46,7 @@ test("leaving during the relief reveal cancels entry and restores the selected m
   await expect
     .poll(() => campus.getAttribute("data-camera-phase"), { intervals: [30] })
     .toBe("relief");
-  await page.getByRole("link", { name: "Back to map", exact: true }).click();
+  await page.getByRole("link", { name: "Back to Campus", exact: true }).click();
   await expect(campus).toHaveAttribute("data-camera-phase", "overview");
   await expect(campus).toHaveAttribute("data-camera-position", position!);
   await expect(campus).toHaveAttribute("data-camera-target", target!);

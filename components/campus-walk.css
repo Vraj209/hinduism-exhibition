@@ -1,0 +1,183 @@
+/* Walking controls sit at the edges and preserve the garden's central view. */
+.walk-start {
+  position: absolute;
+  z-index: 6;
+  top: calc(var(--hero-title-top) + var(--hero-title-height) + var(--hero-title-gap));
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid #896747;
+  border-radius: 3px;
+  background: #fcf5eaf2;
+  color: #523b29;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 4px 20px #5f432b0d;
+}
+.walk-start:disabled { opacity: .6; cursor: wait; }
+.campus-hero[data-walking="true"] .hero-title {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.walk-toolbar {
+  position: absolute;
+  z-index: 6;
+  top: max(20px, env(safe-area-inset-top));
+  left: max(32px, env(safe-area-inset-left));
+  right: max(32px, env(safe-area-inset-right));
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+}
+.walk-guidance { max-width: 370px; padding: 11px 14px; background: #fcf7eff0; color: #513923; border: 1px solid #c7b79b; border-radius: 3px; }
+.walk-guidance > span { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.walk-guidance p { margin: 6px 0 0; font-size: 10px; line-height: 1.6; }
+.walk-guidance .walk-touch-hint { display: none; }
+.walk-toolbar-actions,
+.walk-route-actions,
+.interior-walk-actions { display: flex; align-items: center; gap: 6px; }
+.walk-toolbar-actions { pointer-events: auto; }
+.walk-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #b7a58a;
+  border-radius: 3px;
+  background: #fcf7eff5;
+  color: #523b29;
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+}
+.walk-control svg { flex: 0 0 auto; }
+.walk-control:hover, .walk-start:hover:not(:disabled) { background: #fffaf2; border-color: #886540; }
+.walk-control[aria-pressed="true"] { background: #e7dcc9; border-color: #886540; }
+.walk-control:focus-visible, .walk-start:focus-visible { outline: 2px solid #8f4f31; outline-offset: 3px; }
+.walk-control:disabled { opacity: .5; cursor: default; }
+.walk-primary { background: #795037; border-color: #795037; color: #fff6e7; }
+.walk-primary:hover { background: #5f3c29; color: #fff6e7; }
+.walk-stop { border-color: #8f4f31; }
+.walk-progress { display: flex; align-items: end; justify-content: space-between; gap: 12px; }
+.walk-status { margin: 0; max-width: 450px; padding: 9px 12px; background: #fcf7eff0; color: #513923; border-radius: 3px; font-size: 11px; line-height: 1.5; }
+.walk-route-actions { padding: 5px; background: #fcf7eff0; border-radius: 3px; }
+.walk-route-actions > span { padding: 0 7px; font-size: 10px; white-space: nowrap; }
+.walk-entrance-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px; background: #fcf7effa; border: 1px solid #b7a58a; border-radius: 3px; box-shadow: 0 5px 25px #51392312; }
+.walk-entrance-card > div { display: flex; flex-direction: column; gap: 4px; }
+.walk-entrance-card > div > span { font-size: 8px; letter-spacing: 1.4px; }
+.walk-entrance-card strong { font-size: 15px; font-weight: 500; }
+.walk-entrance-card .walk-control { flex: 0 0 auto; }
+.campus-hero[data-walking="true"] .hero-dock { bottom: max(20px, env(safe-area-inset-bottom)); }
+.campus-hero[data-walking="true"] .hero-navigation-row { justify-content: start; gap: 12px; }
+.campus-hero[data-walking="true"] .hero-section-selector label { width: fit-content; margin-bottom: 0; padding: 6px 8px; background: #fcf7eff5; color: #513923; border-radius: 3px 3px 0 0; }
+.campus-hero[data-walking="true"] .walk-direct-selector { flex-basis: 250px; }
+.campus-hero[data-walking="true"] .hero-camera-controls { margin-left: auto; }
+.campus-hero[data-walking="true"] .map-pin { width: 44px; height: 44px; padding: 7px; }
+.campus-hero[data-walking="true"] .map-pin .pin-title { top: 43px; }
+.campus-hero[data-walking="true"] .hero-control,
+.campus-hero[data-walking="true"] .hero-section-selector select,
+.campus-hero[data-walking="true"] .garden-motion-button,
+.campus-hero[data-walking="true"] .campus-ambience-toggle { min-height: 44px; }
+.campus-hero[data-walking="true"] .hero-icon-control { min-width: 44px; }
+
+.interior-walk-toolbar { position: absolute; z-index: 4; top: 106px; left: 4.8%; right: 4.8%; display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.interior-walk-route { display: flex; flex-wrap: wrap; align-items: center; justify-content: end; gap: 5px; }
+.interior-walk-route > span { display: flex; align-items: center; gap: 5px; padding-right: 6px; font-size: 10px; white-space: nowrap; text-shadow: 0 1px 8px #21170e; }
+.world-shell[data-walking="true"] .world-festival-picker { top: 169px; }
+.world-shell[data-walking="true"] .world-story-index { top: 35%; }
+.world-summary .interior-walk-actions, .world-section-menu .interior-walk-actions { flex-wrap: wrap; margin-top: 22px; }
+.world-shell[data-walking="true"] .world-back,
+.world-shell[data-walking="true"] .world-sections-button,
+.world-shell[data-walking="true"] .world-read,
+.world-shell[data-walking="true"] .story-navigation button,
+.world-shell[data-walking="true"] .story-navigation a { min-height: 44px; }
+
+@media (pointer: coarse) {
+  .walk-guidance .walk-desktop-hint { display: none; }
+  .walk-guidance .walk-touch-hint { display: block; }
+}
+@media (max-width: 1000px) {
+  .walk-toolbar { left: max(24px, env(safe-area-inset-left)); right: max(24px, env(safe-area-inset-right)); }
+  .walk-control { padding-inline: 10px; font-size: 10px; }
+  .walk-guidance { max-width: 285px; }
+  .interior-walk-toolbar { flex-wrap: wrap; }
+  .interior-walk-route > span { display: none; }
+  .world-shell[data-walking="true"] .world-festival-picker { top: 222px; }
+}
+@media (max-width: 760px) {
+  .walk-toolbar { top: max(12px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); flex-direction: column; gap: 7px; }
+  .walk-guidance { max-width: none; width: 100%; padding: 8px 11px; }
+  .walk-guidance > span { font-size: 11px; }
+  .walk-guidance p { margin-top: 3px; font-size: 9px; }
+  .walk-toolbar-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr 1.2fr; }
+  .walk-toolbar-actions .walk-control { font-size: 9px; gap: 5px; padding: 7px; }
+  .walk-toolbar-actions .walk-control svg { width: 13px; }
+  .campus-hero[data-walking="true"] .hero-dock { left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); gap: 7px; }
+  .campus-hero[data-walking="true"] .hero-navigation-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .campus-hero[data-walking="true"] .hero-camera-controls { display: none; }
+  .campus-hero[data-walking="true"] .hero-section-selector select { font-size: 10px; padding-left: 9px; padding-right: 22px; }
+  .walk-progress { align-items: stretch; flex-direction: column; gap: 5px; }
+  .walk-status { font-size: 10px; padding: 6px 9px; }
+  .walk-route-actions { justify-content: space-between; }
+  .walk-entrance-card { gap: 10px; padding: 9px; }
+  .walk-entrance-card strong { font-size: 12px; }
+  .walk-entrance-card .walk-control { font-size: 10px; padding-inline: 9px; }
+  .interior-walk-toolbar { position: relative; top: auto; left: auto; right: auto; margin: 8px 5% 0; gap: 6px; }
+  .interior-walk-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 5px; }
+  .interior-walk-actions .walk-control { padding: 7px 5px; font-size: 9px; gap: 4px; }
+  .interior-walk-route { width: 100%; justify-content: center; }
+  .interior-walk-route { flex-wrap: nowrap; }
+  .interior-walk-route .walk-control { flex: 1 1 0; padding-inline: 5px; font-size: 9px; }
+  .world-shell[data-walking="true"] .world-header { padding-top: max(10px, env(safe-area-inset-top)); }
+  .world-shell[data-walking="true"] .world-festival-picker { top: 238px; padding-block: 5px; }
+  .world-shell[data-walking="true"] .world-story-index { top: 39%; }
+  .world-shell[data-walking="true"] .world-copy { padding: 14px 17px; bottom: 161px; }
+  .world-shell[data-walking="true"] .world-copy h2 { font-size: 32px; }
+  .world-shell[data-walking="true"] .world-copy .world-overline,
+  .world-shell[data-walking="true"] .world-copy .world-tradition { display: none; }
+  .world-shell[data-walking="true"] .world-caption { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin: 9px 0 11px; font-size: 11px; }
+}
+@media (max-height: 500px) {
+  .walk-start { min-height: 44px; padding: 8px 16px; }
+  .walk-toolbar { top: max(8px, env(safe-area-inset-top)); flex-direction: row; align-items: start; gap: 8px; }
+  .walk-guidance { width: auto; max-width: 240px; padding: 7px 10px; }
+  .walk-guidance > span { display: none; }
+  .walk-guidance p { margin: 0; }
+  .walk-toolbar-actions { display: flex; width: auto; }
+  .walk-toolbar-actions .walk-control { min-height: 44px; }
+  .campus-hero[data-walking="true"] .hero-dock { bottom: max(8px, env(safe-area-inset-bottom)); gap: 4px; }
+  .campus-hero[data-walking="true"] .hero-navigation-row { display: flex; }
+  .campus-hero[data-walking="true"] .hero-section-selector { flex: 1 1 220px; }
+  .walk-progress { flex-direction: row; align-items: center; }
+  .walk-status { max-width: 280px; padding: 5px 8px; font-size: 9px; }
+  .walk-route-actions { margin-left: auto; }
+  .walk-entrance-card { padding: 6px 9px; }
+  .walk-entrance-card > div > span { display: none; }
+  .interior-walk-toolbar { position: absolute; top: 65px; left: auto; right: 3%; width: 46%; margin: 0; flex-direction: column; align-items: stretch; gap: 5px; }
+  .interior-walk-actions { display: flex; flex-wrap: nowrap; }
+  .interior-walk-actions .walk-control { flex: 1; font-size: 8px; padding: 5px; }
+  .interior-walk-actions .walk-control svg { display: none; }
+  .interior-walk-route > span { display: none; }
+  .interior-walk-route .walk-control { flex: 1; font-size: 9px; padding: 6px; }
+  .world-shell[data-walking="true"] .world-copy { top: 82px; bottom: 135px; width: 45%; padding: 10px 12px; }
+  .world-shell[data-walking="true"] .world-copy h2 { font-size: 28px; }
+  .world-shell[data-walking="true"] .world-festival-picker { top: 166px; }
+  .world-shell[data-walking="true"] .world-story-index { top: 45%; }
+}

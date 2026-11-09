@@ -4,15 +4,23 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { makeCampusLandscape } from "@/lib/campus-landscape";
 import { makeCampusSky } from "@/lib/campus-sky";
+import { makeCampusBirds } from "@/lib/campus-birds";
 import { makeRobbinsvilleMandir } from "@/lib/robbinsville-mandir";
 import { campusLayout, pavilions, CAMPUS_EYE_HEIGHT, CAMPUS_METERS_PER_UNIT, CAMPUS_LOOK_LIMIT } from "@/lib/campus";
 import { makeDomedPavilion } from "@/lib/domed-pavilion";
 import {
   sampleCampusWind,
   sampleSideFountainSound,
+  sampleFoliagePresence,
   type CampusEnvironmentSample,
 } from "@/lib/campus-environment";
-import { updateCampusPennant } from "@/lib/campus-pennant";
+import { BAPS_FLAG_TEXTURE, makeCampusFlagMaterial, updateCampusFlag, prepareCampusFlag, campusFlagSnapshot, disposeCampusFlag, type CampusFlagOptions } from "@/lib/campus-pennant";
+import { createCampusWalkController } from "@/lib/campus-walk-controller";
+import { campusDoor } from "@/lib/campus-navigation";
+import type { WalkCommand, WalkPose, WalkState } from "@/lib/campus-walk";
+import { campusTrees } from "@/lib/campus-obstacles";
+import { makeCampusCrowd } from "@/lib/campus-crowd";
+import { makeCampusVisitorSigns } from "@/lib/campus-visitor-signs";
 
 export type CampusPosition = {
   id: number;
@@ -28,6 +36,9 @@ export type CampusSceneProps = {
   view: "arrival" | "map";
   zoom: number;
   lookOffset: number;
+  walking?: boolean;
+  walkCommand?: WalkCommand | null;
+  onWalkChange?: (state: WalkState) => void;
   onLookChange: (yaw: number) => void;
   onReady: () => void;
   onError: () => void;
@@ -44,12 +55,14 @@ type SceneApi = {
   resize: () => void;
   environmentMotion: () => void;
   look: (yaw: number, instant?: boolean) => void;
+  syncWalk: () => boolean;
+  commandWalk: (command: WalkCommand | null | undefined) => void;
 };
 
 const ACTIVE_PAVILIONS = 6;
 
-function makePavilion(id: number, palette: Palette) {
-  const group = makeDomedPavilion(id, palette);
+function makePavilion(id: number, palette: Palette, flagOptions: CampusFlagOptions) {
+  const group = makeDomedPavilion(id, palette, flagOptions);
   group.position.set(...pavilions[id - 1].position);
   group.rotation.y = pavilions[id - 1].rotation;
   return group;
@@ -83,6 +96,11 @@ export default function CampusScene(props: CampusSceneProps) {
     let lookYaw = THREE.MathUtils.clamp(propsRef.current.lookOffset, -CAMPUS_LOOK_LIMIT, CAMPUS_LOOK_LIMIT);
     let deferredLook: number | null = null;
     let moving = false;
+    let walker: ReturnType<typeof createCampusWalkController> | null = null;
+    let walkMode = false;
+    let walkingEnteredId: number | null = null;
+    let walkingReturnPose: WalkPose | null = null;
+    let lastWalkCommand = -1;
     const mobile = window.innerWidth < 768;
     let renderCount = 0;
     let environmentTime = 0;
@@ -134,6 +152,9 @@ export default function CampusScene(props: CampusSceneProps) {
       | "relief"
       | "threshold"
       | "inside"
+      | "walking"
+      | "walk-map"
+      | "walk-doorway"
       | "returning" = "overview";
     renderer.setPixelRatio(
       Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.25 : 1.5),
@@ -250,21 +271,51 @@ export default function CampusScene(props: CampusSceneProps) {
     horizonGround.receiveShadow = true;
     scene.add(horizonGround);
     const landscape = makeCampusLandscape(palette, { mobile });
+    landscape.prepare(camera);
     scene.add(landscape.group);
-    const mandir = makeRobbinsvilleMandir(palette);
+    const flagTexture = new THREE.TextureLoader().load(BAPS_FLAG_TEXTURE, () => {
+      if (disposed) { flagTexture.dispose(); return; }
+      renderer.domElement.dataset.flagTexture = "ready";
+      render(); // Reduced-motion visits also repaint when the artwork arrives.
+    }, undefined, () => {
+      renderer.domElement.dataset.flagTexture = "error";
+    });
+    flagTexture.colorSpace = THREE.SRGBColorSpace;
+    flagTexture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    flagTexture.magFilter = THREE.LinearFilter;
+    flagTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    const flagMaterial = makeCampusFlagMaterial(flagTexture);
+    const flagOptions = { mobile, material: flagMaterial };
+    const mandir = makeRobbinsvilleMandir(palette, flagOptions);
     mandir.position.set(...campusLayout.mandir);
     scene.add(mandir);
-    const pennants: THREE.Mesh[] = [];
-    mandir.traverse((object) => {
-      if (object instanceof THREE.Mesh && object.userData.campusPennant)
-        pennants.push(object);
-    });
     const buildings = pavilions
       .slice(0, ACTIVE_PAVILIONS)
-      .map((p) => makePavilion(p.id, palette));
+      .map((p) => makePavilion(p.id, palette, flagOptions));
     buildings.forEach((building) => scene.add(building));
+    const flags: THREE.Mesh[] = [];
+    for (const building of [mandir, ...buildings]) building.traverse((object) => {
+      if (object instanceof THREE.Mesh && object.userData.campusFlag) flags.push(object);
+    });
+    let lastFlagDiagnostics = -Infinity;
+    const device = navigator as Navigator & { deviceMemory?: number };
+    const crowd = makeCampusCrowd({
+      mobile,
+      constrained: (device.hardwareConcurrency > 0 && device.hardwareConcurrency <= 4) || (device.deviceMemory !== undefined && device.deviceMemory <= 4),
+    });
+    scene.add(crowd.group);
+    const visitorSigns = makeCampusVisitorSigns();
+    scene.add(visitorSigns.group);
+    let lastCrowdDiagnostics = -Infinity;
     sky.attachShadows(scene);
+    // This reflection is a one-time architectural capture. Moving visitors
+    // must not be baked into it (their initial rigs are still at the origin).
+    crowd.group.visible = false;
     landscape.captureReflection(renderer, scene);
+    crowd.group.visible = true;
+    // Add flying birds after the static water reflection capture.
+    const birds = makeCampusBirds(mobile);
+    scene.add(birds.group);
     let geometryTriangles = 0;
     scene.traverse((object) => {
       if (object instanceof THREE.Mesh)
@@ -295,10 +346,13 @@ export default function CampusScene(props: CampusSceneProps) {
           roofAnchor,
           p.position[2],
         ).project(camera);
+        // Keep the screen-sized destination labels above the summit flags.
+        // A fixed world offset would still cover the smaller distant flags.
+        const labelClearance = propsRef.current.view === "map" ? 0 : (host!.clientWidth <= 760 ? 28 : 64);
         return {
           id: p.id,
           x: (point.x + 1) * 50,
-          y: (1 - point.y) * 50,
+          y: (1 - point.y) * 50 - labelClearance / host!.clientHeight * 100,
           visible:
             point.z > -1 &&
             point.z < 1 &&
@@ -310,7 +364,20 @@ export default function CampusScene(props: CampusSceneProps) {
     }
     function render(updateLabels = true) {
       if (disposed || document.hidden) return;
+      const renderStarted = performance.now();
+      crowd.prepare(camera, !environmentEnabled());
+      if (landscape.prepare(camera)) renderer.shadowMap.needsUpdate = true;
+      for (const flag of flags) if (prepareCampusFlag(flag, camera)) renderer.shadowMap.needsUpdate = true;
       renderer.render(scene, camera);
+      if (renderStarted - lastFlagDiagnostics >= 250 || !environmentEnabled()) {
+        renderer.domElement.dataset.flags = JSON.stringify(flags.map(campusFlagSnapshot));
+        lastFlagDiagnostics = renderStarted;
+      }
+      crowd.observeRender(performance.now() - renderStarted);
+      if (renderStarted - lastCrowdDiagnostics >= 250 || !environmentEnabled()) {
+        renderer.domElement.dataset.crowd = JSON.stringify(crowd.snapshot());
+        lastCrowdDiagnostics = renderStarted;
+      }
       renderer.domElement.dataset.renderCount = String(++renderCount);
       renderer.domElement.dataset.environmentTime = environmentTime.toFixed(3);
       renderer.domElement.dataset.motion = environmentEnabled()
@@ -326,6 +393,8 @@ export default function CampusScene(props: CampusSceneProps) {
       renderer.domElement.dataset.sideFountains = JSON.stringify(landscape.diagnostics.sideFountainBounds);
       renderer.domElement.dataset.centralFountainCount = String(campusLayout.fountains.length);
       renderer.domElement.dataset.skyDetails = JSON.stringify(sky.diagnostics);
+      renderer.domElement.dataset.birdDetails = JSON.stringify(birds.diagnostics);
+      renderer.domElement.dataset.birdState = JSON.stringify(birds.snapshot());
       renderer.domElement.dataset.skyTime = skyState.time.toFixed(4);
       renderer.domElement.dataset.cloudOffset = JSON.stringify(skyState.offset);
       renderer.domElement.dataset.cloudShadowOffset = JSON.stringify(skyState.shadowOffset);
@@ -409,6 +478,12 @@ export default function CampusScene(props: CampusSceneProps) {
       entranceCamera.setViewOffset(width, height, 0, height * heroShift(entranceCamera.aspect), width, height);
       entranceCamera.updateProjectionMatrix();
     }
+    function walkProjection() {
+      entranceCamera.clearViewOffset();
+      entranceCamera.zoom = 1;
+      entranceCamera.fov = THREE.MathUtils.lerp(68, 60, THREE.MathUtils.smoothstep(entranceCamera.aspect, 0.75, 1.4));
+      entranceCamera.updateProjectionMatrix();
+    }
     function applyLook(yaw: number) {
       lookYaw = THREE.MathUtils.clamp(yaw, -CAMPUS_LOOK_LIMIT, CAMPUS_LOOK_LIMIT);
       cameraTarget.copy(heroTarget(lookYaw));
@@ -418,7 +493,7 @@ export default function CampusScene(props: CampusSceneProps) {
       render();
     }
     function look(yaw: number, instant = false) {
-      if (propsRef.current.selected !== null || requestedView !== "arrival") return;
+      if (propsRef.current.walking || propsRef.current.selected !== null || requestedView !== "arrival") return;
       const target = THREE.MathUtils.clamp(yaw, -CAMPUS_LOOK_LIMIT, CAMPUS_LOOK_LIMIT);
       if (moving) { deferredLook = target; return; }
       cancelAnimationFrame(lookFrame);
@@ -444,7 +519,8 @@ export default function CampusScene(props: CampusSceneProps) {
       overviewCamera.bottom = -span / 2;
       overviewCamera.updateProjectionMatrix();
       entranceCamera.aspect = aspect;
-      if (camera === entranceCamera && propsRef.current.selected === null && !moving && requestedView === "arrival") heroProjection();
+      if (propsRef.current.walking) walkProjection();
+      else if (camera === entranceCamera && propsRef.current.selected === null && !moving && requestedView === "arrival") heroProjection();
       else entranceCamera.updateProjectionMatrix();
       render();
     }
@@ -478,12 +554,14 @@ export default function CampusScene(props: CampusSceneProps) {
         0.7,
       );
       const outdoor =
-        cameraPhase === "inside" ? 0 : cameraPhase === "threshold" ? 0.22 : 1;
+        cameraPhase === "inside" ? 0 : cameraPhase === "threshold" || cameraPhase === "walk-doorway" ? 0.22 : 1;
       renderer.domElement.dataset.windStrength = wind.strength.toFixed(4);
       renderer.domElement.dataset.windGust = wind.gust.toFixed(4);
       renderer.domElement.dataset.waterPresence = waterPresence.toFixed(4);
       renderer.domElement.dataset.waterPan = waterPan.toFixed(4);
       const sideFountains = sampleSideFountainSound(campusLayout.sideFountains, camera.position, soundRight, camera.zoom);
+      const foliagePresence = sampleFoliagePresence(campusTrees, camera.position);
+      renderer.domElement.dataset.foliagePresence = foliagePresence.toFixed(4);
       renderer.domElement.dataset.sideFountainSound = JSON.stringify(sideFountains);
       propsRef.current.onEnvironment?.({
         time: environmentTime,
@@ -491,6 +569,8 @@ export default function CampusScene(props: CampusSceneProps) {
         waterPresence,
         waterPan,
         sideFountains,
+        foliagePresence,
+        visitors: crowd.sound(camera),
         outdoor,
       });
     }
@@ -505,16 +585,19 @@ export default function CampusScene(props: CampusSceneProps) {
       );
     }
     function updateEnvironment(now: number) {
+      if (environmentLast) crowd.observeFrame(now - environmentLast);
       const elapsed = environmentLast
         ? Math.min(0.1, (now - environmentLast) / 1000)
         : 0;
       environmentLast = now;
       environmentTime += elapsed;
       const wind = sampleCampusWind(environmentTime);
+      crowd.update(environmentTime, elapsed, camera, wind);
       landscape.update(environmentTime);
       sunlight.intensity = 2.65 * sky.update(environmentTime);
-      pennants.forEach((pennant) =>
-        updateCampusPennant(pennant, environmentTime, wind),
+      birds.update(environmentTime);
+      flags.forEach((flag) =>
+        updateCampusFlag(flag, environmentTime, wind),
       );
       if (environmentTime - lastShadowTime >= (mobile ? 0.25 : 0.125)) {
         renderer.shadowMap.needsUpdate = true;
@@ -545,8 +628,8 @@ export default function CampusScene(props: CampusSceneProps) {
       environmentFrame = requestAnimationFrame(tickEnvironment);
     }
     landscape.update(0);
-    pennants.forEach((pennant) =>
-      updateCampusPennant(pennant, 0, sampleCampusWind(0)),
+    flags.forEach((flag) =>
+      updateCampusFlag(flag, 0, sampleCampusWind(0)),
     );
     function visibilityChanged() {
       environmentMotion();
@@ -900,11 +983,140 @@ export default function CampusScene(props: CampusSceneProps) {
       }
       if (!moving) render();
     }
+    function cancelCameraTransition() {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(lookFrame);
+      transitionVersion++;
+      transitionVisibility = null;
+      deferredLook = null;
+      moving = false;
+      down = null;
+    }
+    function outsideDome(id: number) {
+      const door = campusDoor(id);
+      return { position: [door.outside.x, door.outside.y + CAMPUS_EYE_HEIGHT, door.outside.z] as [number, number, number], yaw: door.yaw, pitch: 0 };
+    }
+    function enterWalkingDome(id: number) {
+      cancelCameraTransition();
+      const door = campusDoor(id);
+      // Animate the doorway camera without changing the suspended outdoor pose.
+      // The same return point is retained when visiting another exhibition inside.
+      camera = entranceCamera;
+      walkProjection();
+      const from = new THREE.Vector3(door.outside.x, door.outside.y + CAMPUS_EYE_HEIGHT, door.outside.z);
+      const to = new THREE.Vector3(door.inside.x, door.inside.y + CAMPUS_EYE_HEIGHT, door.inside.z);
+      const direction = new THREE.Vector3(Math.sin(door.yaw), 0, -Math.cos(door.yaw));
+      const version = transitionVersion;
+      const duration = propsRef.current.reducedMotion ? 0 : from.distanceTo(to) * CAMPUS_METERS_PER_UNIT / 1.4 * 1000;
+      let began = performance.now(), hiddenAt: number | null = null;
+      moving = true;
+      cameraPhase = "walk-doorway";
+      const tick = (now: number) => {
+        if (disposed || version !== transitionVersion) return;
+        if (document.hidden) { hiddenAt ??= now; return; }
+        if (hiddenAt !== null) { began += now - hiddenAt; hiddenAt = null; }
+        const t = duration ? Math.min(1, (now - began) / duration) : 1;
+        entranceCamera.position.lerpVectors(from, to, t * t * (3 - 2 * t));
+        cameraTarget.copy(entranceCamera.position).add(direction);
+        entranceCamera.lookAt(cameraTarget);
+        cameraPhase = t === 1 ? "inside" : "walk-doorway";
+        render();
+        if (t < 1) frame = requestAnimationFrame(tick);
+        else {
+          moving = false;
+          transitionVisibility = null;
+          publishEnvironment(true);
+          environmentMotion();
+          if (propsRef.current.selected === id) propsRef.current.onSettled(id);
+        }
+      };
+      transitionVisibility = hidden => {
+        cancelAnimationFrame(frame);
+        if (hidden) hiddenAt ??= performance.now();
+        else if (moving) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    }
+    function syncWalk() {
+      if (!walker) return false;
+      const next = propsRef.current;
+      if (!next.walking) {
+        if (walkMode) {
+          walker.setEnabled({ enabled: false, suspended: false, reducedMotion: next.reducedMotion });
+          cancelCameraTransition();
+          walkMode = false;
+          walkingEnteredId = null;
+          walkingReturnPose = null;
+          requestedId = undefined;
+          requestedView = next.view;
+          const pose = next.view === "map" ? campusLayout.overhead : campusLayout.arrival;
+          overviewPose.position.fromArray(pose.position);
+          overviewPose.target.fromArray(pose.target);
+          overviewPose.zoom = next.zoom;
+          camera = next.view === "map" ? overviewCamera : entranceCamera;
+          camera.position.copy(overviewPose.position);
+          cameraTarget.copy(overviewPose.target);
+          camera.lookAt(cameraTarget);
+          cameraPhase = "overview";
+          if (next.view === "arrival") heroProjection();
+        }
+        return false;
+      }
+      if (!walkMode) {
+        cancelCameraTransition();
+        walkMode = true;
+        walker.setPose({ position: [...campusLayout.arrival.position] as [number, number, number], yaw: 0, pitch: 0 });
+      }
+      requestedView = next.view;
+      if (next.selected !== null) {
+        if (walkingEnteredId === null) walkingReturnPose = walker.getPose();
+        walker.setEnabled({ enabled: true, suspended: true, reducedMotion: next.reducedMotion });
+        if (walkingEnteredId !== next.selected) {
+          walkingEnteredId = next.selected;
+          enterWalkingDome(next.selected);
+        }
+        return true;
+      }
+      if (walkingEnteredId !== null) {
+        cancelCameraTransition();
+        walker.setPose(walkingReturnPose ?? outsideDome(walkingEnteredId));
+        walkingEnteredId = null;
+        walkingReturnPose = null;
+        propsRef.current.onSettled(null);
+      }
+      if (next.view === "map") {
+        walker.setEnabled({ enabled: true, suspended: true, reducedMotion: next.reducedMotion });
+        camera = overviewCamera;
+        overviewCamera.position.fromArray(campusLayout.overhead.position);
+        overviewCamera.zoom = next.zoom;
+        cameraTarget.fromArray(campusLayout.overhead.target);
+        overviewCamera.lookAt(cameraTarget);
+        overviewCamera.updateProjectionMatrix();
+        cameraPhase = "walk-map";
+        render();
+        publishEnvironment(true);
+      } else {
+        camera = entranceCamera;
+        walkProjection();
+        cameraPhase = "walking";
+        walker.setEnabled({ enabled: true, suspended: false, reducedMotion: next.reducedMotion });
+      }
+      commandWalk(next.walkCommand);
+      return true;
+    }
+    function commandWalk(command: WalkCommand | null | undefined) {
+      if (!walker || !command || command.sequence === lastWalkCommand || !propsRef.current.walking || propsRef.current.selected !== null || propsRef.current.view !== "arrival") return;
+      lastWalkCommand = command.sequence;
+      if (command.type === "dome" && command.id) walker.routeToDome(command.id);
+      else if (command.type === "stop") walker.stop();
+      else if (command.type === "direct") walker.goDirectly();
+      else if (command.type === "entrance") walker.resetEntrance();
+    }
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
     let down: { x: number; y: number; yaw: number; id: number; dragging: boolean } | null = null;
     function pointerDown(event: PointerEvent) {
-      if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0) || propsRef.current.selected !== null || moving) return;
+      if (propsRef.current.walking || !event.isPrimary || (event.pointerType === "mouse" && event.button !== 0) || propsRef.current.selected !== null || moving) return;
       down = { x: event.clientX, y: event.clientY, yaw: lookYaw, id: event.pointerId, dragging: false };
     }
     function pointerMove(event: PointerEvent) {
@@ -933,7 +1145,7 @@ export default function CampusScene(props: CampusSceneProps) {
     }
     function pointerCancel() { down = null; }
     function keyLook(event: KeyboardEvent) {
-      if (event.target !== host || requestedView !== "arrival" || propsRef.current.selected !== null) return;
+      if (propsRef.current.walking || event.target !== host || requestedView !== "arrival" || propsRef.current.selected !== null) return;
       const delta = event.key === "ArrowLeft" ? -0.1 : event.key === "ArrowRight" ? 0.1 : null;
       if (delta === null && event.key !== "Home") return;
       event.preventDefault();
@@ -949,26 +1161,51 @@ export default function CampusScene(props: CampusSceneProps) {
     renderer.domElement.addEventListener("pointercancel", pointerCancel);
     host.addEventListener("keydown", keyLook);
     renderer.domElement.addEventListener("webglcontextlost", contextLost);
+    walker = createCampusWalkController({
+      host, canvas: renderer.domElement, camera: entranceCamera, scene, buildings: [...buildings, mandir],
+      canTraverse: crowd.canTraverse,
+      onRender: target => {
+        camera = entranceCamera;
+        cameraTarget.copy(target);
+        cameraPhase = "walking";
+        render();
+      },
+      onChange: state => {
+        propsRef.current.onWalkChange?.(state);
+        // A stopped or immediate journey may have no later animation frame.
+        // Publish its final listener pose even when the 100 ms audio throttle
+        // would otherwise retain the previous location in a still garden.
+        if (!state.moving && walkMode && cameraPhase === "walking" && propsRef.current.selected === null)
+          publishEnvironment(true);
+      },
+      onApproach: () => { void import("./section-experience"); },
+    });
     apiRef.current = {
       move,
       highlight: highlightPavilion,
       resize,
       environmentMotion,
       look,
+      syncWalk,
+      commandWalk,
     };
     environmentMotion();
     resize();
     propsRef.current.onReady();
-    move(propsRef.current.selected, true, propsRef.current.zoom);
+    if (!syncWalk()) move(propsRef.current.selected, true, propsRef.current.zoom);
     return () => {
       disposed = true;
+      walker?.dispose();
       cancelAnimationFrame(frame);
       cancelAnimationFrame(lookFrame);
       cancelAnimationFrame(environmentFrame);
       document.removeEventListener("visibilitychange", visibilityChanged);
       intersection.disconnect();
       landscape.dispose();
+      crowd.dispose();
+      visitorSigns.dispose();
       sky.dispose();
+      birds.dispose();
       observer.disconnect();
       apiRef.current = null;
       renderer.domElement.removeEventListener("pointerdown", pointerDown);
@@ -980,7 +1217,8 @@ export default function CampusScene(props: CampusSceneProps) {
       const materials = new Set<THREE.Material>(Object.values(palette));
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh) {
-          object.geometry.dispose();
+          if (object.userData.campusFlag) disposeCampusFlag(object);
+          else object.geometry.dispose();
           (Array.isArray(object.material)
             ? object.material
             : [object.material]
@@ -990,6 +1228,7 @@ export default function CampusScene(props: CampusSceneProps) {
       materials.forEach((material) => material.dispose());
       sunlight.shadow.dispose();
       stoneTexture.dispose();
+      flagTexture.dispose();
       highlightMaterial.dispose();
       (ground.material as THREE.Material).dispose();
       renderer.dispose();
@@ -999,7 +1238,7 @@ export default function CampusScene(props: CampusSceneProps) {
 
   useEffect(() => {
     apiRef.current?.resize();
-    apiRef.current?.move(props.selected, props.reducedMotion, props.zoom);
+    if (!apiRef.current?.syncWalk()) apiRef.current?.move(props.selected, props.reducedMotion, props.zoom);
     apiRef.current?.environmentMotion();
   }, [
     props.selected,
@@ -1007,7 +1246,9 @@ export default function CampusScene(props: CampusSceneProps) {
     props.environmentPaused,
     props.zoom,
     props.view,
+    props.walking,
   ]);
+  useEffect(() => { apiRef.current?.commandWalk(props.walkCommand); }, [props.walkCommand]);
   useEffect(() => {
     apiRef.current?.look(props.lookOffset);
   }, [props.lookOffset, props.reducedMotion]);
@@ -1020,7 +1261,7 @@ export default function CampusScene(props: CampusSceneProps) {
       className="campus-webgl"
       tabIndex={props.selected === null && props.view === "arrival" ? 0 : -1}
       role="region"
-      aria-label="Campus view. Drag horizontally or use left and right arrow keys to look around. Home resets the view."
+      aria-label={props.walking ? "Campus walking area. Use W A S D or arrow keys to walk. Drag to look around. Click or tap a path to walk there." : "Campus view. Drag horizontally or use left and right arrow keys to look around. Home resets the view."}
       style={{ position: "absolute", inset: 0 }}
     />
   );

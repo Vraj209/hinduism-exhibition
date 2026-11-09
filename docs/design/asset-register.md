@@ -1,6 +1,6 @@
 # Visual asset register
 
-Revision plan recorded 8 November 2026; implementation checked 9 November 2026, America/Toronto. The historical tables retain the original baseline and proposed references so the replacement decisions remain traceable. The implementation table records the BAPS visual revision; the **domed pavilion refinement** records the later exterior and carving replacement. The final **axial campus revision** section records the current layout, landscape and Robbinsville landmark. “Proposed” in a historical row is not the current delivery status. The [visual audit](baps-visual-audit.md) explains the research. All official URLs are research references; **no official photograph has been cleared or redistributed as an application asset**.
+Revision plan recorded 8 November 2026; implementation checked 9 November 2026, America/Toronto. The historical tables retain the original baseline and proposed references so the replacement decisions remain traceable. The implementation table records the BAPS visual revision; the **domed pavilion refinement** records the later exterior and carving replacement. The final **axial campus revision** section records the current layout, landscape and Robbinsville landmark. “Proposed” in a historical row is not the current delivery status. The [visual audit](baps-visual-audit.md) explains the research. The earlier official-image entries were research-only. The dark-gallery and all-dome photography revisions below record the later user-requested integration of twenty-nine official BAPS photographs; historical entries do not describe that newer media set.
 
 ## Reuse status key
 
@@ -10,7 +10,7 @@ Revision plan recorded 8 November 2026; implementation checked 9 November 2026, 
 - **User supplied:** provided exhibition source; retained for this exhibition with its provenance. No broader licence is inferred.
 - **Bundled licence:** existing font assets retain their accompanying licence files.
 
-Credits below are **research acknowledgements for original work**, not invented photographic copyright credits. If photography is later licensed, the actual licence must supply its required credit.
+Credits in the historical tables are research acknowledgements for original work. Current gallery photograph credits and source context are recorded separately below.
 
 ## Historical plan — shared screens and assets
 
@@ -164,3 +164,21 @@ See [environmental verification](environmental-realism.md) for that revision's p
 | Independent fountain audio | `lib/campus-audio.ts`, `lib/campus-environment.ts`, `components/use-campus-ambience.ts` | Separate original left/right procedural mono buffers with camera-derived gain, filtering and stereo position. Opt-in only; no field recordings. |
 
 Current visual, geometric, audio and responsive evidence is in [sky and side-fountain verification](sky-side-fountains-verification.md). Previous revision screenshots and measurements remain historical baselines.
+
+
+## Dark gallery revision — 9 November 2026
+
+The user requested BAPS festival imagery in a dark, scroll-driven exhibition. `public/gallery/` now contains fourteen locally optimized WebP photographs (2,158,488 bytes total), one for every previously approved festival. `content/gallery-media.ts` is the per-image register: local path, official source page, original image URL, visual alt text, event context, dimensions and BAPS credit. Images were visually checked against official gallery context and resized without altering subjects. Copyright remains with the respective owners; provenance does not assert an independent licence or BAPS endorsement. No publication or deployment was performed by this revision.
+
+At this initial stage, fifteen story visuals reused the existing original exhibition illustrations and were explicitly labelled. The all-dome photography follow-up below supersedes that media selection. `content/gallery-stories.ts` preserves all twenty-nine approved stories and adds opening/closing bookends (five moments in each standard dome; sixteen in Festivals). The six PDF themes and the separately researched festival extension remain distinct. The public `/references` page and full-summary dialog expose the photo sources.
+
+The galleries use HTML, a near-black background, a faint perspective floor and scroll-linked display transforms. Portrait photographs use `object-fit: contain`. Phones, short windows and reduced-motion preferences use normal vertical flow. Outdoor campus assets remain unchanged. See `dark-gallery-verification.md` for implementation and validation evidence.
+
+
+## All-dome photography follow-up — 9 November 2026
+
+The user requested relevant BAPS photographs in the other five domes. Fifteen additional photographs now replace every remaining active rendered story illustration. All 29 stories across all six galleries use distinct locally optimized BAPS photographs. The previous fourteen festival images remain unchanged. Original rendered assets stay in the repository as historical material.
+
+The five new groups show community meals, clothing and devotional music; service and family worship; prayer, a mandir visit and shared reflection; care, tradition and volunteering; and textual study, the mandir and living guidance. Photographs provide documented context for the approved teaching; a physical scene is not presented as a literal depiction of the atma or its spiritual journey.
+
+`content/gallery-media.ts` records each local image, original image URL, official source page, dimensions, factual alt text, context and credit. The public sources page and summary dialogs expose all 29 credits. The dark scroll component and stylesheet are unchanged. See [all-dome photography verification](all-dome-photography-verification.md) for the new source mapping, current checks and screenshots.

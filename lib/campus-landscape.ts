@@ -4,6 +4,7 @@ import { campusLayout, pavilions } from "./campus";
 import { campusFlowerBeds, makeCampusVegetation } from "./campus-vegetation";
 import { makeCampusWater } from "./campus-water";
 import { makeCampusSideFountains } from "./campus-side-fountains";
+import { campusPromenades, CAMPUS_PROMENADE_SURFACE, pavilionRamp } from "./campus-obstacles";
 
 type Palette = Record<string, THREE.MeshStandardMaterial>;
 type Batch = Map<string, THREE.BufferGeometry[]>;
@@ -84,7 +85,7 @@ export function makeCampusLandscape(
   const group = new THREE.Group();
   group.name = "Exhibition fountain garden and continuous walks";
   block(batch, "ground", 0, -0.16, -8, 58, 0.2, 136);
-  block(batch, "grass", 0, -0.06, -7, 54, 0.12, 130);
+  block(batch, "grass", 0, -0.06, -7, 56, 0.12, 136);
   // The walks meet across both ends. No circulation crosses the basin.
   for (const x of [-campusLayout.walkwayX, campusLayout.walkwayX]) {
     block(batch, "path", x, -0.04, 1, 4, 0.12, 72);
@@ -119,16 +120,32 @@ export function makeCampusLandscape(
         0.12,
         0.12,
       );
+    // A quiet central ramp follows the existing entrance orientation. It clears
+    // every tread while preserving the approved pavilion and its side stairs.
+    const profile = new THREE.Shape();
+    profile.moveTo(pavilionRamp.back, 0.04);
+    profile.lineTo(pavilionRamp.front, 0.04);
+    profile.lineTo(pavilionRamp.front, pavilionRamp.bottom);
+    profile.lineTo(pavilionRamp.landingFront, pavilionRamp.top);
+    profile.lineTo(pavilionRamp.back, pavilionRamp.top);
+    profile.closePath();
+    const ramp = new THREE.ExtrudeGeometry(profile, { depth: pavilionRamp.width, steps: 1, bevelEnabled: false });
+    ramp.rotateY(-Math.PI / 2).translate(pavilionRamp.width / 2, 0, 0);
+    deposit(batch, "ivory", ramp, x, 0, z, p.rotation);
   }
   // Rectangular garden: stone edging, continuous low hedges and paired parterres.
   block(batch, "ivory", 0, 0.015, 0, 18.6, 0.06, 66.6);
   block(batch, "grass", 0, 0.015, 0, 18, 0.05, 66);
   for (const x of [-8.8, 8.8])
     block(batch, "hedge", x, 0.13, 0, 0.38, 0.2, 65.5);
-  block(batch, "hedge", 0, 0.13, -32.75, 17.7, 0.2, 0.38);
+  // The axial opening joins the inner promenade to the mandir-end crosswalk.
+  for (const x of [-5.125, 5.125])
+    block(batch, "hedge", x, 0.13, -32.75, 7.45, 0.2, 0.38);
   // A low open center at the near edge reveals the water from human eye level.
   for (const x of [-5.8, 5.8])
     block(batch, "hedge", x, 0.13, 32.75, 5.9, 0.2, 0.38);
+  for (const path of campusPromenades)
+    block(batch, "path", path.x, CAMPUS_PROMENADE_SURFACE - 0.02, path.z, path.width, 0.04, path.depth);
   block(batch, "rose", 0, 0.045, -3, 4.9, 0.12, 52.7);
   for (const x of [-2.23, 2.23])
     block(batch, "ivory", x, 0.135, -3, 0.25, 0.07, 52.5);
@@ -166,6 +183,7 @@ export function makeCampusLandscape(
   group.add(vegetation.group, water.group, sideFountains.group);
   return {
     group,
+    prepare: vegetation.prepare,
     diagnostics: { ...vegetation.diagnostics, ...water.diagnostics, ...sideFountains.diagnostics },
     captureReflection(renderer: THREE.WebGLRenderer, scene: THREE.Scene) {
       water.captureReflection(renderer, scene);

@@ -18,34 +18,19 @@ async function ready(page: Page) {
   );
 }
 
-async function arrived(page: Page, section: number, story = 0) {
-  const world = page.getByRole("region", {
-    name: `${titles[section]} immersive experience`,
-    exact: true,
-  });
-  await expect(world).toHaveAttribute("data-arrived", "true");
-  await expect(world.locator(".world-copy h2")).toHaveText(
-    momentTitles[section][story],
-  );
-  await expect(
-    world.getByRole("button", { name: "Read summary", exact: true }),
-  ).toBeVisible();
-  return world;
+async function arrived(page: Page, section: number) {
+  const gallery = page.getByRole("region", { name: `${titles[section]} exhibition gallery`, exact: true });
+  await expect(gallery).toHaveAttribute("data-arrived", "true");
+  await expect(gallery.locator(".gallery-opening h1")).toHaveText(titles[section]);
+  return gallery;
 }
 
 async function summary(page: Page) {
-  await page.getByRole("button", { name: "Read summary", exact: true }).click();
-  const dialog = page.locator(".world-summary");
+  await page.locator(".gallery-scroll").evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: "instant" }));
+  await expect(page.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
+  await page.getByRole("button", { name: "Read Full Summary", exact: true }).click();
+  const dialog = page.locator(".gallery-summary");
   await expect(dialog).toBeVisible();
-  const isFestival = await dialog
-    .getByRole("heading", { name: "Hindu Festivals", exact: true })
-    .count();
-  await expect(dialog.locator(".world-source-link")).toHaveAttribute(
-    "href",
-    isFestival
-      ? /^https:\/\/www\.baps\.org\/cultureandheritage\//
-      : "/exhibition-source.pdf#page=1",
-  );
   return dialog;
 }
 
@@ -63,9 +48,7 @@ test("six accessible destinations support keyboard entrance through the selected
       new RegExp(`(?:Section )?0?${i + 1}:? ${titles[i]}`),
     );
   }
-  await page
-    .getByRole("link", { name: "Explore the Exhibition", exact: true })
-    .focus();
+  await page.locator("#destination-1").focus();
   const started = Date.now();
   await page.keyboard.press("Enter");
   await expect(page.locator(".campus-webgl canvas")).toHaveAttribute(
@@ -75,7 +58,7 @@ test("six accessible destinations support keyboard entrance through the selected
   await arrived(page, 0);
   expect(Date.now() - started).toBeGreaterThan(900);
   expect(Date.now() - started).toBeLessThan(8000);
-  await expect(page.locator(".world-copy h2")).toBeFocused();
+  await expect(page.locator(".gallery-opening h1")).toBeFocused();
   await expect(page.locator(".campus-webgl canvas")).toHaveAttribute(
     "data-camera-position",
     "-17.000,2.300,18.000",
@@ -89,44 +72,20 @@ test("six accessible destinations support keyboard entrance through the selected
   expect(errors).toEqual([]);
 });
 
-test("all six sections retain the source order through summary navigation and the section chooser", async ({
-  page,
-}) => {
+test("the closing action follows all six sections in source order and returns to the campus", async ({ page }) => {
+  test.setTimeout(60_000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`/#section-${slugs[0]}`);
-  await arrived(page, 0);
-  for (let i = 1; i < titles.length; i++) {
-    const dialog = await summary(page);
-    await dialog
-      .getByRole("link", { name: "Next section", exact: true })
-      .click();
-    await arrived(page, i);
+  for (let i = 0; i < titles.length; i++) {
+    const gallery = await arrived(page, i);
+    await page.locator(".gallery-scroll").evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: "instant" }));
+    await expect(gallery.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
+    const next = gallery.getByRole("link", { name: "Next Exhibition", exact: true });
+    await expect(next).toHaveAttribute("href", `#section-${slugs[(i + 1) % 6]}`);
+    if (i < 5) await next.click();
+    else await gallery.getByRole("link", { name: "Return to Campus", exact: true }).click();
   }
-  let dialog = await summary(page);
-  await dialog
-    .getByRole("link", { name: "Previous section", exact: true })
-    .click();
-  await arrived(page, 4);
-  await page
-    .getByRole("button", { name: "All six sections", exact: true })
-    .click();
-  const chooser = page.getByRole("navigation", {
-    name: "Choose a section",
-    exact: true,
-  });
-  await expect(chooser.getByRole("link")).toHaveCount(6);
-  await chooser.getByRole("link").nth(5).click();
-  await arrived(page, 5);
-  dialog = await summary(page);
-  await dialog
-    .getByRole("link", { name: "Complete journey", exact: true })
-    .click();
-  await expect(
-    page.getByRole("heading", {
-      name: "Hinduism",
-      exact: true,
-    }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Hinduism", exact: true })).toBeVisible();
   await expect(page.locator(".map-labels").getByRole("link")).toHaveCount(6);
 });
 
@@ -146,7 +105,7 @@ test("map return restores the exact overview pose, zoom, and selected label focu
   const target = await canvas.getAttribute("data-camera-target");
   await page.locator("#destination-4").click();
   const world = await arrived(page, 3);
-  await world.locator(".world-back").click();
+  await world.locator(".gallery-back").click();
   await expect(canvas).toHaveAttribute("data-camera-phase", "overview");
   await expect(canvas).toHaveAttribute("data-camera-type", "orthographic");
   await expect(canvas).toHaveAttribute("data-camera-position", position!);
@@ -244,10 +203,10 @@ for (const viewport of [
       await expect(page.getByRole("button", { name: "Campus Map", exact: true })).toBeInViewport({ ratio: 1 });
     }
     await page
-      .getByRole("link", { name: "Explore the Exhibition", exact: true })
-      .click();
+      .getByRole("combobox", { name: "Choose an exhibition section", exact: true })
+      .selectOption("1");
     const world = await arrived(page, 0);
-    await world.locator(".world-back").click();
+    await world.locator(".gallery-back").click();
     await expect(
       page.getByRole("heading", { name: "Hinduism" }),
     ).toBeInViewport();

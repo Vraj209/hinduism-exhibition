@@ -1,0 +1,60 @@
+{
+  "before": [
+    {
+      "width": 1440,
+      "height": 900,
+      "start": {
+        "time": 0.5334,
+        "frames": 36,
+        "motion": "ambient",
+        "fov": 62.227
+      },
+      "end": {
+        "time": 5.7832,
+        "frames": 151,
+        "motion": "ambient",
+        "fov": 62.227
+      },
+      "wallSeconds": 5.276,
+      "changedFraction": 0.0016657529625100156,
+      "meanDifference": 0.2266169049325982,
+      "birdPixels": 0,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "start": {
+        "time": 0.4834,
+        "frames": 33,
+        "motion": "ambient",
+        "fov": 94
+      },
+      "end": {
+        "time": 5.6165,
+        "frames": 130,
+        "motion": "ambient",
+        "fov": 94
+      },
+      "wallSeconds": 5.111,
+      "changedFraction": 0.0007737824305871643,
+      "meanDifference": 0.30886562484194924,
+      "birdPixels": 0,
+      "errors": []
+    }
+  ],
+  "after": [
+    {
+      "width": 1440,
+      "height": 900,
+      "birdPixels": 42,
+      "changedSkyFraction": 0.10567674900506016
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "birdPixels": 15,
+      "changedSkyFraction": 0.24469231352909931
+    }
+  ]
+}

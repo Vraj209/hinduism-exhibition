@@ -1,16 +1,12 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { CAMPUS_WIND_DIRECTION, sampleCampusWind } from "./campus-environment";
+import { campusFlowerBeds, campusTrees, campusGroveBeds } from "./campus-obstacles";
+import { makeCampusTreeCanopy } from "./campus-tree-canopy";
+export { campusFlowerBeds, campusTrees } from "./campus-obstacles";
 
 type Palette = Record<string, THREE.MeshStandardMaterial>;
-type Tree = { x: number; z: number; scale: number; cypress: boolean };
 type Batch = Map<string, THREE.BufferGeometry[]>;
-
-/** Matching parterres plus two low beds framing the entrance court. */
-export const campusFlowerBeds = [-1, 1].flatMap((side) => [
-  ...[-27, -17, -7, 3, 13, 23].map((z) => ({ x: side * 6, z })),
-  { x: side * 3.8, z: 41.5 },
-]);
 
 // A folded, pointed leaf catches light on either half without a texture card.
 function leafGeometry() {
@@ -70,15 +66,7 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
     seed = (seed * 16807) % 2147483647;
     return (seed - 1) / 2147483646;
   };
-  const trees: Tree[] = [];
-  for (const side of [-1, 1]) {
-    for (const z of [-27, -17, -7, 3, 13, 23])
-      trees.push({ x: side * 25, z, scale: 1.15, cypress: false });
-    for (const z of [-32, -12, 8, 28])
-      trees.push({ x: side * 18, z, scale: 0.95, cypress: false });
-    for (const z of [-48, -40, -33])
-      trees.push({ x: side * 23, z, scale: 1.05, cypress: true });
-  }
+  const trees = campusTrees;
   const add = (
     material: string,
     geometry: THREE.BufferGeometry,
@@ -107,112 +95,43 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
   };
   let foliageClusters = 0;
   const leaf = leafGeometry();
-  for (const [index, tree] of trees.entries()) {
-    const { x, z, scale: s, cypress } = tree;
-    const phase = index * 2.39996;
-    const anchor: [number, number, number, number] = [x, 1.25 * s, z, 2 * s];
-    const trunk = new THREE.CylinderGeometry(
-      0.085 * s,
-      0.14 * s,
-      2.1 * s,
-      8,
-    ).translate(x, 1.05 * s, z);
-    add("trunk", trunk, anchor, 0, phase);
-    if (cypress) {
-      const crown = new THREE.LatheGeometry(
-        [
-          new THREE.Vector2(0.18 * s, 0),
-          new THREE.Vector2(0.48 * s, 0.7 * s),
-          new THREE.Vector2(0.45 * s, 1.5 * s),
-          new THREE.Vector2(0.25 * s, 2.6 * s),
-          new THREE.Vector2(0, 3.65 * s),
-        ],
-        mobile ? 9 : 12,
-      ).translate(x, 0.5, z);
-      add("leavesDark", crown, [x, 0.5, z, 3.65 * s], 0.17, phase);
+  const canopy = makeCampusTreeCanopy(palette, mobile, leaf);
+  group.add(canopy.group);
+  for (const [index, { x, z, scale: s }] of trees.entries()) {
+    add("soil", new THREE.CylinderGeometry(0.55 * s, 0.55 * s, 0.06, mobile ? 10 : 16)
+      .translate(x, 0.04, z), [x, 0, z, 1], 0, index);
+  }
+  // Broad, softly irregular mulch islands connect small understory groups.
+  for (const [index, bed] of campusGroveBeds.entries()) {
+    const shape = new THREE.Shape();
+    for (let j = 0; j <= 24; j++) {
+      const angle = j * Math.PI * 2 / 24;
+      const radius = 0.94 + Math.sin(angle * 3 + index) * 0.04;
+      const x = Math.cos(angle) * bed.radiusX * radius;
+      const z = Math.sin(angle) * bed.radiusZ * radius;
+      if (!j) shape.moveTo(x, z); else shape.lineTo(x, z);
+    }
+    const anchor: [number, number, number, number] = [bed.x, 0.035, bed.z, 0.5];
+    add("soil", new THREE.ShapeGeometry(shape).rotateX(-Math.PI / 2).translate(bed.x, 0.036, bed.z), anchor, 0, index);
+    for (let j = 0; j < 9; j++) {
+      const angle = j * 2.39996 + index;
+      const radius = Math.sqrt((j + 0.5) / 9) * 0.68;
+      const x = bed.x + Math.cos(angle) * radius * bed.radiusX;
+      const z = bed.z + Math.sin(angle) * radius * bed.radiusZ;
+      const height = 0.1 + random() * 0.09;
+      const shrub = new THREE.IcosahedronGeometry(1, mobile ? 0 : 1)
+        .scale(0.32 + random() * 0.13, height, 0.31 + random() * 0.12)
+        .rotateY(angle).translate(x, height + 0.035, z);
+      add(leaves[(j + index) % leaves.length], shrub, anchor, 0.055, angle);
       foliageClusters++;
-    } else {
-      for (let j = 0; j < 4; j++) {
-        const angle = (j / 4) * Math.PI * 2 + random() * 0.45;
-        const start = new THREE.Vector3(x, 1.25 * s, z);
-        const end = new THREE.Vector3(
-          x + Math.cos(angle) * 0.85 * s,
-          (2.2 + random() * 0.35) * s,
-          z + Math.sin(angle) * 0.85 * s,
-        );
-        const direction = end.clone().sub(start);
-        const branch = new THREE.CylinderGeometry(
-          0.026 * s,
-          0.065 * s,
-          direction.length(),
-          6,
-        );
-        branch.applyQuaternion(
-          new THREE.Quaternion().setFromUnitVectors(
-            new THREE.Vector3(0, 1, 0),
-            direction.clone().normalize(),
-          ),
-        );
-        branch.translate(...start.add(end).multiplyScalar(0.5).toArray());
-        add("branch", branch, anchor, 0.13, phase);
-      }
-      const clusters = mobile ? 12 : 18;
-      for (let j = 0; j < clusters; j++) {
-        const angle = j * 2.39996 + random() * 0.35;
-        const elevation = Math.acos(1 - (2 * (j + 0.5)) / clusters);
-        const r = (0.72 + random() * 0.25) * s;
-        const center = new THREE.Vector3(
-          x + Math.cos(angle) * Math.sin(elevation) * r,
-          2.35 * s + Math.cos(elevation) * 0.72 * s,
-          z + Math.sin(angle) * Math.sin(elevation) * r,
-        );
-        // Quiet darker volume behind small irregular leaf fans, rather than isolated balls.
-        const volume = new THREE.IcosahedronGeometry(
-          (0.16 + random() * 0.075) * s,
-          1,
-        );
-        volume
-          .scale(1.25, 0.72, 1)
-          .rotateY(angle)
-          .translate(...center.toArray());
-        add("leavesDark", volume, anchor, 0.23, phase);
-        foliageClusters++;
-        for (let k = 0; k < (mobile ? 8 : 22); k++) {
-          const frond = leaf.clone();
-          const yaw = angle + k * 2.39996;
-          const leafScale = 0.72 + random() * 0.45;
-          const spread = (0.13 + random() * 0.2) * s;
-          frond
-            .scale(0.15 * s * leafScale, 0.13 * s, 0.27 * s * leafScale)
-            .rotateX((random() - 0.45) * 1.75)
-            .rotateZ((random() - 0.5) * 0.7)
-            .rotateY(yaw);
-          frond.translate(
-            center.x + Math.cos(yaw) * spread,
-            center.y + (random() - 0.5) * 0.4 * s,
-            center.z + Math.sin(yaw) * spread,
-          );
-          add(
-            leaves[(j + k) % leaves.length],
-            frond,
-            anchor,
-            0.36,
-            phase + k * 0.11,
-          );
-        }
+      for (let k = 0; k < (mobile ? 3 : 7); k++) {
+        const yaw = k * 2.39996;
+        add(leaves[(k + j) % leaves.length], leaf.clone().scale(0.12, 0.08, 0.19)
+          .rotateX(-0.35).rotateY(yaw)
+          .translate(x + Math.cos(yaw) * 0.28, height * 1.6, z + Math.sin(yaw) * 0.28),
+          anchor, 0.07, angle + k * 0.2);
       }
     }
-    add(
-      "soil",
-      new THREE.CylinderGeometry(0.55 * s, 0.55 * s, 0.06, 16).translate(
-        x,
-        0.04,
-        z,
-      ),
-      anchor,
-      0,
-      phase,
-    );
   }
   let flowerCount = 0;
   // At 3.134 metres per unit these blooms top out below .25 units (0.8 m).
@@ -319,6 +238,7 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
   const dummy = new THREE.Object3D();
   const update = (time: number) => {
     const wind = sampleCampusWind(time);
+    canopy.update(time);
     uniforms.gardenTime.value = time;
     uniforms.gardenStrength.value = wind.strength;
     for (let i = 0; i < driftingLeaves; i++) {
@@ -367,13 +287,17 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
   return {
     group,
     update,
+    prepare: canopy.prepare,
     diagnostics: {
+      planting: canopy.diagnostics,
       driftingLeaves,
       foliageClusters,
       flowerCount,
       shadowDeformation: true,
     },
     dispose() {
+      group.remove(canopy.group);
+      canopy.dispose();
       group.traverse((object) => {
         if (object instanceof THREE.Mesh) object.geometry.dispose();
       });

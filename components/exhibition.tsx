@@ -15,12 +15,15 @@ import {
   ArrowUpRight,
   Check,
   Compass,
+  DoorOpen,
+  Footprints,
   Grid2X2,
   Minus,
   Pause,
   Play,
   Plus,
   RotateCcw,
+  Square,
   X,
 } from "lucide-react";
 import {
@@ -32,8 +35,11 @@ import { PavilionMark, MandirMark } from "./pavilion-mark";
 import { FallbackMap, fallbackPositions } from "./fallback-map";
 import { useCampusAmbience } from "./use-campus-ambience";
 import { CampusAmbienceControls } from "./campus-ambience-controls";
+import { HeroTitle } from "./hero-title";
+import { INITIAL_WALK_STATE, type WalkCommand, type WalkState } from "@/lib/campus-walk";
 import "./campus-environment.css";
 import "./campus-hero.css";
+import "./campus-walk.css";
 
 const SectionExperience = dynamic(() => import("./section-experience"), {
   ssr: false,
@@ -88,6 +94,10 @@ export default function Exhibition() {
   const [zoom, setZoom] = useState(1);
   const [lookOffset, setLookOffset] = useState(0);
   const [campusView, setCampusView] = useState<"arrival" | "map">("arrival");
+  const [walking, setWalking] = useState(false);
+  const [walkCommand, setWalkCommand] = useState<WalkCommand | null>(null);
+  const [walkState, setWalkState] = useState<WalkState>(INITIAL_WALK_STATE);
+  const walkSequence = useRef(0);
   const stage = useRef<HTMLDivElement>(null);
   const [stageSize, setStageSize] = useState({ width: 900, height: 650 });
   const about = useRef<HTMLDialogElement>(null);
@@ -146,12 +156,16 @@ export default function Exhibition() {
     let commitFrame = 0;
     const frame = requestAnimationFrame(() => {
       const canvas = stage.current?.querySelector("canvas");
-      if (!fallback && canvas?.dataset.cameraPhase !== "overview") return;
+      if (!fallback && !walking && canvas?.dataset.cameraPhase !== "overview") return;
       commitFrame = requestAnimationFrame(() => {
         if (pendingReturnFocus.current === null) return;
         const pin = document.getElementById(`destination-${pendingReturnFocus.current}`);
         const visiblePin = pin && getComputedStyle(pin).visibility === "visible" && getComputedStyle(pin).display !== "none";
-        const target = visiblePin ? pin : document.getElementById("section-selector");
+        const target = walking
+          ? campusView === "arrival"
+            ? stage.current?.querySelector<HTMLElement>(".campus-webgl")
+            : document.getElementById("walk-map-toggle")
+          : visiblePin ? pin : document.getElementById("section-selector");
         target?.focus({ preventScroll: true });
         if (document.activeElement === target) pendingReturnFocus.current = null;
       });
@@ -160,7 +174,7 @@ export default function Exhibition() {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(commitFrame);
     };
-  }, [active, positions, fallback]);
+  }, [active, positions, fallback, walking, campusView]);
 
   useEffect(() => {
     const restore = requestAnimationFrame(() => {
@@ -216,6 +230,10 @@ export default function Exhibition() {
     setHovered(null);
     setSettled(null);
     window.location.hash = targetHash;
+    // Synchronize the route subscriber before React renders this event's state
+    // updates. Otherwise the later native hashchange can clear an instant
+    // reduced-motion arrival that has already completed on the next frame.
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
   }, []);
   const onReady = useCallback(() => setReady(true), []);
   const onError = useCallback(() => setFailed(true), []);
@@ -229,51 +247,87 @@ export default function Exhibition() {
     setSettled(id);
   }, []);
   const onPositions = useCallback((next: Position[]) => setPositions(next), []);
+  const onWalkChange = useCallback((next: WalkState) => setWalkState(next), []);
+  const commandWalk = useCallback((type: WalkCommand["type"], id?: number) => {
+    setWalkCommand({ sequence: ++walkSequence.current, type, id });
+  }, []);
+  const focusWalk = useCallback(() => {
+    requestAnimationFrame(() => {
+      stage.current?.parentElement?.scrollIntoView({ behavior: "instant", block: "start" });
+      stage.current?.querySelector<HTMLElement>(".campus-webgl")?.focus({ preventScroll: true });
+    });
+  }, []);
+  const startWalking = () => {
+    setCampusView("arrival");
+    setZoom(1);
+    setWalking(true);
+    commandWalk("entrance");
+    focusWalk();
+  };
+  const exitWalking = () => {
+    commandWalk("stop");
+    setWalking(false);
+    setCampusView("arrival");
+    setLookOffset(0);
+    setZoom(1);
+    if (active) window.location.hash = "#map";
+    requestAnimationFrame(() => document.getElementById("walk-around")?.focus({ preventScroll: true }));
+  };
+  const returnToEntrance = () => {
+    setCampusView("arrival");
+    if (active) window.location.hash = "#map";
+    commandWalk("entrance");
+    focusWalk();
+  };
+  const openWalkMap = () => {
+    commandWalk("stop");
+    setCampusView("map");
+    if (active) window.location.hash = "#map";
+  };
+  const selectDestination = useCallback((id: number) => {
+    if (walking && !fallback) {
+      setHovered(null);
+      setCampusView("arrival");
+      commandWalk("dome", id);
+      focusWalk();
+    } else navigate(id);
+  }, [walking, fallback, commandWalk, focusWalk, navigate]);
+  const walkingOutside = walking && !fallback && !active;
+  const nearbySection = walkState.nearDome === null ? null : sections[walkState.nearDome - 1];
 
   return (
     <>
       <a className="skip-link" href="/read">
         Skip to all exhibition content
       </a>
-      <header className="site-header hero-site-header" inert={!!active} aria-hidden={!!active}>
-        <a href="#" className="brand">
-          <MandirMark />
-          <span>
-            HINDUISM <small>A LIVING EXHIBITION</small>
-          </span>
-        </a>
-        <nav aria-label="Main navigation">
-          <button
-            className="nav-link about-link"
-            onClick={() => about.current?.showModal()}
-          >
-            The exhibition
-          </button>
-          <Link className="nav-link read-link" href="/read">
-            Read all sections <ArrowUpRight size={14} />
-          </Link>
-        </nav>
-
-      </header>
-
       <main id="main-content" inert={!!active} aria-hidden={!!active}>
         <section
           className={`experience campus-hero ${isMap ? "map-mode" : "arrival-mode"} ${active ? "section-mode" : ""}`}
           aria-label="Interactive exhibition campus"
           data-view={campusView}
           data-fallback={fallback}
+          data-walking={walking && !fallback}
         >
-          {!active && (
-            <div className="hero-introduction">
-              <p className="hero-eyebrow">A LIVING EXHIBITION</p>
-              <h1>Hinduism</h1>
-              <p className="hero-description">Explore six perspectives on Hindu life.</p>
-              <a href={`#section-${sections[0].slug}`} className="button primary hero-explore">
-                Explore the Exhibition <ArrowRight size={16} />
-              </a>
-              <Link className="hero-reference" href="/references#robbinsville">
-                Robbinsville Akshardham · photo-based reconstruction ↗
-              </Link>
+          {!active && <HeroTitle />}
+
+          {!active && !walking && !fallback && (
+            <button id="walk-around" className="walk-start" type="button" disabled={!ready} onClick={startWalking}>
+              <Footprints size={18} /> Walk Around <ArrowRight size={16} />
+            </button>
+          )}
+          {walkingOutside && (
+            <div className="walk-toolbar">
+              <div className="walk-guidance">
+                <span><Footprints size={15} /> Walk Around</span>
+                <p className="walk-desktop-hint">WASD / arrows to walk · Q/E to turn · R/F to look · Home to level · drag to look or click a path</p>
+                <p className="walk-touch-hint">Tap a path to walk · drag to look around</p>
+                {campusView === "map" && <p>Walking is paused while you explore the map.</p>}
+              </div>
+              <div className="walk-toolbar-actions" role="group" aria-label="Walking controls">
+                <button type="button" className="walk-control" onClick={exitWalking}><X size={15} /><span>Exit Walk Mode</span></button>
+                <button id="walk-map-toggle" type="button" className="walk-control" aria-pressed={campusView === "map"} onClick={() => { if (campusView === "map") { setCampusView("arrival"); focusWalk(); } else openWalkMap(); }}><Compass size={15} /><span>{campusView === "map" ? "Resume Walk" : "Campus Map"}</span></button>
+                <button type="button" className="walk-control" onClick={returnToEntrance}><RotateCcw size={15} /><span>Return to Entrance</span></button>
+              </div>
             </div>
           )}
 
@@ -292,12 +346,15 @@ export default function Exhibition() {
                 view={campusView}
                 zoom={zoom}
                 lookOffset={lookOffset}
+                walking={walking}
+                walkCommand={walkCommand}
+                onWalkChange={onWalkChange}
                 onLookChange={setLookOffset}
                 onReady={onReady}
                 onError={onError}
                 onSettled={onSettled}
                 onPositions={onPositions}
-                onSelect={navigate}
+                onSelect={selectDestination}
                 onEnvironment={ambience.updateEnvironment}
               />
             )}
@@ -331,7 +388,13 @@ export default function Exhibition() {
                         onMouseLeave={() => setHovered(null)}
                         onFocus={() => setHovered(position.id)}
                         onBlur={() => setHovered(null)}
-                        aria-label={`${String(position.id).padStart(2, "0")} ${section.title}. ${section.message}`}
+                        onClick={(event) => {
+                          if (walking && !fallback && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+                            event.preventDefault();
+                            selectDestination(position.id);
+                          }
+                        }}
+                        aria-label={`${walking && !fallback ? "Walk to " : ""}${String(position.id).padStart(2, "0")} ${section.title}. ${section.message}`}
                       >
                         <span className="pin-number">
                           {String(position.id).padStart(2, "0")}
@@ -352,19 +415,38 @@ export default function Exhibition() {
 
           {!active && (
             <div className="hero-dock">
+              {walkingOutside && (
+                <div className="walk-progress">
+                  {nearbySection && !walkState.automatic && campusView === "arrival" ? (
+                    <div className="walk-entrance-card">
+                      <div><span>DOME {String(nearbySection.id).padStart(2, "0")}</span><strong>{nearbySection.title}</strong></div>
+                      <button type="button" className="walk-control walk-primary" onClick={() => navigate(nearbySection.id)}><DoorOpen size={16} /> Enter Exhibition</button>
+                    </div>
+                  ) : (
+                    <p className="walk-status" role="status">{walkState.status}</p>
+                  )}
+                  {walkState.automatic && (
+                    <div className="walk-route-actions">
+                      <span>{Math.ceil(walkState.distanceRemaining)} m remaining</span>
+                      <button type="button" className="walk-control walk-stop" onClick={() => commandWalk("stop")}><Square size={13} /> Stop</button>
+                      <button type="button" className="walk-control" onClick={() => commandWalk("direct")}><ArrowRight size={15} /> Go Directly</button>
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="hero-navigation-row">
                 <div className="hero-section-selector">
-                  <label htmlFor="section-selector">YOUR JOURNEY</label>
+                  <label htmlFor="section-selector">{walkingOutside ? "WALK TO AN EXHIBITION" : "YOUR JOURNEY"}</label>
                   <select
                     id="section-selector"
                     aria-label="Choose an exhibition section"
                     value=""
                     onChange={(event) => {
                       const id = Number(event.target.value);
-                      if (id >= 1 && id <= 6) navigate(id);
+                      if (id >= 1 && id <= 6) selectDestination(id);
                     }}
                   >
-                    <option value="" disabled>Choose a section · 6 destinations</option>
+                    <option value="" disabled>{walkingOutside ? "Walk to a dome · 6 destinations" : "Choose a section · 6 destinations"}</option>
                     {sections.map((section) => (
                       <option key={section.id} value={section.id}>
                         {String(section.id).padStart(2, "0")} · {section.title}
@@ -372,8 +454,17 @@ export default function Exhibition() {
                     ))}
                   </select>
                 </div>
+                {walkingOutside && (
+                  <div className="hero-section-selector walk-direct-selector">
+                    <label htmlFor="direct-section-selector">OR OPEN A SECTION DIRECTLY</label>
+                    <select id="direct-section-selector" aria-label="Open a section directly" value="" onChange={(event) => { const id = Number(event.target.value); if (id >= 1 && id <= 6) navigate(id); }}>
+                      <option value="" disabled>Open a section directly</option>
+                      {sections.map((section) => <option key={section.id} value={section.id}>{String(section.id).padStart(2, "0")} · {section.title}</option>)}
+                    </select>
+                  </div>
+                )}
                 <div className="hero-camera-controls" role="group" aria-label="Campus camera controls">
-                  {campusView === "arrival" && !fallback && (
+                  {campusView === "arrival" && !fallback && !walkingOutside && (
                     <div className="hero-look-controls">
                       <button type="button" className="hero-control hero-icon-control" aria-label="Look left" title="Look left" disabled={lookOffset <= -0.48} onClick={() => setLookOffset((value) => Math.max(-0.48, value - 0.1))}>
                         <ArrowLeft size={16} />
@@ -390,13 +481,13 @@ export default function Exhibition() {
                       <button type="button" className="hero-control hero-icon-control" aria-label="Zoom in" disabled={zoom >= 1.3} onClick={() => setZoom((value) => Math.min(1.3, value + 0.1))}><Plus size={16} /></button>
                     </div>
                   )}
-                  <button type="button" className="hero-control hero-map-toggle" disabled={fallback} onClick={() => setCampusView((current) => current === "map" ? "arrival" : "map")} aria-pressed={campusView === "map"}>
+                  {!walkingOutside && <><button type="button" className="hero-control hero-map-toggle" disabled={fallback} onClick={() => setCampusView((current) => current === "map" ? "arrival" : "map")} aria-pressed={campusView === "map"}>
                     <Compass size={15} /><span>{campusView === "map" ? "Entrance View" : "Campus Map"}</span>
                   </button>
                   <button type="button" className="hero-control" disabled={fallback} onClick={() => { setZoom(1); setLookOffset(0); setCampusView("arrival"); }}>
                     <RotateCcw size={14} /><span>Reset View</span>
-                  </button>
-                  <button type="button" className="hero-control hero-icon-control hero-lightweight" aria-label={fallback ? "Enable 3D map" : "Use lightweight map"} title={fallback ? "Enable 3D map" : "Use lightweight map"} aria-pressed={fallback} onClick={() => { if (failed) setFailed(false); setSimpleMap(!fallback); }}>
+                  </button></>}
+                  <button type="button" className="hero-control hero-icon-control hero-lightweight" aria-label={fallback ? "Enable 3D map" : "Use lightweight map"} title={fallback ? "Enable 3D map" : "Use lightweight map"} aria-pressed={fallback} onClick={() => { if (walking) exitWalking(); if (failed) setFailed(false); setSimpleMap(!fallback); }}>
                     <Grid2X2 size={15} />
                   </button>
                 </div>
@@ -465,7 +556,6 @@ export default function Exhibition() {
         hash={hash}
         campusArrived={fallback || settled === active?.id}
         reducedMotion={reducedMotion}
-        mapFallback={fallback}
         onVisited={markVisited}
       />
 

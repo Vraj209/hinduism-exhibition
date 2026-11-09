@@ -44,7 +44,7 @@ export const worlds: SectionWorld[] = [
       "A carved timber haveli with a central lightwell, three intimate bays and an ivory floor.",
     palette: ["#c49c80", "#efe5d2", "#857457"],
     sourceNote:
-      "Food, clothing, and the language of song are the source’s examples. The setting is a conceptual interpretation; no foods, garments, or languages are prescribed.",
+      "Food, clothing, and the language of song are the source’s examples. Photographs show BAPS community life; no particular foods, garments, or languages are prescribed by the exhibition brief.",
     stories: [
       {
         id: "food-and-everyday-life",
@@ -99,7 +99,7 @@ export const worlds: SectionWorld[] = [
       "Three shaded passages converge around an open, softly lit central court.",
     palette: ["#bf967b", "#eadfc9", "#8b7362"],
     sourceNote:
-      "The source names duties, relationships, and connection to something greater. The passages are conceptual; no particular rite or ritual instruction is supplied.",
+      "The source names duties, relationships, and connection to something greater. Photographs show documented BAPS practices as context; the exhibition brief supplies no particular rite or ritual instruction.",
     stories: [
       {
         id: "remembering-our-duties",
@@ -151,7 +151,7 @@ export const worlds: SectionWorld[] = [
       "A calm, domed court with an unbroken floor line, a recessed niche, and a carved map-like surface.",
     palette: ["#bb947b", "#eee7d7", "#6f7c76"],
     sourceNote:
-      "The source identifies atma as the soul and describes its journey through a map metaphor. This conceptual path does not depict stages, destinations, or doctrines absent from the PDF.",
+      "The source identifies atma as the soul and describes its journey through a map metaphor. Photographs of prayer, visiting a mandir and shared reflection provide context; they do not depict the soul or introduce stages, destinations or doctrines absent from the PDF.",
     stories: [
       {
         id: "atma-the-soul",
@@ -171,7 +171,7 @@ export const worlds: SectionWorld[] = [
         caption:
           "The soul’s journey gives this section its focus, inviting visitors to consider the exhibition’s language of movement and understanding.",
         summary:
-          "The exhibition describes the atma through the idea of a journey. This moment holds attention on that word and the questions it may open. The source gives a point of departure for reflection, while the digital setting uses a continuous path as an editorial image of the stated theme.",
+          "The exhibition describes the atma through the idea of a journey. This moment holds attention on that word and the questions it may open. The source gives a point of departure for reflection; the accompanying photograph provides an everyday context for considering the journey metaphor.",
         takeaway:
           "The atma’s journey is the source’s central theme for this section.",
         sourceLabel:
@@ -225,7 +225,7 @@ export const worlds: SectionWorld[] = [
       "A low, welcoming garden pavilion with three shaded resting places on a continuous path.",
     palette: ["#bd967c", "#eae1cf", "#73816a"],
     sourceNote:
-      "The source names human values, their roots in tradition, and acts of kindness. The garden is a conceptual interpretation; it adds no list of virtues or sacred plant symbolism.",
+      "The source names human values, their roots in tradition, and acts of kindness. Photographs of BAPS community life and service offer examples alongside these themes; the exhibition brief adds no prescribed list of virtues.",
     stories: [
       {
         id: "human-values",
@@ -277,7 +277,7 @@ export const worlds: SectionWorld[] = [
       "A single domed hall with three connected alcoves and a common central floor.",
     palette: ["#bc9176", "#f0e7d7", "#94764d"],
     sourceNote:
-      "These three moments remain within one section. Shastra, Mandir, and Sant — Guru follow this exhibition’s devotional account, including Satpurush; the conceptual hall does not claim to represent every Hindu tradition.",
+      "These three moments remain within one section. Shastra, Mandir, and Sant — Guru follow this exhibition’s devotional account, including Satpurush. The photographs document BAPS scripture, sacred space and spiritual guidance; this account is not presented as identical across every Hindu tradition.",
     stories: [
       {
         id: "shastra-scripture",

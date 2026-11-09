@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { makeCampusPennant } from "./campus-pennant";
+import { makeCampusFlagstaff, type CampusFlagOptions } from "./campus-pennant";
 
 type Palette = Record<string, THREE.MeshStandardMaterial>;
 type Stone = "pale" | "ivory" | "pathLine" | "gold" | "wood";
@@ -8,7 +8,7 @@ type Stone = "pale" | "ivory" | "pathLine" | "gold" | "wood";
 /** Photo-referenced exterior reconstruction, NOT surveyed or authorized geometry.
  * References and unresolved dimensions: docs/design/robbinsville-mandir-reference.md.
  * Front faces +Z; no pavilion ID is attached: the landmark is not an exhibition. */
-export function makeRobbinsvilleMandir(palette?: Palette): THREE.Group {
+export function makeRobbinsvilleMandir(palette?: Palette, flagOptions: CampusFlagOptions = {}): THREE.Group {
   const group = new THREE.Group();
   group.name = "Robbinsville Akshardham — photo-based reconstruction";
   group.userData = {
@@ -238,11 +238,16 @@ export function makeRobbinsvilleMandir(palette?: Palette): THREE.Group {
       12,
     );
     if (flag) {
-      cylinder("gold", x, y + 0.96 * size, z, 0.022 * size, 0.95 * size);
-      // Plain pale pennant: no unverified sacred emblem is invented.
-      const pennant = makeCampusPennant(size, materials.pale);
-      pennant.position.set(x, y + 1.26 * size, z);
-      group.add(pennant);
+      const principal = size === 1;
+      const staff = makeCampusFlagstaff(
+        principal ? "mandir-principal" : `mandir-secondary-${x}-${z}`,
+        principal ? 2.4 : 1.2,
+        principal ? 1.7 : 1.05,
+        materials.gold,
+        flagOptions,
+      );
+      staff.position.set(x, y + 0.62 * size, z);
+      group.add(staff);
     }
   };
 

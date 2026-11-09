@@ -1,0 +1,206 @@
+{
+  "verifiedOn": "2026-11-09",
+  "browser": "local headless Chrome; viewport emulation, not physical phones",
+  "results": [
+    {
+      "width": 320,
+      "arrival": {
+        "drawCalls": 118,
+        "triangles": 654517,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 24,
+          "farTrees": 105,
+          "treeDrawCalls": 16,
+          "treeTriangles": 106520,
+          "treeGeometryTriangles": 6974,
+          "farTreeShadows": false,
+          "windShadowDeformation": true
+        }
+      },
+      "map": {
+        "drawCalls": 187,
+        "triangles": 1126737,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 0,
+          "farTrees": 129,
+          "treeDrawCalls": 8,
+          "treeTriangles": 92612,
+          "treeGeometryTriangles": 6974,
+          "farTreeShadows": false,
+          "windShadowDeformation": true
+        }
+      },
+      "layout": {
+        "horizontalOverflow": false,
+        "labels": 6
+      },
+      "errors": []
+    },
+    {
+      "width": 390,
+      "arrival": {
+        "drawCalls": 122,
+        "triangles": 660361,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 24,
+          "farTrees": 105,
+          "treeDrawCalls": 16,
+          "treeTriangles": 106520,
+          "treeGeometryTriangles": 6974,
+          "farTreeShadows": false,
+          "windShadowDeformation": true
+        }
+      },
+      "map": {
+        "drawCalls": 187,
+        "triangles": 1126737,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 0,
+          "farTrees": 129,
+          "treeDrawCalls": 8,
+          "treeTriangles": 92612,
+          "treeGeometryTriangles": 6974,
+          "farTreeShadows": false,
+          "windShadowDeformation": true
+        }
+      },
+      "layout": {
+        "horizontalOverflow": false,
+        "labels": 6
+      },
+      "errors": []
+    },
+    {
+      "width": 768,
+      "arrival": {
+        "drawCalls": 140,
+        "triangles": 866592,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 52,
+          "farTrees": 77,
+          "treeDrawCalls": 16,
+          "treeTriangles": 224508,
+          "treeGeometryTriangles": 13322,
+          "farTreeShadows": true,
+          "windShadowDeformation": true
+        }
+      },
+      "map": {
+        "drawCalls": 203,
+        "triangles": 1302320,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 0,
+          "farTrees": 129,
+          "treeDrawCalls": 8,
+          "treeTriangles": 92612,
+          "treeGeometryTriangles": 13322,
+          "farTreeShadows": true,
+          "windShadowDeformation": true
+        }
+      },
+      "layout": {
+        "horizontalOverflow": false,
+        "labels": 6
+      },
+      "errors": []
+    },
+    {
+      "width": 1024,
+      "arrival": {
+        "drawCalls": 140,
+        "triangles": 866592,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 52,
+          "farTrees": 77,
+          "treeDrawCalls": 16,
+          "treeTriangles": 224508,
+          "treeGeometryTriangles": 13322,
+          "farTreeShadows": true,
+          "windShadowDeformation": true
+        }
+      },
+      "map": {
+        "drawCalls": 203,
+        "triangles": 1302320,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 0,
+          "farTrees": 129,
+          "treeDrawCalls": 8,
+          "treeTriangles": 92612,
+          "treeGeometryTriangles": 13322,
+          "farTreeShadows": true,
+          "windShadowDeformation": true
+        }
+      },
+      "layout": {
+        "horizontalOverflow": false,
+        "labels": 6
+      },
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "arrival": {
+        "drawCalls": 140,
+        "triangles": 866592,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 52,
+          "farTrees": 77,
+          "treeDrawCalls": 16,
+          "treeTriangles": 224508,
+          "treeGeometryTriangles": 13322,
+          "farTreeShadows": true,
+          "windShadowDeformation": true
+        }
+      },
+      "map": {
+        "drawCalls": 203,
+        "triangles": 1302320,
+        "planting": {
+          "treeCount": 129,
+          "treeForms": 4,
+          "groveBeds": 20,
+          "nearTrees": 0,
+          "farTrees": 129,
+          "treeDrawCalls": 8,
+          "treeTriangles": 92612,
+          "treeGeometryTriangles": 13322,
+          "farTreeShadows": true,
+          "windShadowDeformation": true
+        }
+      },
+      "layout": {
+        "horizontalOverflow": false,
+        "labels": 6
+      },
+      "errors": []
+    }
+  ]
+}

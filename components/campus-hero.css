@@ -1,20 +1,4 @@
 /* The entrance is a full-screen place, with navigation at its edges. */
-.hero-site-header.site-header {
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 8;
-  height: 82px;
-  width: 100%;
-  padding: 0 32px;
-  border: 0;
-  background: linear-gradient(to bottom, #f6f0e5f5, #f6f0e580 72%, transparent);
-}
-.hero-site-header .brand { gap: 12px; }
-.hero-site-header .brand > svg { width: 33px; height: 40px; }
-.hero-site-header .brand > span { font-size: 18px; letter-spacing: 3px; }
-.hero-site-header .brand small { font-size: 6px; letter-spacing: 2px; }
-.hero-site-header nav { margin-left: auto; gap: 24px; }
-.hero-site-header .nav-link { color: #58422e; font-size: 11px; }
 .experience.campus-hero,
 .experience.campus-hero:not(.section-mode),
 .experience.campus-hero.section-mode {
@@ -64,41 +48,6 @@
   line-height: 1.35;
   text-align: center;
   white-space: normal;
-}
-.hero-introduction {
-  position: absolute;
-  z-index: 4;
-  left: 36px;
-  top: 100px;
-  bottom: auto;
-  width: 250px;
-  color: #523b29;
-  pointer-events: none;
-  text-shadow: 0 1px 15px #fff8ef;
-}
-.hero-introduction a { pointer-events: auto; }
-.hero-eyebrow { font-size: 9px; letter-spacing: 2px; line-height: 1.4; }
-.hero-introduction h1 {
-  margin: 8px 0;
-  font-size: 36px;
-  font-weight: 400;
-  letter-spacing: -0.8px;
-  line-height: 1;
-}
-.hero-description {
-  max-width: 270px;
-  margin: 10px 0 14px;
-  font-size: 12px;
-  line-height: 1.8;
-}
-.hero-explore.button { min-height: 44px; padding: 12px 17px; font-size: 11px; gap: 22px; text-shadow: none; }
-.hero-reference {
-  display: block;
-  max-width: 265px;
-  margin-top: 10px;
-  color: #67543d;
-  font-size: 8px;
-  line-height: 1.6;
 }
 .hero-dock {
   position: absolute;
@@ -183,17 +132,10 @@
 .campus-hero .campus-ambience-volume input { height: 36px; }
 .campus-hero .campus-ambience-volume output { font-size: 10px; }
 .campus-hero .campus-ambience-error { background: #fbf6edf5; padding: 5px 8px; max-width: 270px; }
-.campus-hero[data-view="map"] .hero-introduction,
-.campus-hero[data-fallback="true"] .hero-introduction { bottom: auto; top: 108px; width: 250px; }
-.campus-hero[data-view="map"] .hero-description,
-.campus-hero[data-fallback="true"] .hero-description { margin-block: 10px 14px; }
 /* Schematic pins keep the same stage-space projection as the source image. */
 .campus-hero[data-fallback="true"] .fallback-layer { inset: 0; }
 
 @media (max-width: 1000px) {
-  .hero-site-header.site-header { padding-inline: 24px; }
-  .hero-introduction { left: 24px; top: 100px; bottom: auto; width: 250px; }
-  .hero-introduction h1 { font-size: 36px; }
   .hero-dock { left: 24px; right: 24px; }
   .hero-section-selector { flex-basis: 260px; }
   .hero-look-hint { display: none; }
@@ -201,30 +143,9 @@
   .campus-hero .pin-title { max-width: 124px; font-size: 9px; }
 }
 @media (max-width: 760px) {
-  .hero-site-header.site-header { height: 66px; padding-inline: 18px; }
-  .hero-site-header .brand { gap: 9px; }
-  .hero-site-header .brand > svg { width: 27px; height: 33px; }
-  .hero-site-header .brand > span { font-size: 15px; letter-spacing: 2px; }
-  .hero-site-header .brand small { font-size: 5px; letter-spacing: 1.7px; }
-  .hero-site-header nav { gap: 10px; }
-  .hero-site-header .about-link { display: none; }
-  .hero-site-header .nav-link { font-size: 9px; }
   .experience.campus-hero,
   .experience.campus-hero:not(.section-mode),
   .experience.campus-hero.section-mode { min-height: 540px; }
-  .hero-introduction,
-  .campus-hero[data-view="map"] .hero-introduction,
-  .campus-hero[data-fallback="true"] .hero-introduction {
-    top: 83px;
-    bottom: auto;
-    left: 20px;
-    width: 265px;
-  }
-  .hero-introduction h1 { margin-block: 6px; font-size: 34px; }
-  .hero-eyebrow { font-size: 7px; letter-spacing: 1.8px; }
-  .hero-description { margin: 9px 0 12px; max-width: 255px; font-size: 11px; line-height: 1.6; }
-  .hero-explore.button { min-height: 42px; padding: 10px 13px; font-size: 10px; gap: 16px; }
-  .hero-reference { display: none; }
   .hero-dock { left: 16px; right: 16px; bottom: 16px; gap: 8px; }
   .hero-navigation-row { flex-direction: column; align-items: stretch; gap: 8px; }
   .hero-section-selector { flex: 0 0 auto; width: 100%; }
@@ -244,16 +165,8 @@
   .campus-hero .map-pin .pin-title { display: none; }
   .campus-hero .map-pin:focus-visible .pin-title { display: block; position: absolute; top: 32px; }
   .campus-hero .pin-number { width: 30px; height: 30px; font-size: 10px; }
-  .campus-hero[data-view="map"] .hero-description,
-  .campus-hero[data-fallback="true"] .hero-description { display: none; }
-  .campus-hero[data-view="map"] .hero-explore,
-  .campus-hero[data-fallback="true"] .hero-explore { display: none; }
 }
 @media (max-width: 360px) {
-  .hero-site-header.site-header { padding-inline: 14px; }
-  .hero-site-header .brand > span { font-size: 13px; }
-  .hero-site-header .nav-link { font-size: 8px; }
-  .hero-introduction { left: 16px; width: 240px; }
   .hero-dock { left: 12px; right: 12px; }
   .hero-control { padding-inline: 7px; gap: 4px; }
   .hero-icon-control { width: 32px; }
@@ -261,19 +174,9 @@
   .hero-control svg { width: 13px; }
 }
 @media (max-height: 620px) and (min-width: 761px) {
-  .hero-site-header.site-header { height: 64px; }
-  .hero-introduction { top: 82px; bottom: auto; width: 230px; }
-  .hero-introduction h1 { font-size: 36px; }
-  .hero-description { margin-block: 8px 12px; font-size: 11px; }
-  .hero-reference { display: none; }
   .hero-dock { bottom: 12px; gap: 6px; }
 }
 @media (max-height: 650px) and (max-width: 760px) {
-  .hero-introduction { top: 74px; }
-  .hero-introduction h1 { font-size: 30px; }
-  .hero-description { margin-block: 7px 10px; font-size: 10px; }
-  .hero-eyebrow { display: none; }
-  .hero-explore.button { min-height: 38px; padding-block: 8px; }
   .hero-dock { bottom: 10px; }
 }
 
@@ -281,23 +184,6 @@
   .experience.campus-hero,
   .experience.campus-hero:not(.section-mode),
   .experience.campus-hero.section-mode { min-height: 0; }
-  .hero-site-header.site-header { height: 54px; }
-  .hero-introduction,
-  .campus-hero[data-view="map"] .hero-introduction,
-  .campus-hero[data-fallback="true"] .hero-introduction { top: 64px; left: 18px; width: 220px; }
-  .hero-introduction h1 { font-size: 28px; }
-  .campus-hero[data-view="arrival"][data-fallback="false"] .hero-introduction {
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-  }
-  .campus-hero[data-view="arrival"][data-fallback="false"] .hero-introduction h1 {
-    margin: 0;
-    font-size: 26px;
-  }
-  .hero-eyebrow, .hero-description, .hero-reference { display: none; }
-  .hero-explore.button { min-height: 36px; padding: 7px 10px; font-size: 9px; margin-top: 8px; }
   .hero-dock { left: 14px; right: 14px; bottom: 8px; gap: 5px; }
   .hero-navigation-row { flex-direction: row; align-items: end; gap: 8px; }
   .hero-section-selector { flex: 1 1 200px; }
@@ -309,9 +195,46 @@
   .campus-hero .garden-motion-button,
   .campus-hero .campus-ambience-toggle { min-height: 32px; font-size: 9px; padding-block: 4px; }
 }
-@media (min-width: 761px) and (min-height: 621px) and (max-height: 860px) {
-  .hero-introduction { top: 88px; }
-  .hero-introduction h1 { font-size: 32px; margin-block: 6px; }
-  .hero-description { margin-block: 8px 12px; font-size: 11px; }
-  .hero-reference { display: none; }
+
+.campus-hero {
+  --hero-title-size: min(clamp(3.5rem, calc(1.25rem + 11vw), 12.5rem), 22svh);
+  --hero-title-top: max(env(safe-area-inset-top), clamp(12px, 3svh, 36px));
+  /* Reserve the line box and flourish padding before the font arrives. */
+  --hero-title-height: calc(var(--hero-title-size) * 1.35);
+  --hero-title-gap: clamp(8px, 1.2svh, 16px);
+}
+
+.hero-title {
+  position: absolute;
+  z-index: 4;
+  top: var(--hero-title-top);
+  left: 0;
+  width: 100%;
+  height: var(--hero-title-height);
+  margin: 0;
+  padding: .1em max(16px, 4vw, env(safe-area-inset-left), env(safe-area-inset-right));
+  color: #523b29;
+  font-size: var(--hero-title-size);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 2px 20px #fff8ef80;
+  pointer-events: none;
+}
+
+.campus-hero[data-view="map"],
+.campus-hero[data-fallback="true"] {
+  --hero-title-top: max(8px, env(safe-area-inset-top));
+  --hero-title-size: 36px;
+  --hero-title-gap: 8px;
+}
+
+@media (max-height: 500px) {
+  .campus-hero {
+    --hero-title-top: max(4px, env(safe-area-inset-top));
+    --hero-title-size: clamp(36px, 11svh, 52px);
+    --hero-title-gap: 4px;
+  }
 }

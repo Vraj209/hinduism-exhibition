@@ -8,6 +8,8 @@ import {
 } from "@/content/visual-references";
 import { festivals, festivalSourceNote } from "@/content/festivals";
 import { pavilionCarvings } from "@/content/pavilion-carvings";
+import { galleryMedia } from "@/content/gallery-media";
+import { worlds } from "@/content/stories";
 import { PavilionMark, MandirMark } from "@/components/pavilion-mark";
 import "./references.css";
 
@@ -102,17 +104,18 @@ export default function ReferencesPage() {
       <section className="reference-origin">
         <h2>Images, artwork and permissions</h2>
         <p>
-          All rendered architecture, still images, decorative reliefs and six
-          section icons were created for this digital exhibition. Official
-          photographs informed the research and are linked for context; none are
-          redistributed as website assets. No BAPS logo, portrait, sacred figure
-          or copied sculptural relief is used.
+          The campus architecture, decorative reliefs
+          and six section icons were created for this digital exhibition.
+          All twenty-nine story photographs across the six dark galleries come
+          from official BAPS sources.
         </p>
         <p>
-          Festival object studies are illustrations, not photographs of a real
-          celebration. Their compositions, materials and colours are design
-          choices. Approved mandir photographs can replace them when supplied
-          with permission and credit details.
+          Photographs are credited to BAPS Swaminarayan Sanstha and linked to
+          their original event context below. Copyright remains with the
+          respective owners. These photographs document community life,
+          spiritual practice, service, sacred spaces and celebrations. Their
+          event context is distinct from the exhibition’s teachings. This
+          exhibition is not an official BAPS website.
         </p>
         <a href="https://www.baps.org/Terms-and-Conditions.aspx">
           BAPS usage terms ↗
@@ -120,6 +123,22 @@ export default function ReferencesPage() {
         <a href="https://akshardham.com/terms-and-conditions/">
           Akshardham usage terms ↗
         </a>
+      </section>
+      <section className="reference-festivals" aria-labelledby="gallery-photo-credits">
+        <h2 id="gallery-photo-credits">Gallery photograph credits</h2>
+        <ol>
+          {worlds.flatMap((world) => world.stories.map((story) => {
+            const media = galleryMedia[story.id];
+            return media ? (
+              <li key={story.id}>
+                <strong>{story.title}</strong>
+                <span>{sections[world.sectionId - 1].title}</span>
+                <span>{media.sourceContext} · {media.credit}</span>
+                <a href={media.sourceHref} target="_blank" rel="noreferrer">View official BAPS source ↗</a>
+              </li>
+            ) : null;
+          }))}
+        </ol>
       </section>
       <footer>
         <Link href="/read">Read all six sections →</Link>

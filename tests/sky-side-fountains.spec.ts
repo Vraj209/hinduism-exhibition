@@ -245,7 +245,7 @@ async function observeAudio(page: Page) {
 async function audioSnapshot(page: Page) {
   return page.evaluate(() => {
     const observed = (window as unknown as ObservedWindow).__fountainAudio;
-    const sources = observed.sources.slice(-2);
+    const sources = observed.sources.filter(source => source.loop).slice(-2);
     return {
       states: observed.contexts.map(context => context.state),
       sourceCount: observed.sources.length,
@@ -277,8 +277,8 @@ test("both side fountains create separate gesture-gated spatial audio sources", 
   await expect.poll(async () => (await audioSnapshot(page)).sidePans[0]).toBeLessThan(-0.01);
   await expect.poll(async () => (await audioSnapshot(page)).sidePans[1]).toBeGreaterThan(0.01);
   const actual = await audioSnapshot(page);
-  expect(actual.sourceCount).toBe(5);
-  expect(actual.panCount).toBe(5);
+  expect(actual.sourceCount).toBe(7); // Five garden/visitor loops and two fountains.
+  expect(actual.panCount).toBe(8); // Includes the silent, gesture-gated bird bus.
   expect(actual.loops).toEqual([true, true]);
   expect(actual.separateBuffers).toBe(true);
   expect(actual.sampleValues[0]).not.toBe(actual.sampleValues[1]);
@@ -302,7 +302,7 @@ test("approaching either side makes that fountain more prominent and preserves a
     const initial = await json<SpatialSource[]>(canvas, "data-side-fountain-sound");
     const samples: { presence: number; difference: number; gainDifference: number }[] = [];
     await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption(String(id));
-    const world = page.getByRole("region", { name: `${sectionTitles[id - 1]} immersive experience`, exact: true });
+    const world = page.getByRole("region", { name: `${sectionTitles[id - 1]} exhibition gallery`, exact: true });
     await expect.poll(async () => {
       const spatial = await json<SpatialSource[]>(canvas, "data-side-fountain-sound");
       const audio = await audioSnapshot(page);
@@ -313,7 +313,7 @@ test("approaching either side makes that fountain more prominent and preserves a
     expect(Math.max(...samples.map(sample => sample.difference))).toBeGreaterThan(0.04);
     expect(Math.max(...samples.map(sample => sample.gainDifference))).toBeGreaterThan(0.005);
     await expect.poll(async () => (await audioSnapshot(page)).states).toEqual(["suspended"]);
-    await world.getByRole("link", { name: "Back to map", exact: true }).click();
+    await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
     await expect(canvas).toHaveAttribute("data-camera-phase", "overview");
     await expect.poll(async () => (await audioSnapshot(page)).states).toEqual(["running"]);
   }

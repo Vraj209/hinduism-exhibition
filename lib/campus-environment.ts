@@ -22,10 +22,18 @@ export type CampusEnvironmentSample = {
   waterPresence: number;
   waterPan: number;
   sideFountains?: CampusFountainSound[];
+  foliagePresence?: number;
+  /** Nearby visible visitors only; motion is zero when the crowd is still. */
+  visitors?: { presence: number; motion: number; pan: number };
   outdoor: number;
 };
 
 type SpatialVector = { x: number; y: number; z: number };
+
+export function sampleFoliagePresence(trees: readonly { x: number; z: number }[], listener: SpatialVector) {
+  const nearest = trees.reduce((distance, tree) => Math.min(distance, Math.hypot(tree.x - listener.x, tree.z - listener.z, Math.max(0, listener.y - 3))), Infinity);
+  return 0.12 + 0.88 / (1 + Math.pow(nearest / 6, 2));
+}
 
 /** Independent point sources at the actual basins, relative to the listener. */
 export function sampleSideFountainSound(

@@ -69,7 +69,6 @@ for (const viewport of [
     expect(bounds!.width).toBeGreaterThanOrEqual(viewport.width - 1);
     expect(bounds!.height).toBeGreaterThanOrEqual(viewport.height - 1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
-    await expect(page.getByRole("link", { name: "Explore the Exhibition", exact: true })).toBeInViewport({ ratio: 1 });
     await expect(page.getByRole("button", { name: "Campus Map", exact: true })).toBeInViewport({ ratio: 1 });
     await expect(page.getByRole("button", { name: "Reset View", exact: true })).toBeInViewport({ ratio: 1 });
     await assertSelector(page);
@@ -133,10 +132,10 @@ test("mobile selector reaches an off-axis section and restores the visitor's pre
   const saved = await pose(canvas);
   const selector = await assertSelector(page);
   await selector.selectOption("6");
-  const world = page.getByRole("region", { name: `${sectionTitles[5]} immersive experience`, exact: true });
+  const world = page.getByRole("region", { name: `${sectionTitles[5]} exhibition gallery`, exact: true });
   await expect(world).toHaveAttribute("data-arrived", "true");
   await expect(page).toHaveURL(new RegExp(`#section-${sectionSlugs[5]}`));
-  await world.getByRole("link", { name: "Back to map", exact: true }).click();
+  await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
   await expect(canvas).toHaveAttribute("data-camera-phase", "overview");
   await expect(canvas).toHaveAttribute("data-camera-type", "perspective");
   await expect.poll(() => pose(canvas)).toEqual(saved);
@@ -184,9 +183,9 @@ test("look and reset requests made during the return journey settle on the reque
     await right.click();
     await expect(canvas).toHaveAttribute("data-look-offset", "0.2000");
     await page.getByRole("combobox", { name: "Choose an exhibition section", exact: true }).selectOption("6");
-    const world = page.getByRole("region", { name: `${sectionTitles[5]} immersive experience`, exact: true });
+    const world = page.getByRole("region", { name: `${sectionTitles[5]} exhibition gallery`, exact: true });
     await expect(world).toHaveAttribute("data-arrived", "true");
-    await world.getByRole("link", { name: "Back to map", exact: true }).click();
+    await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
     await expect(canvas).toHaveAttribute("data-camera-phase", "returning");
     await left.click();
     if (reset) await page.getByRole("button", { name: "Reset View", exact: true }).click();

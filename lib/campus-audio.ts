@@ -2,8 +2,9 @@ import type {
   CampusEnvironmentSample,
   CampusSideFountainId,
 } from "./campus-environment";
+import { createCampusBirdAudio } from "./campus-bird-audio";
 
-type Texture = "water" | "wind" | "rustle";
+type Texture = "water" | "wind" | "rustle" | "footsteps" | "conversation";
 type Layer = {
   source: AudioBufferSourceNode;
   highPass: BiquadFilterNode;
@@ -17,6 +18,7 @@ export type CampusAudioGraph = {
   output: GainNode;
   layers: Record<Texture, Layer>;
   sideFountains: Record<CampusSideFountainId, Layer>;
+  birds: ReturnType<typeof createCampusBirdAudio>;
   release: () => void;
 };
 
@@ -58,15 +60,16 @@ function makeTexture(
   kind: Texture,
   variant = 0,
 ): AudioBuffer {
-  const rate = kind === "wind" ? 22050 : 32000;
+  const visitor = kind === "footsteps" || kind === "conversation";
+  const rate = kind === "wind" || visitor ? 22050 : 32000;
   const seconds = kind === "water"
     ? variant === 1 ? 17 : variant === 2 ? 23 : 19
-    : kind === "wind" ? 17 : 13;
+    : kind === "wind" ? 17 : kind === "footsteps" ? 11 : kind === "conversation" ? 23 : 13;
   const length = rate * seconds;
   const overlap = Math.floor(rate * 0.65);
-  const channels = variant > 0 ? 1 : 2;
+  const channels = variant > 0 || visitor ? 1 : 2;
   const buffer = context.createBuffer(channels, length, rate);
-  let seed = (kind === "water" ? 1879 : kind === "wind" ? 7919 : 6521) + variant * 3251;
+  let seed = ({ water: 1879, wind: 7919, rustle: 6521, footsteps: 4013, conversation: 9311 }[kind]) + variant * 3251;
   const random = () => {
     seed = (seed * 16807) % 2147483647;
     return (seed - 1) / 2147483646;
@@ -77,6 +80,10 @@ function makeTexture(
     let medium = 0;
     let envelope = 0;
     let event = 0;
+    let nextStep = Math.floor(rate * 0.4);
+    let stepAge = rate;
+    let phraseRemaining = 0;
+    let phraseTarget = 0;
     for (let i = 0; i < raw.length; i++) {
       const white = random() * 2 - 1;
       low += (white - low) * 0.018;
@@ -90,12 +97,33 @@ function makeTexture(
         event *= 0.9982;
         envelope += (event - envelope) * 0.025;
         raw[i] = low * 0.6 + medium * 0.26 + white * (0.09 + envelope * 0.22);
-      } else {
+      } else if (kind === "rustle") {
         // Tiny overlapping leaf movements, separated from the low air layer.
         if (random() < 10 / rate) event = 0.25 + random() * 0.75;
         event *= 0.99965;
         envelope += (event - envelope) * 0.003;
         raw[i] = (white - medium) * (0.02 + envelope * 0.18);
+      } else if (kind === "footsteps") {
+        // Unpitched heel/sole contact with a short cloth/stone scuff. Irregular
+        // intervals and pauses avoid an audible metronome or marching crowd.
+        if (i >= nextStep) {
+          stepAge = 0;
+          event = 0.42 + random() * 0.5;
+          nextStep = i + Math.floor(rate * (0.48 + random() * 0.24 + (random() < 0.16 ? 0.8 : 0)));
+        }
+        const age = stepAge++ / rate;
+        const heel = Math.min(1, age / 0.008) * Math.exp(-age * 42);
+        const scuff = age > 0.025 ? Math.exp(-(age - 0.025) * 31) * 0.16 : 0;
+        raw[i] = event * (low * heel * 2.2 + medium * (heel * 0.28 + scuff));
+      } else {
+        // Very distant, entirely unvoiced hubbub: filtered noise and irregular
+        // breath-like phrases, without words, pitched voices or a tonal drone.
+        if (--phraseRemaining <= 0) {
+          phraseTarget = random() < 0.44 ? 0 : 0.12 + random() * 0.65;
+          phraseRemaining = Math.floor(rate * (0.25 + random() * 1.8));
+        }
+        envelope += (phraseTarget - envelope) * 0.00015;
+        raw[i] = (medium - low) * envelope * 0.48;
       }
     }
     const samples = buffer.getChannelData(channel);
@@ -123,7 +151,9 @@ export function createCampusAudio(
   output.connect(limiter).connect(context.destination);
   const layers = {} as Record<Texture, Layer>;
   const sideFountains = {} as Record<CampusSideFountainId, Layer>;
+  let birds: ReturnType<typeof createCampusBirdAudio> | undefined;
   const release = () => {
+    birds?.release();
     for (const layer of [...Object.values(layers), ...Object.values(sideFountains)]) {
       try {
         layer.source.stop();
@@ -141,6 +171,7 @@ export function createCampusAudio(
     void context.close().catch(() => {});
   };
   try {
+    birds = createCampusBirdAudio(context, output);
     const addLayer = (kind: Texture, variant = 0) => {
       const source = context.createBufferSource();
       source.buffer = makeTexture(context, kind, variant);
@@ -148,12 +179,12 @@ export function createCampusAudio(
       const highPass = context.createBiquadFilter();
       highPass.type = "highpass";
       highPass.frequency.value =
-        kind === "water" ? 200 : kind === "wind" ? 85 : 1300;
+        { water: 200, wind: 85, rustle: 1300, footsteps: 95, conversation: 280 }[kind];
       highPass.Q.value = 0.3;
       const lowPass = context.createBiquadFilter();
       lowPass.type = "lowpass";
       lowPass.frequency.value =
-        kind === "water" ? 2900 : kind === "wind" ? 700 : 6200;
+        { water: 2900, wind: 700, rustle: 6200, footsteps: 1200, conversation: 1250 }[kind];
       lowPass.Q.value = 0.35;
       const gain = context.createGain();
       gain.gain.value = 0;
@@ -168,7 +199,7 @@ export function createCampusAudio(
       else gain.connect(output);
       return { source, highPass, lowPass, gain, pan };
     };
-    for (const kind of ["water", "wind", "rustle"] as const) {
+    for (const kind of ["water", "wind", "rustle", "footsteps", "conversation"] as const) {
       layers[kind] = addLayer(kind);
       layers[kind].source.start();
     }
@@ -176,7 +207,7 @@ export function createCampusAudio(
       sideFountains[id] = addLayer("water", index + 1);
       sideFountains[id].source.start();
     }
-    return { context, output, layers, sideFountains, release };
+    return { context, output, layers, sideFountains, birds, release };
   } catch (error) {
     release();
     throw error;
@@ -191,6 +222,7 @@ export function tuneCampusAudio(
   const presence = Math.max(0, Math.min(1, sample.waterPresence));
   const gust = Math.max(0, Math.min(1, sample.wind.gust));
   const strength = Math.max(0, Math.min(1, sample.wind.strength));
+  const foliage = Math.max(0, Math.min(1, sample.foliagePresence ?? 0.3));
   const centralGain = 0.2 + presence * 0.85;
   const sideTargets = (["left", "right"] as const).map((id) => {
     const source = sample.sideFountains?.find((fountain) => fountain.id === id);
@@ -201,6 +233,10 @@ export function tuneCampusAudio(
   // their distance ratios within one gentle amplitude budget before limiting.
   const totalWater = centralGain + sideTargets.reduce((sum, source) => sum + source.gain, 0);
   const waterBalance = Math.min(1, 1.15 / totalWater);
+  // Distant calls stay below even the quiet central fountain. One-shots share
+  // the master volume, indoor fade, mute and hidden-page context suspension.
+  rampAudio(graph.birds.gain.gain, centralGain * waterBalance * 0.09, context, 0.5);
+  graph.birds.update();
   rampAudio(layers.water.gain.gain, centralGain * waterBalance, context, 0.4);
   // The fountain gains both level and detail as the camera approaches.
   rampAudio(
@@ -227,8 +263,18 @@ export function tuneCampusAudio(
   rampAudio(layers.wind.lowPass.frequency, 520 + gust * 430, context, 0.4);
   rampAudio(
     layers.rustle.gain.gain,
-    0.05 + gust * 0.31 + strength * 0.08,
+    (0.05 + gust * 0.31 + strength * 0.08) * (0.45 + foliage * 1.1),
     context,
     0.3,
   );
+  rampAudio(layers.rustle.lowPass.frequency, 1800 + foliage * 3000, context, 0.4);
+  const visitorPresence = Math.max(0, Math.min(1, sample.visitors?.presence ?? 0));
+  const visitorMotion = Math.max(0, Math.min(1, sample.visitors?.motion ?? 0));
+  const visitorPan = Math.max(-0.75, Math.min(0.75, sample.visitors?.pan ?? 0));
+  // Even the closest group remains beneath the fountain/garden bed. A stopped
+  // or reduced-motion scene has no footfalls; conversational hush can remain.
+  rampAudio(layers.footsteps.gain.gain, visitorPresence * visitorMotion * 0.085, context, 0.18);
+  rampAudio(layers.conversation.gain.gain, visitorPresence * 0.045, context, 0.6);
+  for (const kind of ["footsteps", "conversation"] as const)
+    if (layers[kind].pan) rampAudio(layers[kind].pan!.pan, visitorPan, context, 0.45);
 }

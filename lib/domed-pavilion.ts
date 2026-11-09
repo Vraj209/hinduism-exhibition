@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { addThematicRelief } from "./pavilion-reliefs";
+import { makeCampusFlagstaff, type CampusFlagOptions } from "./campus-pennant";
 
 type Palette = Record<string, THREE.MeshStandardMaterial>;
 type Batch = Map<string, THREE.BufferGeometry[]>;
@@ -371,7 +372,7 @@ function roundSegmentedDome(batch: Batch) {
   lotusCeiling(batch, 0, 5.69, 0, 2.25);
 }
 
-export function makeDomedPavilion(id: number, palette: Palette) {
+export function makeDomedPavilion(id: number, palette: Palette, flagOptions: CampusFlagOptions = {}) {
   const group = new THREE.Group();
   const batch: Batch = new Map();
   const materials = { stone: "rose", recess: "roseDark", highlight: "ivory" };
@@ -414,6 +415,9 @@ export function makeDomedPavilion(id: number, palette: Palette) {
   frieze(batch, 7.45, 6.15, 5.78);
   block(batch, "rose", 0, 6.1, 0, 7.9, 0.1, 6.6);
   roundSegmentedDome(batch);
+  const staff = makeCampusFlagstaff(`dome-${id}`, 1.5, 1.3, palette.gold, flagOptions);
+  staff.position.set(0, 9.87, 0); // Above the original crown and gold kalash.
+  group.add(staff);
   // Tangential relief segments form a thematic belt around the whole dome drum.
   for (let segment = 0; segment < 8; segment++) {
     const angle = segment * Math.PI / 4;

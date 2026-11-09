@@ -224,7 +224,7 @@ test("approaching the garden changes spatial water sound and entering a pavilion
   await page.locator("#destination-1").click();
   const samples: { presence: number; pan: number }[] = [];
   const world = page.getByRole("region", {
-    name: `${sectionTitles[0]} immersive experience`,
+    name: `${sectionTitles[0]} exhibition gallery`,
     exact: true,
   });
   await expect
@@ -250,7 +250,7 @@ test("approaching the garden changes spatial water sound and entering a pavilion
   // still finish fading and suspend, then resume when its controls return.
   await expect(ambience).toHaveCount(0);
   await stopped(canvas);
-  await world.getByRole("link", { name: "Back to map", exact: true }).click();
+  await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
   await expect(canvas).toHaveAttribute("data-camera-phase", "overview");
   await expect.poll(() => audioStates(page)).toEqual(["running"]);
   await expect

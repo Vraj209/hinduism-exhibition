@@ -3,132 +3,8 @@ import {
   expectedFestivals,
   sectionSlugs,
   sectionTitles,
+  expectedMomentTitles,
 } from "./exhibition-fixtures";
-
-test("the native festival chooser selects all fourteen distinct stages and correct official sources", async ({
-  page,
-}) => {
-  test.setTimeout(60_000);
-  const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(error.message));
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/#section-hindu-festivals/story-1");
-  const world = page.getByRole("region", {
-    name: "Hindu Festivals immersive experience",
-    exact: true,
-  });
-  await expect(world).toHaveAttribute("data-arrived", "true");
-  const chooser = world.getByRole("combobox", {
-    name: "Choose a festival",
-    exact: true,
-  });
-  await expect(chooser.locator("option")).toHaveText(
-    expectedFestivals.map((festival) => festival.name),
-  );
-  const canvas = world.locator(".world-webgl canvas");
-  const originalCanvas = await canvas.elementHandle();
-  for (let index = 0; index < expectedFestivals.length; index++) {
-    const festival = expectedFestivals[index];
-    await chooser.selectOption(String(index));
-    await expect(chooser).toHaveValue(String(index));
-    await expect(page).toHaveURL(
-      new RegExp(`#section-hindu-festivals/story-${index + 1}$`),
-    );
-    await expect(world).toHaveAttribute("data-story", festival.id);
-    await expect(world.locator(".world-copy h2")).toHaveText(festival.name);
-    await expect(canvas).toHaveAttribute("data-story-index", String(index));
-    await expect(canvas).toHaveAttribute(
-      "data-stage-weights",
-      expectedFestivals
-        .map((_, i) => (i === index ? "1.00" : "0.00"))
-        .join(","),
-    );
-    expect(
-      await canvas.evaluate(
-        (element, original) => element === original,
-        originalCanvas,
-      ),
-    ).toBe(true);
-    await world
-      .getByRole("button", { name: "Read summary", exact: true })
-      .click();
-    const dialog = page.getByRole("dialog", {
-      name: festival.name,
-      exact: true,
-    });
-    await expect(dialog.locator(".world-source-link")).toHaveAttribute(
-      "href",
-      festival.sourceUrl,
-    );
-    await expect(
-      dialog.getByRole("link", {
-        name: "Official BAPS festival guide ↗",
-        exact: true,
-      }),
-    ).toHaveAttribute("href", festival.sourceUrl);
-    await expect(
-      dialog.getByRole("link", {
-        name: "Original exhibition theme · PDF page 1 ↗",
-        exact: true,
-      }),
-    ).toHaveAttribute("href", "/exhibition-source.pdf#page=1");
-    await expect(
-      dialog.getByText("Additional festival research", { exact: true }),
-    ).toBeVisible();
-    await dialog
-      .getByRole("button", { name: "Close summary", exact: true })
-      .click();
-  }
-  await expect(
-    world.getByRole("link", { name: "Next section", exact: true }),
-  ).toBeVisible();
-  expect(errors).toEqual([]);
-});
-
-test("rapid festival selection, keyboard selection and history work beyond the former three-story limit", async ({
-  page,
-}) => {
-  await page.goto("/#section-hindu-festivals/story-1");
-  const world = page.getByRole("region", {
-    name: "Hindu Festivals immersive experience",
-    exact: true,
-  });
-  await expect(world).toHaveAttribute("data-arrived", "true");
-  const chooser = world.getByRole("combobox", {
-    name: "Choose a festival",
-    exact: true,
-  });
-  for (const index of [13, 4, 11, 6]) {
-    await chooser.selectOption(String(index));
-    await page.waitForTimeout(50);
-  }
-  await expect(world).toHaveAttribute("data-story", "swaminarayan-jayanti");
-  await expect(world.locator("canvas")).toHaveAttribute(
-    "data-stage-weights",
-    expectedFestivals.map((_, i) => (i === 6 ? "1.00" : "0.00")).join(","),
-  );
-  await expect(page).toHaveURL(/story-7$/);
-  await page.goBack();
-  await expect(world).toHaveAttribute("data-story", "rath-yatra");
-  await page.goForward();
-  await expect(world).toHaveAttribute("data-story", "swaminarayan-jayanti");
-  await page.reload();
-  await expect(world).toHaveAttribute("data-arrived", "true");
-  await expect(chooser).toHaveValue("6");
-  await chooser.focus();
-  // One native type-ahead search avoids concatenating letters in the browser's
-  // timed search buffer; Home/End navigation differs by platform.
-  await chooser.press("n");
-  await expect(world).toHaveAttribute("data-story", "navratri");
-  await world.locator(".world-back").click();
-  await expect(page).toHaveURL(/#map$/);
-  // Re-enter without an explicit story so stored progress, rather than the hash,
-  // must preserve an index beyond the original three-moment collection.
-  await page.locator("#destination-4").click();
-  await expect(world).toHaveAttribute("data-arrived", "true");
-  await expect(world).toHaveAttribute("data-story", "navratri");
-  await expect(page).toHaveURL(/story-14$/);
-});
 
 test("the reading route retains six original messages while labeling named festivals as additional research", async ({
   page,
@@ -190,7 +66,7 @@ test("the reading route retains six original messages while labeling named festi
   ).toHaveAttribute("href", "/references");
 });
 
-test("sources and credits work without JavaScript and separate original artwork from research photographs", async ({
+test("sources and credits work without JavaScript and distinguish original artwork from BAPS gallery photographs", async ({
   browser,
   baseURL,
 }) => {
@@ -207,7 +83,7 @@ test("sources and credits work without JavaScript and separate original artwork 
     page.getByText(/Named festival research was added separately/),
   ).toBeVisible();
   await expect(
-    page.getByText(/none are redistributed as website assets/),
+    page.getByText(/All twenty-nine story photographs across the six dark galleries come from official BAPS sources/),
   ).toBeVisible();
   await expect(page.getByRole("article")).toHaveCount(6);
   await expect(
@@ -237,7 +113,7 @@ test("sources and credits work without JavaScript and separate original artwork 
     "Care held in human hands",
     "Three sustaining pillars",
   ]);
-  const festivalRows = page.locator(".reference-festivals li");
+  const festivalRows = page.locator(".reference-festivals").filter({ has: page.getByRole("heading", { name: "Festival research", exact: true }) }).locator("li");
   await expect(festivalRows).toHaveCount(14);
   for (let index = 0; index < expectedFestivals.length; index++) {
     await expect(festivalRows.nth(index).locator("strong")).toHaveText(
@@ -259,5 +135,13 @@ test("sources and credits work without JavaScript and separate original artwork 
       () => document.documentElement.scrollWidth <= innerWidth + 1,
     ),
   ).toBe(true);
+  const photoCredits = page.locator('section[aria-labelledby="gallery-photo-credits"] li');
+  await expect(photoCredits).toHaveCount(29);
+  const storyTitles = expectedMomentTitles.flat();
+  for (let index = 0; index < storyTitles.length; index++) {
+    await expect(photoCredits.nth(index).locator("strong")).toHaveText(storyTitles[index]);
+    await expect(photoCredits.nth(index).getByRole("link")).toHaveAttribute("href", /^https:\/\/([a-z]+\.)?baps\.org\//);
+    await expect(photoCredits.nth(index)).toContainText("BAPS Swaminarayan Sanstha");
+  }
   await context.close();
 });
