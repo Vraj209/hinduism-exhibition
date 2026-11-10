@@ -24,7 +24,9 @@ const pavilionFrames = pavilions.map((p) => ({ ...p, cos: Math.cos(p.rotation), 
 const rectangles: Rect[] = [
   // Include the stone foundations, coping and raised soil, not just the water.
   { x: 0, z: -3, halfX: 2.45, halfZ: 26.35 },
-  ...campusFlowerBeds.map(({ x, z }) => ({ x, z, halfX: 1.425, halfZ: 3.125 })),
+  ...campusFlowerBeds.map(({ x, z, radiusX, radiusZ, bow }) => ({
+    x: x + Math.sign(x) * bow / 2, z, halfX: radiusX + bow / 2 + 0.08, halfZ: radiusZ + 0.08,
+  })),
   ...campusGroveBeds.map(({ x, z, radiusX, radiusZ }) => ({ x, z, halfX: radiusX, halfZ: radiusZ })),
   ...[-8.8, 8.8].map((x) => ({ x, z: 0, halfX: 0.19, halfZ: 32.75 })),
   ...[-5.125, 5.125].map((x) => ({ x, z: -32.75, halfX: 3.725, halfZ: 0.19 })),

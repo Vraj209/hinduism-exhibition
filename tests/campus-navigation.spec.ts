@@ -116,7 +116,9 @@ test("swept movement cannot cross water, flower beds or leave the campus", () =>
   expect(blockedByBasin.x).toBeLessThan(-2.6);
   expect(isCampusWalkable(blockedByBasin.x, blockedByBasin.z)).toBe(true);
   const blockedByBed = moveOnCampus({ x: 0, y: 0.02, z: 41.5 }, 8, 0);
-  expect(blockedByBed.x).toBeLessThan(2.22);
+  // The conservative arrival-bed envelope starts at x=2.6; stop short of it.
+  expect(blockedByBed.x).toBeLessThan(2.6);
+  expect(isCampusWalkable(blockedByBed.x, blockedByBed.z)).toBe(true);
   const boundary = moveOnCampus(entrance, 0, 40);
   expect(boundary.z).toBeLessThan(54.55);
   expect(isCampusWalkable(boundary.x, boundary.z)).toBe(true);

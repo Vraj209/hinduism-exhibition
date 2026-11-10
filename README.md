@@ -30,6 +30,7 @@ Walking controls, route boundaries and test evidence are recorded in [campus wal
 
 ## Experience
 
+- Loading opens with “Welcome to Hinduism Exhibition” against a softly moving sky. The same “Hinduism” title moves from the center to the top as the sky dissolves and controls fade in; reduced motion skips the animation. The schematic is reserved for lightweight mode and rendering failures.
 - The campus follows one entrance-to-mandir axis. Domes 1, 2 and 3 run from nearest to farthest on the left; domes 6, 5 and 4 face them on the right. A long fountain garden, continuous side walks and short inward approaches connect all six destinations.
 - The full-screen opening stands at the entrance, 1.7 metres above the paving in the scene's calibrated scale, looking along the garden toward the Robbinsville Akshardham Mahamandir. The level perspective camera stays still until the visitor deliberately looks around.
 - Drag horizontally, use the Look left / Look right buttons, or focus the scene and press the arrow keys. Home or Reset View restores the central axis. Campus Map opens the optional overhead view; the lightweight SVG map preserves the same arrangement.

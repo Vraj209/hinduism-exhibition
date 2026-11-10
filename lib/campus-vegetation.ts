@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { CAMPUS_WIND_DIRECTION, sampleCampusWind } from "./campus-environment";
-import { campusFlowerBeds, campusTrees, campusGroveBeds } from "./campus-obstacles";
+import { campusTrees, campusGroveBeds } from "./campus-obstacles";
 import { makeCampusTreeCanopy } from "./campus-tree-canopy";
+import { makeCampusFlowers } from "./campus-flowers";
 export { campusFlowerBeds, campusTrees } from "./campus-obstacles";
 
 type Palette = Record<string, THREE.MeshStandardMaterial>;
@@ -133,57 +134,8 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
       }
     }
   }
-  let flowerCount = 0;
-  // At 3.134 metres per unit these blooms top out below .25 units (0.8 m).
-  for (const { x, z } of campusFlowerBeds) {
-    for (let i = 0; i < 6; i++)
-      for (let j = 0; j < 3; j++) {
-        const bx = x + (j - 1) * 0.65;
-        const bz = z + (i - 2.5) * 0.78;
-        const phase = random() * Math.PI * 2;
-        const anchor: [number, number, number, number] = [bx, 0.065, bz, 0.18];
-        const h = 0.18 + random() * 0.05;
-        add(
-          "leavesDark",
-          new THREE.CylinderGeometry(0.004, 0.006, h - 0.065, 5).translate(
-            bx,
-            (h + 0.065) / 2,
-            bz,
-          ),
-          anchor,
-          0.025,
-          phase,
-        );
-        for (let k = 0; k < 5; k++) {
-          const petal = leaf
-            .clone()
-            .scale(0.055, 0.025, 0.08)
-            .rotateY((k * Math.PI * 2) / 5)
-            .translate(bx, h, bz);
-          add(
-            ["flowerCream", "flowerRose", "flowerGold"][(i + j) % 3],
-            petal,
-            anchor,
-            0.03,
-            phase,
-          );
-        }
-        for (let k = 0; k < 2; k++)
-          add(
-            "leaves",
-            leaf
-              .clone()
-              .scale(0.05, 0.025, 0.085)
-              .rotateX(-0.4)
-              .rotateY(phase + k * Math.PI)
-              .translate(bx, h - 0.055, bz),
-            anchor,
-            0.035,
-            phase,
-          );
-        flowerCount++;
-      }
-  }
+  const flowers = makeCampusFlowers(palette, mobile);
+  group.add(flowers.group);
   const windMaterial = (material: THREE.Material) => {
     material.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniforms);
@@ -239,6 +191,7 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
   const update = (time: number) => {
     const wind = sampleCampusWind(time);
     canopy.update(time);
+    flowers.update(time);
     uniforms.gardenTime.value = time;
     uniforms.gardenStrength.value = wind.strength;
     for (let i = 0; i < driftingLeaves; i++) {
@@ -287,17 +240,23 @@ export function makeCampusVegetation(palette: Palette, mobile: boolean) {
   return {
     group,
     update,
-    prepare: canopy.prepare,
+    prepare(camera: THREE.Camera) {
+      const treesChanged = canopy.prepare(camera);
+      const flowersChanged = flowers.prepare(camera);
+      return treesChanged || flowersChanged;
+    },
     diagnostics: {
       planting: canopy.diagnostics,
       driftingLeaves,
       foliageClusters,
-      flowerCount,
+      flowerCount: flowers.diagnostics.flowerCount,
+      flowers: flowers.diagnostics,
       shadowDeformation: true,
     },
     dispose() {
-      group.remove(canopy.group);
+      group.remove(canopy.group, flowers.group);
       canopy.dispose();
+      flowers.dispose();
       group.traverse((object) => {
         if (object instanceof THREE.Mesh) object.geometry.dispose();
       });

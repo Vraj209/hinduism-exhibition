@@ -10,6 +10,10 @@ const heroScript = localFont({
   fallback: ["Georgia", "serif"],
 });
 
-export function HeroTitle() {
-  return <h1 className={`hero-title ${heroScript.className}`}>Hinduism</h1>;
+export function HeroTitle({ ariaHidden = false }: { ariaHidden?: boolean }) {
+  return (
+    <div className="hero-title-layer">
+      <h1 className={`hero-title ${heroScript.className}`} aria-hidden={ariaHidden}>Hinduism</h1>
+    </div>
+  );
 }

@@ -37,6 +37,7 @@ import { useCampusAmbience } from "./use-campus-ambience";
 import { CampusAmbienceControls } from "./campus-ambience-controls";
 import { HeroTitle } from "./hero-title";
 import { SectionMenu } from "./section-menu";
+import { CampusWelcome } from "./campus-welcome";
 import { INITIAL_WALK_STATE, type WalkCommand, type WalkState } from "@/lib/campus-walk";
 import "./campus-environment.css";
 import "./campus-hero.css";
@@ -87,6 +88,7 @@ export default function Exhibition() {
   const isMap = hash === "#map" || !!active;
   const [hovered, setHovered] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
+  const [welcomeComplete, setWelcomeComplete] = useState(false);
   const [failed, setFailed] = useState(false);
   const [simpleMap, setSimpleMap] = useState(false);
   const [environmentPaused, setEnvironmentPaused] = useState(false);
@@ -104,6 +106,7 @@ export default function Exhibition() {
   const about = useRef<HTMLDialogElement>(null);
   const previousActive = useRef<number | null>(null);
   const pendingReturnFocus = useRef<number | null>(null);
+  const restoreWelcomeFocus = useRef(false);
   const fallback = failed || simpleMap;
   const ambience = useCampusAmbience({
     outdoors: !active || (!fallback && ready && settled !== active.id),
@@ -151,7 +154,7 @@ export default function Exhibition() {
   }, [active]);
 
   useEffect(() => {
-    if (active || pendingReturnFocus.current === null) return;
+    if (active || !welcomeComplete || pendingReturnFocus.current === null) return;
     // The renderer publishes its final phase before React commits the matching
     // projected pins. Allow that commit before deciding a pin is off screen.
     let commitFrame = 0;
@@ -175,7 +178,15 @@ export default function Exhibition() {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(commitFrame);
     };
-  }, [active, positions, fallback, walking, campusView]);
+  }, [active, positions, fallback, walking, campusView, welcomeComplete]);
+
+  useEffect(() => {
+    if (!welcomeComplete || active || !restoreWelcomeFocus.current) return;
+    restoreWelcomeFocus.current = false;
+    if (document.activeElement === document.body) {
+      document.querySelector<HTMLButtonElement>(".hero-lightweight")?.focus({ preventScroll: true });
+    }
+  }, [welcomeComplete, active]);
 
   useEffect(() => {
     const restore = requestAnimationFrame(() => {
@@ -198,10 +209,10 @@ export default function Exhibition() {
   }, []);
 
   useEffect(() => {
-    if (ready || failed) return;
-    const timer = setTimeout(() => setFailed(true), 12000);
+    if (ready || fallback) return;
+    const timer = setTimeout(() => { setFailed(true); setWelcomeComplete(true); }, 12000);
     return () => clearTimeout(timer);
-  }, [ready, failed]);
+  }, [ready, fallback]);
 
   useEffect(() => {
     if (!active) return;
@@ -237,7 +248,8 @@ export default function Exhibition() {
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   }, []);
   const onReady = useCallback(() => setReady(true), []);
-  const onError = useCallback(() => setFailed(true), []);
+  const onWelcomeComplete = useCallback(() => setWelcomeComplete(true), []);
+  const onError = useCallback(() => { setReady(false); setFailed(true); setWelcomeComplete(true); }, []);
   const onSettled = useCallback((id: number | null) => {
     const routeId =
       sections.find(
@@ -308,8 +320,12 @@ export default function Exhibition() {
           data-view={campusView}
           data-fallback={fallback}
           data-walking={walking && !fallback}
+          data-welcoming={!welcomeComplete}
+          data-campus-ready={ready || fallback}
+          aria-busy={!ready && !fallback}
         >
-          {!active && <HeroTitle />}
+          {!active && <HeroTitle ariaHidden={!welcomeComplete} />}
+          {!welcomeComplete && <CampusWelcome ready={ready} reducedMotion={reducedMotion} onComplete={onWelcomeComplete} />}
 
           {walkingOutside && (
             <div className="walk-toolbar">
@@ -327,12 +343,10 @@ export default function Exhibition() {
             </div>
           )}
 
-          <div className="campus-stage" ref={stage}>
-            <div
-              className={`fallback-layer ${ready && !fallback ? "scene-ready" : ""}`}
-            >
+          <div className="campus-stage" ref={stage} inert={!welcomeComplete} aria-hidden={!welcomeComplete}>
+            {fallback && <div className="fallback-layer">
               <FallbackMap />
-            </div>
+            </div>}
             {!fallback && (
               <CampusScene
                 selected={active?.id ?? null}
@@ -359,7 +373,7 @@ export default function Exhibition() {
                 className="map-labels"
                 aria-label="Six exhibition destinations"
               >
-                {(fallback || !ready ? imagePositions : positions).map(
+                {(fallback ? imagePositions : positions).map(
                   (position) => {
                     const section = sections[position.id - 1];
                     // Keep visible markers and their titles inside the viewport.
@@ -410,7 +424,7 @@ export default function Exhibition() {
           </div>
 
           {!active && (
-            <div className="hero-dock">
+            <div className="hero-dock" inert={!welcomeComplete}>
               {!walking && !fallback && (
                 <button id="walk-around" className="walk-start" type="button" disabled={!ready} onClick={startWalking}>
                   <Footprints size={18} /> Walk Around <ArrowRight size={16} />
@@ -478,7 +492,7 @@ export default function Exhibition() {
                   <button type="button" className="hero-control" disabled={fallback} onClick={() => { setZoom(1); setLookOffset(0); setCampusView("arrival"); }}>
                     <RotateCcw size={14} /><span>Reset View</span>
                   </button></>}
-                  <button type="button" className="hero-control hero-icon-control hero-lightweight" aria-label={fallback ? "Enable 3D map" : "Use lightweight map"} title={fallback ? "Enable 3D map" : "Use lightweight map"} aria-pressed={fallback} onClick={() => { if (walking) exitWalking(); if (failed) setFailed(false); setSimpleMap(!fallback); }}>
+                  <button type="button" className="hero-control hero-icon-control hero-lightweight" aria-label={fallback ? "Enable 3D map" : "Use lightweight map"} title={fallback ? "Enable 3D map" : "Use lightweight map"} aria-pressed={fallback} onClick={() => { if (walking) exitWalking(); restoreWelcomeFocus.current = fallback; setReady(false); setFailed(false); setWelcomeComplete(!fallback); setSimpleMap(!fallback); }}>
                     <Grid2X2 size={15} />
                   </button>
                 </div>

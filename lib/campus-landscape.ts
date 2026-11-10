@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { campusLayout, pavilions } from "./campus";
-import { campusFlowerBeds, makeCampusVegetation } from "./campus-vegetation";
+import { makeCampusVegetation } from "./campus-vegetation";
 import { makeCampusWater } from "./campus-water";
 import { makeCampusSideFountains } from "./campus-side-fountains";
 import { campusPromenades, CAMPUS_PROMENADE_SURFACE, pavilionRamp } from "./campus-obstacles";
@@ -152,13 +152,6 @@ export function makeCampusLandscape(
   for (const z of [-29.13, 23.13])
     block(batch, "ivory", 0, 0.135, z, 4.7, 0.07, 0.25);
   block(batch, "water", 0, 0.12, -3, 4.2, 0.03, 52);
-  for (const { x, z } of campusFlowerBeds) {
-    block(batch, "soil", x, 0.045, z, 2.5, 0.04, 5.8);
-    for (const dx of [-1.3, 1.3])
-      block(batch, "hedge", x + dx, 0.135, z, 0.25, 0.19, 6.1);
-    for (const dz of [-3, 3])
-      block(batch, "hedge", x, 0.135, z + dz, 2.7, 0.19, 0.25);
-  }
   for (const side of [-1, 1]) {
     // Small inset warm lights and shared benches; nothing tall on the central axis.
     for (let z = -30; z <= 26; z += 8) {

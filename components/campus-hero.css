@@ -197,10 +197,17 @@
 }
 
 .campus-hero {
-  --hero-title-size: min(clamp(4.5rem, calc(1.5rem + 14vw), 16rem), 28svh);
+  --hero-title-size: min(clamp(3.6rem, calc(1.2rem + 11.2vw), 12.8rem), 22.4svh);
   --hero-title-top: max(env(safe-area-inset-top), clamp(12px, 3svh, 36px));
   /* Reserve the line box and flourish padding before the font arrives. */
   --hero-title-height: calc(var(--hero-title-size) * 1.35);
+}
+
+.hero-title-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .hero-title {
@@ -232,6 +239,6 @@
 @media (max-height: 500px) {
   .campus-hero {
     --hero-title-top: max(4px, env(safe-area-inset-top));
-    --hero-title-size: clamp(44px, 14svh, 68px);
+    --hero-title-size: clamp(35.2px, 11.2svh, 54.4px);
   }
 }

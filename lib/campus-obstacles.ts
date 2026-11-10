@@ -1,8 +1,5 @@
 /** Shared design positions keep planting, sound and navigation in agreement. */
-export const campusFlowerBeds = [-1, 1].flatMap((side) => [
-  ...[-27, -17, -7, 3, 13, 23].map((z) => ({ x: side * 6, z })),
-  { x: side * 3.8, z: 41.5 },
-]);
+export { campusFlowerBeds } from "./campus-flower-plan";
 
 export { campusTrees, campusGroveBeds } from "./campus-planting";
 
