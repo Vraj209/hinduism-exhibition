@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { sectionSlugs } from "./exhibition-fixtures";
 
 for (const [width, height] of [[1440, 900], [1024, 768], [768, 680], [390, 844], [320, 740], [844, 390]]) {
-  test(`all gallery displays remain readable at ${width} by ${height}`, async ({ page }) => {
+  test(`all five narrative galleries remain readable at ${width} by ${height}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -14,12 +14,13 @@ for (const [width, height] of [[1440, 900], [1024, 768], [768, 680], [390, 844],
       } as typeof native;
     });
     for (const [sectionIndex, slug] of sectionSlugs.entries()) {
+      if (sectionIndex === 3) continue; // The photographic gallery has separate composition checks.
       await page.goto(`/#section-${slug}`);
       const gallery = page.locator(".dome-gallery");
       await expect(gallery).toHaveAttribute("data-arrived", "true");
       await expect(page.locator(".gallery-container")).toHaveCSS("opacity", "1");
       await expect(gallery.locator(".gallery-scroll")).toHaveCSS("opacity", "1");
-      const count = sectionIndex === 3 ? 16 : 5;
+      const count = 5;
       for (let index = 0; index < count; index++) {
         await page.locator(".gallery-scroll").evaluate((element, target) => {
           const flow = element.closest(".dome-gallery")?.getAttribute("data-mode") === "vertical";
@@ -58,9 +59,8 @@ for (const [width, height] of [[1440, 900], [1024, 768], [768, 680], [390, 844],
             expect(a.right <= b.x || b.right <= a.x || a.bottom <= b.y || b.bottom <= a.y, label).toBe(true);
           }
         }
-        const capture = width === 1440 && ((sectionIndex === 0 && index === 0) || (sectionIndex === 3 && [1, 2, 7, 14].includes(index)) || (sectionIndex === 5 && index === 3))
-          || width === 390 && sectionIndex === 3 && [1, 2, 15].includes(index)
-          || [1440, 390].includes(width) && sectionIndex !== 3 && index === 1;
+        const capture = width === 1440 && ((sectionIndex === 0 && index === 0) || (sectionIndex === 5 && index === 3))
+          || [1440, 390].includes(width) && index === 1;
         if (capture) await page.screenshot({ path: `docs/design/dark-gallery/${width}-${slug}-${index}.png` });
       }
     }

@@ -9,6 +9,7 @@ import { galleryForSection, type GalleryMoment } from "@/content/gallery-stories
 import { worlds } from "@/content/stories";
 import { galleryFrame, galleryHash, galleryIndexFromHash } from "@/lib/gallery-scroll";
 import { PavilionMark } from "./pavilion-mark";
+import { FestivalGallery } from "./festival-gallery";
 import "./dome-gallery.css";
 
 const FLOW_QUERY = "(max-width: 760px), (max-height: 600px), (prefers-reduced-motion: reduce)";
@@ -41,7 +42,9 @@ export default function SectionExperience(props: Props) {
   const shown = props.section ?? retained;
   return shown ? (
     <div className={`gallery-container ${!props.section ? "gallery-container-exiting" : ""}`}>
-      <DomeGallery {...props} key={shown.id} section={shown} exiting={!props.section} />
+      {shown.id === 4
+        ? <FestivalGallery {...props} section={shown} exiting={!props.section} />
+        : <DomeGallery {...props} key={shown.id} section={shown} exiting={!props.section} />}
     </div>
   ) : null;
 }

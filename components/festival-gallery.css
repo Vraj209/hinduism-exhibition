@@ -1,0 +1,51 @@
+/* Dome 4 is a continuous photographic exhibition, paced by native scrolling. */
+.festival-gallery { background: #080909; }
+.festival-gallery .gallery-header { background: #080909f5; min-height: 88px; }
+.festival-credit-link { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; color: var(--gallery-muted); font-size: 11px; }
+.festival-gallery .festival-scroll { top: calc(88px + env(safe-area-inset-top)); bottom: 0; scrollbar-gutter: stable; }
+.festival-hero { position: relative; display: flex; align-items: center; justify-content: center; min-height: calc(100svh - 88px); padding: 64px 6% 80px; }
+.festival-hero .gallery-copy { opacity: 1; }
+.festival-hero .gallery-caption { max-width: 48ch; }
+.festival-compositions { width: min(1600px, 91%); margin-inline: auto; }
+.festival-composition { display: grid; align-items: start; gap: clamp(24px, 4vw, 64px); margin-bottom: clamp(56px, 8vw, 128px); }
+.festival-composition-wide { grid-template-columns: 1fr; }
+.festival-composition-pair { grid-template-columns: 1.3fr 1fr; }
+.festival-composition-pair .festival-print:last-child { margin-top: 20%; }
+.festival-composition-pair.festival-composition-reverse { grid-template-columns: 1fr 1.3fr; }
+.festival-composition-trio { grid-template-columns: 1fr 1.15fr 1fr; gap: clamp(20px, 2.5vw, 40px); }
+.festival-composition-trio .festival-print:nth-child(2) { margin-top: 20%; }
+.festival-composition-trio .festival-print:nth-child(3) { margin-top: 7%; }
+.festival-composition-wide:not(:first-child) { width: 88%; margin-inline: auto; }
+.festival-print { position: relative; min-width: 0; margin: 0; }
+.festival-print-portrait { width: 100%; max-width: 450px; justify-self: center; }
+.festival-photo-button { position: relative; display: block; width: 100%; cursor: zoom-in; background: #141515; overflow: hidden; }
+.festival-photo-button img { display: block; width: 100%; height: auto; }
+.festival-open-mark { position: absolute; right: 16px; bottom: 16px; width: 40px; height: 40px; display: grid; place-items: center; color: #fff; background: #080909a8; border: 1px solid #ffffff40; border-radius: 50%; opacity: 0; transform: translateY(4px); transition: opacity 200ms, transform 200ms; }
+.festival-photo-button:hover .festival-open-mark, .festival-photo-button:focus-visible .festival-open-mark { opacity: 1; transform: none; }
+.festival-gallery .festival-photo-button:focus-visible { outline-offset: 8px; }
+.festival-end { width: 91%; margin: 0 auto; padding: 24px 0 max(48px, env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.festival-collection-credit { display: inline-flex; align-items: center; gap: 7px; font-size: 10px; color: var(--gallery-muted); min-height: 44px; }
+.festival-end .gallery-next-exhibition { font-size: 12px; gap: 20px; }
+@media (max-width: 760px) {
+  .festival-gallery .gallery-header { min-height: calc(72px + env(safe-area-inset-top)); left: 5%; right: 5%; }
+  .festival-gallery .gallery-chapter { display: none; }
+  .festival-gallery .festival-scroll { top: calc(72px + env(safe-area-inset-top)); }
+  .festival-hero { min-height: calc(100svh - 72px); padding: 48px 7% 64px; }
+  .festival-hero .gallery-copy h1 { font-size: clamp(43px, 11vw, 76px); }
+  .festival-compositions { width: 94%; }
+  .festival-composition, .festival-composition-pair.festival-composition-reverse { display: flex; flex-direction: column; gap: 40px; margin-bottom: 40px; }
+  .festival-gallery .festival-composition .festival-print { margin-top: 0; }
+  .festival-composition .festival-print { width: 100%; }
+  .festival-composition-wide:not(:first-child) { width: 100%; }
+  .festival-composition-trio .festival-print:nth-child(2) { width: 86%; align-self: center; }
+  .festival-composition-pair .festival-print:last-child { width: 91%; align-self: flex-end; }
+  .festival-end { flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 8px; }
+  .festival-open-mark { right: 12px; bottom: 12px; width: 32px; height: 32px; opacity: 1; transform: none; }
+}
+@media (max-height: 600px) and (min-width: 761px) {
+  .festival-hero { padding-block: 36px; }
+  .festival-hero .gallery-copy h1 { font-size: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .festival-gallery *, .festival-gallery *::before, .festival-gallery *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

@@ -98,7 +98,7 @@ test("failed rendering and context loss expose the fallback while retries use a 
   await expect(page.locator(".campus-welcome")).toHaveCount(0);
 });
 
-test("a story link survives the welcome and retains the gallery heading focus", async ({ page }) => {
+test("a legacy festival link survives the welcome and focuses its photograph", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   const release = await holdScripts(page);
   try {
@@ -107,8 +107,8 @@ test("a story link survives the welcome and retains the gallery heading focus", 
   } finally { release(); }
   await expect(page.locator(".dome-gallery")).toHaveAttribute("data-arrived", "true");
   await expect(page).toHaveURL(/#section-hindu-festivals\/story-2$/);
-  await expect(page.locator('.gallery-moment[data-moment="2"] h2')).toBeFocused();
-  await expect(page.locator('.gallery-moment[data-moment="2"] h2')).toHaveText("Annakut");
+  await expect(page.locator('[data-festival="new-year-annakut"] button')).toBeFocused();
+  await expect(page.locator('[data-festival="new-year-annakut"] img')).toBeVisible();
 });
 
 test("returning from a direct story during the welcome restores focus after the dissolve", async ({ page }) => {

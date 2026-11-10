@@ -283,7 +283,7 @@ export const worlds: SectionWorld[] = [
         id: "shastra-scripture",
         title: "Shastra — Scripture",
         caption:
-          "The exhibition presents scripture as guidance for integrity and purpose, and as the map within its three-pillar image.",
+          "Shastras govern us, discipline us, and protect us. They are the manual of mankind that teaches us how to live a life of integrity and purpose",
         summary:
           "Shastra is the first of the three pillars named in the final section. The source describes scripture as guidance that disciplines and protects, teaching a life of integrity and purpose. In its shared journey metaphor, scripture gives the map. This moment keeps that role connected with Mandir and Sant — Guru.",
         takeaway:
@@ -297,7 +297,7 @@ export const worlds: SectionWorld[] = [
         id: "mandir-sacred-space",
         title: "Mandir",
         caption:
-          "The exhibition describes mandir as a centre of peace that steadies the mind, builds character, and serves the community.",
+          "A Mandir is not just a building; it is a center of supreme peace that stabilizes the mind, builds character, and serves the community.",
         summary:
           "Mandir is the second pillar in the source. It is described as a centre of peace that stabilizes the mind, builds character, and serves the community. Within the exhibition’s connected image, the mandir also provides the destination. This moment brings those stated roles together in one place for reflection.",
         takeaway:
@@ -310,7 +310,7 @@ export const worlds: SectionWorld[] = [
         id: "sant-guru-living-guidance",
         title: "Sant — Guru",
         caption:
-          "The source presents the Satpurush as a living guide who has walked the road and can show the way.",
+          "Scripture gives the map, the mandir provides the destination, but the Satpurush is the living guide who has already walked the road and shows us how to reach the end",
         summary:
           "Sant — Guru completes the three pillars. The source describes the Satpurush as a living guide who has already walked the road and shows how to reach its end. Scripture’s map, the mandir’s destination, and this guidance belong together in the exhibition’s account. This moment preserves that specific devotional framing.",
         takeaway:

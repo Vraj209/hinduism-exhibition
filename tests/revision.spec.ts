@@ -6,16 +6,16 @@ import {
   expectedMomentTitles,
 } from "./exhibition-fixtures";
 
-test("the reading route retains six original messages while labeling named festivals as additional research", async ({
+test("the reading route shows all six section messages while labeling named festivals as additional research", async ({
   page,
 }) => {
   const messages = [
     "The way we live can itself be a form of worship.",
     "Rituals remind us of our duties, our relationships, and a connection to something greater.",
     "The exhibition introduces Hindu belief through the journey of the atma, or soul.",
-    "Festivals express victories of light over darkness, truth over ego, and love over separation.",
+    "Every Hindu festival is a celebration of a cosmic victory — light over darkness, truth over ego, love over separation.",
     "Values rooted in Hindu tradition come alive in everyday acts of kindness.",
-    "The exhibition brings together Shastra, Mandir, and Sant — Guru as three sustaining pillars.",
+    "Hindu culture has endured for over five thousand years because it rests on three unshakeable pillars — scripture, sacred space, and the living saint.",
   ];
   await page.goto("/read");
   const articles = page.getByRole("article");
@@ -83,7 +83,7 @@ test("sources and credits work without JavaScript and distinguish original artwo
     page.getByText(/Named festival research was added separately/),
   ).toBeVisible();
   await expect(
-    page.getByText(/All twenty-nine story photographs across the six dark galleries come from official BAPS sources/),
+    page.getByText(/The photographs across the six dark galleries come from official BAPS sources/),
   ).toBeVisible();
   await expect(page.getByRole("article")).toHaveCount(6);
   await expect(
@@ -136,8 +136,8 @@ test("sources and credits work without JavaScript and distinguish original artwo
     ),
   ).toBe(true);
   const photoCredits = page.locator('section[aria-labelledby="gallery-photo-credits"] li');
-  await expect(photoCredits).toHaveCount(29);
-  const storyTitles = expectedMomentTitles.flat();
+  await expect(photoCredits).toHaveCount(15);
+  const storyTitles = expectedMomentTitles.filter((_, section) => section !== 3).flat();
   for (let index = 0; index < storyTitles.length; index++) {
     await expect(photoCredits.nth(index).locator("strong")).toHaveText(storyTitles[index]);
     await expect(photoCredits.nth(index).getByRole("link")).toHaveAttribute("href", /^https:\/\/([a-z]+\.)?baps\.org\//);

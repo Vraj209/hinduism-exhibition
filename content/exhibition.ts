@@ -90,7 +90,7 @@ export const sections: ExhibitionSection[] = [
     title: "Hindu Festivals",
     theme: "Celebrations of Light & Life",
     message:
-      "Festivals express victories of light over darkness, truth over ego, and love over separation.",
+      "Every Hindu festival is a celebration of a cosmic victory — light over darkness, truth over ego, love over separation.",
     summary:
       "The exhibition presents festivals as celebrations with a deeper meaning. Its takeaway brings together three images of victory: light over darkness, truth over ego, and love over separation. These images invite visitors to consider what is being celebrated as well as the celebration itself. Light, truth, and love give this section its emotional centre.",
     takeaways: [
@@ -132,7 +132,7 @@ export const sections: ExhibitionSection[] = [
     title: "Hindu Sanskruti Ādhār Stambh",
     theme: "The Three Pillars",
     message:
-      "The exhibition brings together Shastra, Mandir, and Sant — Guru as three sustaining pillars.",
+      "Hindu culture has endured for over five thousand years because it rests on three unshakeable pillars — scripture, sacred space, and the living saint.",
     summary:
       "The final section gathers the exhibition’s message around three pillars: Shastra, Mandir, and Sant — Guru. Shastra, or scripture, is presented as guidance for a life of integrity and purpose. Mandir is described as a centre of peace that steadies the mind, builds character, and serves the community. Sant — Guru introduces the Satpurush as a living guide who has already walked the road. The source connects them through a shared image: scripture gives the map, the mandir makes the destination visible, and the Satpurush guides the journey. This account preserves the exhibition’s specific devotional framing; it is not presented as a definition shared identically by every Hindu tradition.",
     takeaways: [

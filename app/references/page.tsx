@@ -9,6 +9,7 @@ import {
 import { festivals, festivalSourceNote } from "@/content/festivals";
 import { pavilionCarvings } from "@/content/pavilion-carvings";
 import { galleryMedia } from "@/content/gallery-media";
+import { festivalGalleryPhotos } from "@/content/festival-gallery";
 import { worlds } from "@/content/stories";
 import { PavilionMark, MandirMark } from "@/components/pavilion-mark";
 import "./references.css";
@@ -106,7 +107,7 @@ export default function ReferencesPage() {
         <p>
           The campus architecture, decorative reliefs
           and six section icons were created for this digital exhibition.
-          All twenty-nine story photographs across the six dark galleries come
+          The photographs across the six dark galleries come
           from official BAPS sources.
         </p>
         <p>
@@ -127,7 +128,7 @@ export default function ReferencesPage() {
       <section className="reference-festivals" aria-labelledby="gallery-photo-credits">
         <h2 id="gallery-photo-credits">Gallery photograph credits</h2>
         <ol>
-          {worlds.flatMap((world) => world.stories.map((story) => {
+          {worlds.filter((world) => world.sectionId !== 4).flatMap((world) => world.stories.map((story) => {
             const media = galleryMedia[story.id];
             return media ? (
               <li key={story.id}>
@@ -138,6 +139,21 @@ export default function ReferencesPage() {
               </li>
             ) : null;
           }))}
+        </ol>
+      </section>
+      <section id="festival-photo-credits" className="reference-festivals" aria-labelledby="festival-credits-title">
+        <h2 id="festival-credits-title">Dome 4 · Photograph credits</h2>
+        <p>Official BAPS event photography. Each photograph retains its actual location and year. Website use is based on permission confirmed by the exhibition owner.</p>
+        <ol>
+          {festivalGalleryPhotos.map((photo) => (
+            <li key={photo.id}>
+              <strong>{photo.location} · {photo.year}</strong>
+              <span>{photo.alt}</span>
+              <span>{photo.credit}</span>
+              <a href={photo.sourcePageUrl} target="_blank" rel="noreferrer">Official event gallery ↗</a>
+              <a href={photo.sourceImageUrl} target="_blank" rel="noreferrer">Original photograph ↗</a>
+            </li>
+          ))}
         </ol>
       </section>
       <footer>

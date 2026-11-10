@@ -80,7 +80,8 @@ test("the closing action follows all six sections in source order and returns to
   for (let i = 0; i < titles.length; i++) {
     const gallery = await arrived(page, i);
     await page.locator(".gallery-scroll").evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: "instant" }));
-    await expect(gallery.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
+    if (i === 3) await expect(gallery.locator(".festival-end")).toBeInViewport();
+    else await expect(gallery.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
     const next = gallery.getByRole("link", { name: "Next Exhibition", exact: true });
     await expect(next).toHaveAttribute("href", `#section-${slugs[(i + 1) % 6]}`);
     if (i < 5) await next.click();

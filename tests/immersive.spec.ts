@@ -51,7 +51,7 @@ test("rapid pavilion selections cancel stale arrivals and leave only the final g
   expect(errors).toEqual([]);
 });
 
-test("a silent gallery creates no audio context or animation canvas during reading or summary navigation", async ({ page }) => {
+test("the festival gallery creates no audio context or animation canvas during browsing or lightbox navigation", async ({ page }) => {
   await noWebGL(page);
   await page.addInitScript(() => {
     const NativeAudioContext = window.AudioContext;
@@ -64,11 +64,20 @@ test("a silent gallery creates no audio context or animation canvas during readi
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#section-hindu-festivals/story-1");
-  const gallery = await galleryReady(page, 3, 1);
+  const gallery = await galleryReady(page);
+  const photograph = gallery.locator('[data-festival="diwali"] button');
+  await expect(photograph).toBeFocused();
   await expect(gallery.locator("canvas, video, audio")).toHaveCount(0);
-  await gallery.getByRole("button", { name: "Next story", exact: true }).click();
-  await galleryReady(page, 3, 2);
-  await fullSummary(page);
+  await photograph.click();
+  const lightbox = page.getByRole("dialog", { name: "Festival photographs", exact: true });
+  await expect(lightbox).toBeVisible();
+  const counter = lightbox.locator(".festival-lightbox-counter");
+  const initialCounter = await counter.textContent();
+  await lightbox.getByRole("button", { name: "Next photograph", exact: true }).click();
+  await expect(counter).not.toHaveText(initialCounter!);
+  await expect(lightbox.locator("canvas, video, audio")).toHaveCount(0);
+  await lightbox.getByRole("button", { name: "Close photographs", exact: true }).click();
+  await expect(photograph).toBeFocused();
   expect(await page.evaluate(() => Reflect.get(window, "__galleryAudioContexts"))).toBe(0);
 });
 
@@ -81,15 +90,18 @@ test("WebGL failure retains the six campus destinations, festival photographs an
   await page.locator("#destination-4").click();
   const gallery = await galleryReady(page);
   await gallery.getByRole("button", { name: "Scroll to Discover", exact: true }).click();
-  await galleryReady(page, 3, 1);
-  await expect(gallery.locator('[data-moment="1"] img')).toHaveAttribute("src", "/gallery/diwali.webp");
-  const dialog = await fullSummary(page);
-  await dialog.getByRole("link", { name: "Read all six exhibitions", exact: true }).click();
+  const photograph = gallery.locator('[data-festival="new-year-annakut"] img');
+  await expect(photograph).toBeInViewport();
+  await expect.poll(() => photograph.evaluate((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0)).toBe(true);
+  await expect(photograph).toHaveAttribute("alt", /\S+/);
+  await gallery.getByRole("link", { name: "Credits", exact: true }).click();
+  await expect(page).toHaveURL(/\/references#festival-photo-credits$/);
+  await page.getByRole("link", { name: "Read all six sections", exact: false }).click();
   await expect(page.getByRole("article")).toHaveCount(6);
   await expect(page.locator("details[id^='story-']")).toHaveCount(29);
 });
 
-test("denied storage does not block stories, browser history, refresh or full summary access", async ({ page }) => {
+test("denied storage does not block festival photographs, browser history, refresh or lightbox access", async ({ page }) => {
   await noWebGL(page);
   await page.addInitScript(() => {
     Object.defineProperty(window, "localStorage", { get() { throw new DOMException("Storage denied", "SecurityError"); } });
@@ -98,17 +110,27 @@ test("denied storage does not block stories, browser history, refresh or full su
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/#section-hindu-festivals/story-14");
-  await galleryReady(page, 3, 14);
+  await galleryReady(page);
+  const photograph = page.locator('[data-festival="navratri-dussehra"] button');
+  await expect(photograph).toBeFocused();
+  await expect(photograph).toBeInViewport();
   await page.reload();
-  await galleryReady(page, 3, 14);
-  await fullSummary(page);
-  await page.getByRole("button", { name: "Close summary", exact: true }).click();
+  await galleryReady(page);
+  await expect(photograph).toBeFocused();
+  await expect(photograph).toBeInViewport();
+  await photograph.click();
+  const lightbox = page.getByRole("dialog", { name: "Festival photographs", exact: true });
+  await expect(lightbox).toBeVisible();
+  await lightbox.getByRole("button", { name: "Close photographs", exact: true }).click();
+  await expect(photograph).toBeFocused();
+  await page.locator(".festival-end").scrollIntoViewIfNeeded();
+  await expect(page).toHaveURL(/#section-hindu-festivals\/closing$/);
   await page.getByRole("link", { name: "Next Exhibition", exact: true }).click();
   await galleryReady(page, 4);
   await page.goBack();
   await galleryReady(page, 3);
   await expect(page).toHaveURL(/#section-hindu-festivals\/closing$/);
-  await expect(page.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
+  await expect(page.locator(".festival-end")).toBeInViewport();
   await page.goForward();
   await galleryReady(page, 4);
   expect(errors).toEqual([]);
@@ -120,7 +142,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 320, height: 568 }
     await noWebGL(page);
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    for (const [section, story] of [[5, 3], [1, 3], [3, 7]]) {
+    for (const [section, story] of [[5, 3], [1, 3], [2, 3]]) {
       await page.goto(`/#section-${slugs[section]}/story-${story}`);
       const gallery = await galleryReady(page, section, story);
       const heading = gallery.locator(`[data-moment="${story}"] h2`);
@@ -168,6 +190,7 @@ test("the original fifty-eight desktop and mobile illustrations remain distinct 
 });
 
 for (let section = 0; section < titles.length; section++) {
+  if (section === 3) continue; // Photographic gallery accessibility is covered in festival-gallery.spec.ts.
   test(`section ${section + 1} mobile gallery and full summary meet automatic WCAG checks`, async ({ page }) => {
     await noWebGL(page);
     await page.setViewportSize({ width: 390, height: 844 });
@@ -183,12 +206,13 @@ for (let section = 0; section < titles.length; section++) {
 }
 
 for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844 }]) {
-  test(`all twenty-nine gallery stories pair correct imagery with their actual source at ${viewport.width}px`, async ({ page }) => {
+  test(`all fifteen narrative gallery stories pair correct imagery with their actual source at ${viewport.width}px`, async ({ page }) => {
     test.setTimeout(60_000);
     await noWebGL(page);
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
     for (let section = 0; section < 6; section++) {
+      if (section === 3) continue;
       await page.goto(`/#section-${slugs[section]}/story-1`);
       const gallery = await galleryReady(page, section, 1);
       for (let story = 0; story < expectedMomentTitles[section].length; story++) {

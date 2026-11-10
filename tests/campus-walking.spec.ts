@@ -140,11 +140,16 @@ test("all six walking destinations enter their exhibition and return outside the
     await expect(world).toHaveAttribute("data-arrived", "true");
     await expect(world.locator(".interior-walk-toolbar")).toHaveCount(0);
     await expect(canvas).toHaveAttribute("data-walk-suspended", "true");
-    await world.getByRole("button", { name: "Read Full Summary", exact: true }).click();
-    await expect(page.locator(".gallery-summary")).toBeVisible();
+    if (id === 4) {
+      await world.locator(".festival-photo-button").first().click();
+      await expect(page.locator(".festival-lightbox")).toBeVisible();
+    } else {
+      await world.getByRole("button", { name: "Read Full Summary", exact: true }).click();
+      await expect(page.locator(".gallery-summary")).toBeVisible();
+    }
     await page.keyboard.press("w");
     expect(await position(canvas)).toEqual(outside);
-    await page.getByRole("button", { name: "Close summary", exact: true }).click();
+    await page.getByRole("button", { name: id === 4 ? "Close photographs" : "Close summary", exact: true }).click();
     await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
     await expect(world).toHaveCount(0);
     await expect(canvas).toHaveAttribute("data-walk-suspended", "false");

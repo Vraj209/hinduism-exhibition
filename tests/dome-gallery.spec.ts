@@ -88,15 +88,16 @@ test("deep links, previous/next buttons, full summary and browser Back retain th
   await expect(page.locator(".dome-gallery")).toHaveCount(0);
 });
 
-test("the shared gallery preserves every approved story across all six domes", async ({ page }) => {
+test("the narrative gallery preserves every approved story across the five reading domes", async ({ page }) => {
   test.setTimeout(60_000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   for (let section = 0; section < sectionSlugs.length; section++) {
+    if (section === 3) continue; // Dome 4 has its own photographic-gallery suite.
     const gallery = await enter(page, section);
     await expect(gallery).toHaveAttribute("data-mode", "vertical");
-    await expect(gallery.locator(".gallery-moment")).toHaveCount(section === 3 ? 16 : 5);
+    await expect(gallery.locator(".gallery-moment")).toHaveCount(5);
     await expect(gallery.locator(".gallery-opening h1")).toHaveText(sectionTitles[section]);
     await expect(gallery.locator(".gallery-story h2")).toHaveText(expectedMomentTitles[section]);
     await expect(gallery.locator('[aria-hidden="true"].gallery-moment')).toHaveCount(0);
@@ -112,7 +113,7 @@ for (const width of [320, 390]) {
     test.setTimeout(60_000);
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    const gallery = await enter(page, 3);
+    const gallery = await enter(page, 0);
     await expect(gallery).toHaveAttribute("data-mode", "vertical");
     await page.getByRole("button", { name: "Scroll to Discover", exact: true }).click();
     await readMoment(page, 1);
@@ -148,12 +149,12 @@ for (const width of [320, 390]) {
 
 test("desktop only mounts nearby media and the reading display passes accessibility checks", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await enter(page, 3, "/story-7");
-  await readMoment(page, 7);
-  await expect(page.locator(".gallery-story img")).toHaveCount(3);
-  await expect(page.locator('[data-moment="7"] img')).toBeVisible();
-  await expect(page.locator('[data-moment="8"] img')).toHaveCount(1);
-  await expect(page.locator('[data-moment="10"] img')).toHaveCount(0);
+  await enter(page, 0, "/story-1");
+  await readMoment(page, 1);
+  await expect(page.locator(".gallery-story img")).toHaveCount(2);
+  await expect(page.locator('[data-moment="1"] img')).toBeVisible();
+  await expect(page.locator('[data-moment="2"] img')).toHaveCount(1);
+  await expect(page.locator('[data-moment="3"] img')).toHaveCount(0);
   const result = await new AxeBuilder({ page }).include(".dome-gallery").withTags(tags).analyze();
   expect(result.violations).toEqual([]);
 });
