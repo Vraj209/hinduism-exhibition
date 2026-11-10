@@ -1,5 +1,7 @@
 export type GalleryMedia = {
   src: string;
+  name?: string;
+  companion?: GalleryMedia;
   mobileSrc?: string;
   alt: string;
   credit: string;
@@ -319,25 +321,38 @@ export const galleryMedia: Record<string, GalleryMedia> = {
   },
   "mandir-sacred-space": {
     "src": "/gallery/mandir-sacred-space.webp",
-    "alt": "The carved entrance gateway and BAPS Shri Swaminarayan Mandir in London after snowfall.",
-    "sourceHref": "https://londonmandir.baps.org/images/the-mandir-moods/",
-    "sourceImageHref": "https://londonmandir.baps.org/images/gallery/mandir-moods/08mandir-moods.jpg",
-    "sourceContext": "BAPS Shri Swaminarayan Mandir, London · official mandir gallery",
+    "alt": "The carved stone towers, broad front steps and landscaped courtyard of BAPS Swaminarayan Akshardham in Robbinsville, New Jersey, USA.",
+    "sourceHref": "https://usa.akshardham.org/explore",
+    "sourceImageHref": "https://media.baps.dev/wp-content/uploads/2023/09/09181239/04.-BAPS-Swaminarayan-Akshardham.jpeg",
+    "sourceContext": "BAPS Swaminarayan Akshardham Mahamandir, Robbinsville, New Jersey, USA · official campus gallery",
     "credit": "Photo: BAPS Swaminarayan Sanstha",
-    "width": 1028,
-    "height": 685,
+    "width": 1440,
+    "height": 959,
     "kind": "photograph"
   },
   "sant-guru-living-guidance": {
-    "src": "/gallery/sant-guru-living-guidance.webp",
-    "alt": "Mahant Swami Maharaj seated in saffron robes with his hands joined in greeting.",
-    "sourceHref": "https://londonmandir.baps.org/about/his-holiness-mahant-swami-maharaj/",
-    "sourceImageHref": "https://londonmandir.baps.org/images/2018/09/msmRGB_main.jpg",
-    "sourceContext": "Mahant Swami Maharaj · official BAPS London profile",
+    "src": "/gallery/pramukh-swami-maharaj.webp",
+    "name": "Pramukh Swami Maharaj",
+    "alt": "Pramukh Swami Maharaj in saffron robes, smiling gently.",
+    "sourceHref": "https://londonmandir.baps.org/about/his-holiness-pramukh-swami-maharaj/",
+    "sourceImageHref": "https://londonmandir.baps.org/images/2011/01/psm_001_Main.jpeg",
+    "sourceContext": "Pramukh Swami Maharaj · official BAPS London profile",
     "credit": "Photo: BAPS Swaminarayan Sanstha",
     "width": 667,
-    "height": 445,
-    "kind": "photograph"
+    "height": 312,
+    "kind": "photograph",
+    "companion": {
+      "src": "/gallery/sant-guru-living-guidance.webp",
+      "name": "Mahant Swami Maharaj",
+      "alt": "Mahant Swami Maharaj seated in saffron robes with his hands joined in greeting.",
+      "sourceHref": "https://londonmandir.baps.org/about/his-holiness-mahant-swami-maharaj/",
+      "sourceImageHref": "https://londonmandir.baps.org/images/2018/09/msmRGB_main.jpg",
+      "sourceContext": "Mahant Swami Maharaj · official BAPS London profile",
+      "credit": "Photo: BAPS Swaminarayan Sanstha",
+      "width": 667,
+      "height": 445,
+      "kind": "photograph"
+    }
   }
 
 };

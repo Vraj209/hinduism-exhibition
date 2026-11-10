@@ -154,8 +154,10 @@ export default function ReferencesPage() {
               <li key={story.id}>
                 <strong>{story.title}</strong>
                 <span>{sections[world.sectionId - 1].title}</span>
-                <span>{media.sourceContext} · {media.credit}</span>
-                <a href={media.sourceHref} target="_blank" rel="noreferrer">View official BAPS source ↗</a>
+                {(media.companion ? [media, media.companion] : [media]).map((photo) => <div key={photo.src}>
+                  <span>{photo.sourceContext} · {photo.credit}</span>
+                  <a href={photo.sourceHref} target="_blank" rel="noreferrer">View official BAPS source ↗</a>
+                </div>)}
               </li>
             ) : null;
           }))}

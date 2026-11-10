@@ -238,15 +238,19 @@ function DomeGallery({ section, hash, campusArrived, reducedMotion, onVisited, e
 
 function GalleryImage({ moment, load }: { moment: GalleryMoment; load: boolean }) {
   const media = moment.media!;
+  const photographs = media.companion ? [media, media.companion] : [media];
   return (
-    <figure className="gallery-figure">
-      <div className="gallery-image-frame">
-        {load && <picture>
-          {media.mobileSrc && <source media="(max-width: 760px)" srcSet={media.mobileSrc} />}
-          <Image src={media.src} alt={media.alt} width={media.width ?? 1440} height={media.height ?? 900} unoptimized loading="lazy" sizes="(max-width: 760px) 90vw, 54vw" />
-        </picture>}
+    <figure className={`gallery-figure${media.companion ? " gallery-paired-portraits" : ""}`}>
+      <div className={`gallery-image-frame${media.companion ? " gallery-portrait-images" : ""}`}>
+        {load && photographs.map((photo) => <picture key={photo.src}>
+          {photo.mobileSrc && <source media="(max-width: 760px)" srcSet={photo.mobileSrc} />}
+          <Image src={photo.src} alt={photo.alt} width={photo.width ?? 1440} height={photo.height ?? 900} unoptimized loading="lazy" sizes={media.companion ? "(max-width: 760px) 44vw, 350px" : "(max-width: 760px) 90vw, 54vw"} />
+        </picture>)}
       </div>
-      <figcaption>{media.sourceHref ? <a href={media.sourceHref} target="_blank" rel="noreferrer">{media.credit} <ArrowUpRight size={11} /></a> : media.credit}</figcaption>
+      <figcaption>{photographs.map((photo) => <span key={photo.src}>
+        {photo.name && <span className="gallery-portrait-name">{photo.name}</span>}
+        {photo.sourceHref ? <a href={photo.sourceHref} target="_blank" rel="noreferrer">{photo.credit} <ArrowUpRight size={11} /></a> : photo.credit}
+      </span>)}</figcaption>
     </figure>
   );
 }
@@ -268,7 +272,7 @@ function GallerySummary({ section, moments, dialogRef }: { section: ExhibitionSe
           {moment.story!.traditionLabel && <p className="gallery-source-note">{moment.story!.traditionLabel}</p>}
           <p>{moment.story!.summary}</p>
           <a href={moment.story!.sourceHref ?? `${sourcePdfHref}#page=1`} target="_blank" rel="noreferrer">{moment.story!.sourceLabel} <ArrowUpRight size={13} /></a>
-          {moment.media && <p className="gallery-source-note">{moment.media.kind === "illustration" ? moment.story!.visualDescription : `${moment.media.sourceContext}. ${moment.media.alt}`} {moment.media.sourceHref && <a href={moment.media.sourceHref} target="_blank" rel="noreferrer">{moment.media.credit} ↗</a>}</p>}
+          {moment.media && (moment.media.companion ? [moment.media, moment.media.companion] : [moment.media]).map((photo) => <p key={photo.src} className="gallery-source-note">{photo.kind === "illustration" ? moment.story!.visualDescription : `${photo.sourceContext}. ${photo.alt}`} {photo.sourceHref && <a href={photo.sourceHref} target="_blank" rel="noreferrer">{photo.credit} ↗</a>}</p>)}
         </section>)}
         <p className="gallery-summary-reflection">{section.reflection}</p>
         <Link href={`/read#${section.slug}`}>Read all six exhibitions <ArrowUpRight size={14} /></Link>
