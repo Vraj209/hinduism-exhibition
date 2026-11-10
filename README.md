@@ -110,4 +110,8 @@ Architecture is generated from reusable, materially batched geometry: profiled p
 
 See [environmental realism verification](docs/design/environmental-realism.md) and [original ambience signal/source evidence](docs/design/environment-audio-verification.md) for current behavior, measured limits and validation.
 
-Fonts are local WOFF2 files (about 73 KB combined). All active story imagery consists of locally optimized, credited BAPS photographs. The original rendered illustrations remain stored for provenance; the gallery no longer uses them. Campus architecture is original geometry, and no documentary photographs or religious likenesses have been fabricated. Optional campus audio is synthesized locally; there are no external audio requests, analytics or remote fonts.
+Fonts are local WOFF2 files (about 73 KB combined). All active story imagery consists of locally optimized, credited BAPS photographs. The original rendered illustrations remain stored for provenance; the gallery no longer uses them. Campus architecture is original geometry, and no documentary photographs or religious likenesses have been fabricated. Optional campus audio is synthesized locally; there are no external audio requests or remote fonts.
+
+## Analytics
+
+Vercel Web Analytics is included across the app through `@vercel/analytics/next` in `app/layout.tsx`. Enable Web Analytics in the Vercel project dashboard, then deploy this version to collect traffic. See the [Vercel Next.js integration guide](https://vercel.com/docs/frameworks/full-stack/nextjs).
