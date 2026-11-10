@@ -4,7 +4,7 @@ Verified locally on 2026-11-09.
 
 ## Implemented behavior
 
-- Walk Around starts at the approved entrance. A calibrated 1.7-metre eye height follows paving and the six entrance ramps. Movement has acceleration and stopping, a level horizon, and no head bobbing.
+- Walk Around starts at the approved entrance. A calibrated 1.7-metre eye height follows paving and the six entrance ramps. Keyboard walking and automatic routes reach 3.5 metres per second, with smooth acceleration and stopping, a level horizon, and no head bobbing.
 - Desktop WASD/arrows walk; Q/E turns, R/F adjusts the limited vertical look, and Home levels it. Mouse/touch dragging looks around. A distinct click/tap on a valid path starts a route with a destination marker. Keyboard commands require focus in the walking area and ignore page controls and dialogs.
 - One collision predicate governs manual motion and cached-grid A* routing. Basins, planting beds, hedge walls, trees, pavilion walls, stair cheeks and boundaries block movement. Routes use the outer paths, inner fountain promenades, crosswalks and pavilion approaches. The approved pavilion meshes remain unchanged; separate narrow stone ramps clear their existing stair treads.
 - Stop and Go Directly accompany automatic travel. Reduced motion uses immediate destination changes. Each dome arrival identifies its section and offers Enter Exhibition; doorway travel leads to a safe interior position. Direct section navigation remains available.

@@ -26,7 +26,7 @@ type WalkControllerOptions = {
 
 const movementKeys = new Set(["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"]);
 const lookKeys = new Set(["q", "e", "r", "f"]);
-const maxSpeed = 1.4 / CAMPUS_METERS_PER_UNIT;
+const maxSpeed = 3.5 / CAMPUS_METERS_PER_UNIT;
 const pitchLimit = 0.35;
 const waypointTolerance = 0.00001;
 
