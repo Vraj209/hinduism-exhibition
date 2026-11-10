@@ -12,7 +12,7 @@ test("the reading route shows all six section messages while labeling named fest
   const messages = [
     "The way we live — what we eat, what we wear, what language we sing in — is itself a form of worship",
     "Rituals remind us of our duties, our relationships, and a connection to something greater.",
-    "Hinduism offers one of the world’s most detailed maps of the atma’s (soul’s) journey",
+    "Hinduism offers one of the world’s most detailed maps of the Aatma’s (soul’s) journey",
     "Every Hindu festival is a celebration of a cosmic victory — light over darkness, truth over ego, love over separation.",
     "These are not Hindu values alone. They are human values — rooted in an ancient tradition, alive in every act of kindness today.",
     "Hindu culture has endured for over five thousand years because it rests on three unshakeable pillars — scripture, sacred space, and the living saint.",

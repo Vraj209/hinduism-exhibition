@@ -70,7 +70,7 @@ export const sections: ExhibitionSection[] = [
     title: "Hindu Manyata",
     theme: "Beliefs & Worldview",
     message:
-      "Hinduism offers one of the world’s most detailed maps of the atma’s (soul’s) journey",
+      "Hinduism offers one of the world’s most detailed maps of the Aatma’s (soul’s) journey",
     summary:
       "Hindu Manyata introduces the exhibition’s account of belief and worldview through the atma, translated in the source as the soul. The takeaway uses the image of a detailed map to describe Hinduism’s understanding of the atma’s journey. This gives the section its central focus: a way of considering the soul and its journey.",
     takeaways: [

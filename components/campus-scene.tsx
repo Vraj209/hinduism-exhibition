@@ -156,9 +156,6 @@ export default function CampusScene(props: CampusSceneProps) {
       | "walk-map"
       | "walk-doorway"
       | "returning" = "overview";
-    renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.25 : 1.5),
-    );
     renderer.setClearColor(0xf4f0e8, 0);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -510,7 +507,11 @@ export default function CampusScene(props: CampusSceneProps) {
     function resize() {
       const width = host!.clientWidth || 800;
       const height = host!.clientHeight || 600;
-      renderer.setSize(width, height, false);
+      // Keep architectural detail sharp on high-density phones, including
+      // landscape, while capping the GPU cost and honoring lower-density screens.
+      const mobileDisplay = width < 768 || window.matchMedia("(pointer: coarse)").matches;
+      const pixelRatio = Math.min(window.devicePixelRatio, mobileDisplay ? 2 : 1.5);
+      renderer.setDrawingBufferSize(width, height, pixelRatio);
       const aspect = width / height;
       const span = Math.max(116, 68 / aspect);
       overviewCamera.left = (-span * aspect) / 2;
