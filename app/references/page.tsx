@@ -10,6 +10,11 @@ import { festivals, festivalSourceNote } from "@/content/festivals";
 import { pavilionCarvings } from "@/content/pavilion-carvings";
 import { galleryMedia } from "@/content/gallery-media";
 import { festivalGalleryPhotos } from "@/content/festival-gallery";
+import { beliefImages } from "@/content/beliefs";
+import { hinduValues, hinduValuePhotographs } from "@/content/hindu-values";
+import { INDIA_MAP_SOURCE } from "@/content/india-map";
+import { languageReferences } from "@/content/jivan-shaili";
+import { territoryAttire } from "@/content/territory-attire";
 import { worlds } from "@/content/stories";
 import { PavilionMark, MandirMark } from "@/components/pavilion-mark";
 import "./references.css";
@@ -102,6 +107,21 @@ export default function ReferencesPage() {
           ))}
         </ol>
       </section>
+      <section id="jivan-shaili-credits" className="reference-origin" aria-labelledby="jivan-credits-title">
+        <h2 id="jivan-credits-title">Dome 1: language and traditional attire</h2>
+        <p>The supplied Bhusha poster provides the 28 state entries, garment pairings, Gujarati state names and regional or community labels. These are examples of dress within each state; they do not represent every community or occasion.</p>
+        <p>The 28 state attire images are AI-generated illustrations created with the built-in image generation tool from that poster, at the exhibition owner’s request. They are interpretations of the reference, not original exhibition photographs. Their garment labels remain transcriptions of the poster.</p>
+        <p>Two additional illustrations, requested separately for Jammu and Kashmir and Ladakh, depict a Kashmiri attire example and a Ladakhi ceremonial attire example. These were generated from the cultural references below and are not entries from the supplied poster. They do not represent every community or occasion in either union territory.</p>
+        {territoryAttire.flatMap((territory) => territory.sources.map((source) => <a key={`${territory.id}-${source.href}`} href={source.href} target="_blank" rel="noreferrer">{territory.name}: {source.title} ↗</a>))}
+        <p>The regional languages and varieties follow a 28-state list supplied by the exhibition owner. They are examples, not exhaustive lists or statements of official-language status. The references supplied with that list are linked below.</p>
+        {languageReferences.map((source) => <a key={source.state} href={source.href} target="_blank" rel="noreferrer">{source.state}: {source.title} ↗</a>)}
+        <p>Regional language examples for Jammu and Kashmir and Ladakh were added separately at the exhibition owner’s request, using the references below. These lists are also non-exhaustive and do not designate official languages.</p>
+        {territoryAttire.flatMap((territory) => territory.languageSources.map((source) => <a key={`${territory.id}-language-${source.href}`} href={source.href} target="_blank" rel="noreferrer">{territory.name}: {source.title} ↗</a>))}
+        <p>Legible Gujarati garment captions are still awaiting exhibition source material. Language and attire details for the other six union territories remain unavailable.</p>
+        <p>The map uses simplified DataMeet / geoBoundaries geometry, with 28 states and 8 union territories. Boundaries follow the source; the map is for exhibition navigation.</p>
+        <a href={INDIA_MAP_SOURCE.url} target="_blank" rel="noreferrer">DataMeet / geoBoundaries map source ↗</a>
+        <a href={INDIA_MAP_SOURCE.licenseUrl} target="_blank" rel="noreferrer">Creative Commons Attribution 2.5 India ↗</a>
+      </section>
       <section className="reference-origin">
         <h2>Images, artwork and permissions</h2>
         <p>
@@ -128,7 +148,7 @@ export default function ReferencesPage() {
       <section className="reference-festivals" aria-labelledby="gallery-photo-credits">
         <h2 id="gallery-photo-credits">Gallery photograph credits</h2>
         <ol>
-          {worlds.filter((world) => world.sectionId !== 4).flatMap((world) => world.stories.map((story) => {
+          {worlds.filter((world) => ![3, 4, 5].includes(world.sectionId)).flatMap((world) => world.stories.map((story) => {
             const media = galleryMedia[story.id];
             return media ? (
               <li key={story.id}>
@@ -139,6 +159,39 @@ export default function ReferencesPage() {
               </li>
             ) : null;
           }))}
+        </ol>
+      </section>
+      <section id="manyata-visual-credits" className="reference-festivals" aria-labelledby="manyata-credits-title">
+        <h2 id="manyata-credits-title">Hindu Manyata · Visual credits</h2>
+        <p>The light, ripples, circular path and lotus are original abstract visual metaphors. The Gujarati sentences are transcribed from the exhibition owner’s supplied reference.</p>
+        <ol>
+          <li>
+            <strong>Avatar · Krishna guiding Arjun</strong>
+            <span>{beliefImages.avatar.credit}. The source does not identify the artist or the artwork’s creation date.</span>
+            <a href={beliefImages.avatar.sourcePageUrl} target="_blank" rel="noreferrer">Official BAPS article and artwork ↗</a>
+          </li>
+          <li>
+            <strong>Murti · {beliefImages.murti.location} · {beliefImages.murti.year}</strong>
+            <span>{beliefImages.murti.credit}. Official event photography used with permission confirmed by the exhibition owner.</span>
+            <a href={beliefImages.murti.sourcePageUrl} target="_blank" rel="noreferrer">Official BAPS event gallery ↗</a>
+          </li>
+        </ol>
+      </section>
+      <section id="hindu-values-credits" className="reference-festivals" aria-labelledby="values-credits-title">
+        <h2 id="values-credits-title">Hindu Mulyo · Photograph credits</h2>
+        <p>The four value descriptions are original exhibition copy supplied by the exhibition owner, not quotations attributed to His Holiness Mahant Swami Maharaj. The photographs document the separate events described in their captions.</p>
+        <p>Official BAPS event photography, used on the basis of website-use permission previously confirmed by the exhibition owner. Copyright remains with BAPS Swaminarayan Sanstha.</p>
+        <ol>
+          {hinduValues.map((value) => {
+            const photo = hinduValuePhotographs.find((item) => item.id === value.id)!;
+            return <li key={value.id}>
+              <strong>{value.title} · {value.meaning}</strong>
+              <span>{photo.caption}</span>
+              <span>{photo.location} · {photo.displayDate} · {photo.credit}</span>
+              <a href={photo.sourcePageUrl} target="_blank" rel="noreferrer">Official event gallery ↗</a>
+              <a href={photo.sourceImageUrl} target="_blank" rel="noreferrer">Original photograph ↗</a>
+            </li>;
+          })}
         </ol>
       </section>
       <section id="festival-photo-credits" className="reference-festivals" aria-labelledby="festival-credits-title">

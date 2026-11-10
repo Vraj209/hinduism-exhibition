@@ -1,0 +1,81 @@
+/* Four photographic exhibits in a continuous, quiet reading room. */
+.dome-gallery.values-gallery {
+  --values-burgundy: #260f16;
+  --values-panel: #32141d;
+  --gallery-white: #f5ecdf;
+  --gallery-muted: #c9b7ab;
+  --gallery-gold: #ceb17c;
+  --gallery-line: #ceb17c30;
+  background: var(--values-burgundy);
+}
+.values-gallery .gallery-header { min-height: calc(88px + env(safe-area-inset-top)); background: var(--values-burgundy); }
+.values-credits { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--gallery-muted); font-size: 11px; }
+.values-credits:hover { color: var(--gallery-white); }
+.values-gallery .values-scroll { top: calc(88px + env(safe-area-inset-top)); bottom: 0; padding-bottom: env(safe-area-inset-bottom); }
+.values-hero { position: relative; isolation: isolate; align-items: center; overflow: hidden; min-height: clamp(360px, 57svh, 560px); padding: 72px 6% 64px; }
+.values-hero .gallery-copy { opacity: 1; }
+.values-hero .gallery-eyebrow { font-size: 10px; letter-spacing: .2em; }
+.values-hero .gallery-copy h1 { font-size: clamp(56px, 7vw, 100px); font-weight: 400; }
+.values-hero .gallery-caption { max-width: 44ch; margin-top: 24px; color: var(--gallery-muted); }
+.values-hero .gallery-scroll-cue { margin-top: 28px; }
+.values-hero-ornament { position: absolute; width: 440px; height: 440px; left: calc(50% - 220px); top: 0; color: var(--gallery-gold); opacity: .055; z-index: -1; pointer-events: none; }
+.values-list { position: relative; width: min(1280px, 90%); padding: 0; margin: 0 auto; list-style: none; display: grid; gap: 64px; }
+.values-list > li { min-width: 0; }
+.value-card { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; background: var(--values-panel); border: 1px solid var(--gallery-line); scroll-margin-block: 24px; }
+.value-photo { min-width: 0; margin: 0; padding: 20px; }
+.value-photo-frame { position: relative; border: 1px solid var(--gallery-line); background: var(--values-burgundy); }
+.value-photo-frame img { display: block; width: 100%; height: auto; object-fit: contain; }
+.value-photo figcaption { padding: 16px 4px 0; color: var(--gallery-muted); font-size: 11px; line-height: 1.65; }
+.value-photo figcaption p { margin-bottom: 7px; }
+.value-photo figcaption > span { display: block; }
+.value-photo figcaption a { display: inline-flex; gap: 5px; align-items: center; min-height: 28px; color: var(--gallery-gold); }
+.value-photo figcaption a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.value-copy { position: relative; isolation: isolate; overflow: hidden; min-width: 0; padding: 48px clamp(32px, 4.5vw, 72px); }
+.value-copy-ornament { position: absolute; z-index: -1; width: 320px; height: 320px; right: -112px; top: calc(50% - 160px); color: var(--gallery-gold); opacity: .055; pointer-events: none; }
+.value-number { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; color: var(--gallery-gold); font-size: 11px; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
+.value-number::after { content: ""; height: 1px; width: 32px; background: var(--gallery-line); }
+.value-copy h2 { color: var(--gallery-white); font-size: clamp(50px, 5.2vw, 76px); line-height: 1.05; letter-spacing: -.025em; font-weight: 400; }
+.value-meaning { margin-top: 8px; font-family: var(--font-display), Georgia, serif; font-size: clamp(23px, 2vw, 29px); line-height: 1.3; color: var(--gallery-gold); }
+.value-rule { display: block; width: 40px; height: 1px; margin: 28px 0; background: var(--gallery-gold); opacity: .5; }
+.value-description { max-width: 38ch; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.85; color: var(--gallery-white); text-wrap: pretty; }
+.value-gujarati { margin-top: 24px; font-family: "Noto Sans Gujarati", "Gujarati Sangam MN", sans-serif; color: var(--gallery-muted); font-size: 18px; line-height: 1.9; }
+.values-list > li:nth-child(even) .value-photo { grid-column: 2; grid-row: 1; }
+.values-list > li:nth-child(even) .value-copy { grid-column: 1; grid-row: 1; }
+.values-end { width: min(1280px, 90%); margin: 0 auto; padding: 72px 0 48px; }
+.values-end > p { max-width: 34ch; margin: 0 auto 56px; text-align: center; font-family: var(--font-display), Georgia, serif; font-size: clamp(25px, 2.4vw, 34px); line-height: 1.45; color: var(--gallery-muted); text-wrap: balance; }
+.values-end > div { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid var(--gallery-line); }
+.values-end .gallery-next-exhibition { font-size: 12px; gap: 24px; }
+@media (min-width: 761px) and (max-width: 1100px) {
+  .value-copy { padding: 36px 28px; }
+  .value-photo { padding: 16px; }
+  .value-number { margin-bottom: 20px; }
+  .value-rule { margin-block: 24px; }
+}
+@media (max-width: 760px) {
+  .values-gallery .gallery-header { min-height: calc(72px + env(safe-area-inset-top)); gap: 16px; background: var(--values-burgundy); }
+  .values-gallery .gallery-chapter { display: none; }
+  .values-gallery .values-scroll { top: calc(72px + env(safe-area-inset-top)); }
+  .values-hero { min-height: auto; padding: 56px 7% 48px; }
+  .values-hero .gallery-copy h1 { font-size: clamp(48px, 12vw, 76px); }
+  .values-hero .gallery-eyebrow { font-size: 9px; max-width: 28ch; margin: 0 auto 24px; line-height: 1.9; }
+  .values-hero .gallery-caption { font-size: 16px; line-height: 1.8; }
+  .values-hero-ornament { width: 340px; height: 340px; left: calc(50% - 170px); }
+  .values-list { gap: 32px; }
+  .value-card { grid-template-columns: minmax(0, 1fr); }
+  .values-list > li:nth-child(even) .value-photo, .values-list > li:nth-child(even) .value-copy { grid-column: auto; grid-row: auto; }
+  .value-photo { padding: 12px 12px 0; }
+  .value-photo figcaption { font-size: 11px; padding: 12px 4px 0; }
+  .value-copy { padding: 28px 24px 36px; }
+  .value-copy-ornament { right: -144px; }
+  .value-number { margin-bottom: 20px; }
+  .value-copy h2 { font-size: 52px; }
+  .value-meaning { font-size: 25px; }
+  .value-rule { margin-block: 24px; }
+  .value-description { font-size: 16px; line-height: 1.85; }
+  .values-end { padding-block: 48px 32px; }
+  .values-end > p { margin-bottom: 40px; padding-inline: 12px; }
+  .values-end > div { flex-wrap: wrap; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .values-gallery *, .values-gallery *::before, .values-gallery *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

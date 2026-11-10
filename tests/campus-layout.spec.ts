@@ -153,10 +153,7 @@ test("moving directly between sections leaves through the current doorway first"
   const campus = page.locator(".campus-webgl canvas");
   const first = page.getByRole("region", { name: `${sectionTitles[0]} exhibition gallery`, exact: true });
   await expect(first).toHaveAttribute("data-arrived", "true");
-  for (let moment = 2; moment <= 5; moment++) {
-    await first.getByRole("button", { name: "Next story", exact: true }).click();
-    await expect(first.getByRole("progressbar")).toHaveAttribute("aria-valuenow", String(moment));
-  }
+  await first.locator(".jivan-end").scrollIntoViewIfNeeded();
   await first.getByRole("link", { name: "Next Exhibition", exact: true }).click();
   const samples: number[][] = [];
   await expect.poll(async () => {

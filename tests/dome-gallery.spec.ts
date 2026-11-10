@@ -14,7 +14,7 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-async function enter(page: Page, section = 0, suffix = "") {
+async function enter(page: Page, section = 1, suffix = "") {
   await page.goto(`/#section-${sectionSlugs[section]}${suffix}`);
   await expect(page.locator(".dome-gallery")).toHaveAttribute("data-arrived", "true");
   return page.locator(".dome-gallery");
@@ -48,20 +48,20 @@ test("native scrolling holds text steady, stops with input, and reverses through
   expect(await text.boundingBox()).toEqual(start);
   await page.mouse.wheel(0, step);
   await readMoment(page, 2);
-  await expect(page.getByRole("heading", { name: "What we wear", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Remembering our relationships", exact: true })).toBeVisible();
   await page.mouse.wheel(0, -step);
   await readMoment(page, 1);
-  await expect(page.getByRole("heading", { name: "Food and everyday life", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Remembering our duties", exact: true })).toBeVisible();
   await expect(page.locator(".world-webgl")).toHaveCount(0);
 });
 
 test("deep links, previous/next buttons, full summary and browser Back retain their narrative positions", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await enter(page, 0, "/story-2");
+  await enter(page, 1, "/story-2");
   await readMoment(page, 2);
   await page.getByRole("button", { name: "Previous story", exact: true }).click();
   await readMoment(page, 1);
-  await expect(page).toHaveURL(/#section-hindu-jivan-shaili\/story-1$/);
+  await expect(page).toHaveURL(/#section-hindu-riti-parampara\/story-1$/);
   for (let index = 2; index <= 4; index++) {
     await page.getByRole("button", { name: "Next story", exact: true }).click();
     await readMoment(page, index);
@@ -71,30 +71,30 @@ test("deep links, previous/next buttons, full summary and browser Back retain th
   await page.getByRole("button", { name: "Read Full Summary", exact: true }).click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole("heading", { name: "Hindu Jivan Shaili", exact: true })).toBeVisible();
-  await expect(dialog.locator("h3")).toHaveText(expectedMomentTitles[0]);
+  await expect(dialog.getByRole("heading", { name: "Hindu Riti/Parampara", exact: true })).toBeVisible();
+  await expect(dialog.locator("h3")).toHaveText(expectedMomentTitles[1]);
   await expect(dialog.locator('a[href="/exhibition-source.pdf#page=1"]')).toHaveCount(3);
   await page.keyboard.press("Escape");
   await expect(dialog).not.toBeVisible();
   await expect(page.getByRole("button", { name: "Read Full Summary", exact: true })).toBeFocused();
   await page.getByRole("link", { name: "Next Exhibition", exact: true }).click();
-  await expect(page).toHaveURL(/#section-hindu-riti-parampara$/);
-  await readMoment(page, 0);
+  await expect(page).toHaveURL(/#section-hindu-manyata$/);
+  await expect(page.locator(".manyata-gallery .gallery-opening h1")).toBeFocused();
   await page.goBack();
-  await expect(page).toHaveURL(/#section-hindu-jivan-shaili\/closing$/);
+  await expect(page).toHaveURL(/#section-hindu-riti-parampara\/closing$/);
   await readMoment(page, 4);
   await page.getByRole("link", { name: "Back to Campus", exact: true }).click();
   await expect(page).toHaveURL(/#map$/);
   await expect(page.locator(".dome-gallery")).toHaveCount(0);
 });
 
-test("the narrative gallery preserves every approved story across the five reading domes", async ({ page }) => {
+test("the narrative gallery preserves every approved story across the two reading domes", async ({ page }) => {
   test.setTimeout(60_000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   for (let section = 0; section < sectionSlugs.length; section++) {
-    if (section === 3) continue; // Dome 4 has its own photographic-gallery suite.
+    if ([0, 2, 3, 4].includes(section)) continue; // Cultural exploration, belief cards, values and festivals have dedicated suites.
     const gallery = await enter(page, section);
     await expect(gallery).toHaveAttribute("data-mode", "vertical");
     await expect(gallery.locator(".gallery-moment")).toHaveCount(5);
@@ -113,7 +113,7 @@ for (const width of [320, 390]) {
     test.setTimeout(60_000);
     await page.setViewportSize({ width, height: 844 });
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    const gallery = await enter(page, 0);
+    const gallery = await enter(page, 1);
     await expect(gallery).toHaveAttribute("data-mode", "vertical");
     await page.getByRole("button", { name: "Scroll to Discover", exact: true }).click();
     await readMoment(page, 1);
@@ -149,7 +149,7 @@ for (const width of [320, 390]) {
 
 test("desktop only mounts nearby media and the reading display passes accessibility checks", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await enter(page, 0, "/story-1");
+  await enter(page, 1, "/story-1");
   await readMoment(page, 1);
   await expect(page.locator(".gallery-story img")).toHaveCount(2);
   await expect(page.locator('[data-moment="1"] img')).toBeVisible();
@@ -161,8 +161,8 @@ test("desktop only mounts nearby media and the reading display passes accessibil
 
 test("deep links focus the active heading and phone resizing preserves the reading offset", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await enter(page, 0, "/story-2");
-  await expect(page.getByRole("heading", { name: "What we wear", exact: true })).toBeFocused();
+  await enter(page, 1, "/story-2");
+  await expect(page.getByRole("heading", { name: "Remembering our relationships", exact: true })).toBeFocused();
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator(".dome-gallery")).toHaveAttribute("data-mode", "vertical");
   const scroll = page.locator(".gallery-scroll");

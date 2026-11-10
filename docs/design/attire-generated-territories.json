@@ -1,0 +1,40 @@
+{
+  "generator": "Built-in image_gen",
+  "generatedOn": "2026-11-09",
+  "disclosure": "New AI-generated attire illustrations informed by cultural references, requested separately from the 28-state Bhusha poster. These are illustrative examples, not documentary photographs or universal regional dress.",
+  "images": [
+    {
+      "id": "IN-JK",
+      "name": "Jammu and Kashmir",
+      "src": "/attire/in-jk.webp",
+      "sources": [
+        "https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=116916"
+      ],
+      "prompt": "Use case: illustration-story. Asset type: one traditional attire illustration for the Bhusha section of an Indian cultural exhibition. Create a refined naturalistic editorial illustration of TWO adult people, a Kashmiri man on the LEFT and a Kashmiri woman on the RIGHT, standing comfortably side by side, facing the viewer, relaxed hands, warm understated expressions. This is one KASHMIRI attire example from Jammu and Kashmir, not a claim to represent every community there. Wardrobe: man wears a long, loose taupe-grey woollen PHERAN with long wide sleeves and restrained embroidery around the neckline, over ivory loose trousers, simple brown closed leather shoes, and a modest round dark wool cap. Woman wears a deep wine-red long woollen PHERAN with fine Kashmiri floral embroidery around the neck opening, cuffs and hem, cream trousers underneath, a softly draped light ivory headscarf covering the hair and resting over shoulders without hiding the garment, and simple brown closed shoes. Pherans are loose straight garments, not fitted coats; do not turn them into generic sherwanis, saris or lehengas. Soft warm ivory seamless studio background, subtle floor shadows, textured fabric, restrained fine painterly realism matching a museum editorial illustration collection. Portrait 2:3 canvas at 1024 x 1536. FULL LENGTH from above their headwear to below both pairs of shoes. Every foot, hem, hand and headwear fully visible, about 8 percent clear background margin around figures; people separated enough to read both garment silhouettes. Generated educational artwork, not a documentary photograph. No scenery, no snow, no props, no weapons, no extra people, no letters, no labels, no text, no border, no collage, no watermark.",
+      "kind": "generated-illustration",
+      "sourceImage": "/Users/vrajpanchal/.codex/generated_images/01a1c368-a9ea-74c2-965a-3a0d4793592e/exec-f3435b05-d875-44e1-9d45-b192fa404b4a.png",
+      "verification": "Visually inspected: two adults, full-length attire, complete headwear where present, hands and both pairs of footwear visible, warm ivory background, no text or frame. Garments follow the prompted Kashmiri or Ladakhi ceremonial example; generated interpretation rather than a documentary photograph.",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 294084,
+      "sha256": "31432fb56a6cd531335c2c910b1f015f9793ad84d3a1f2ca366656c03bbbd25e"
+    },
+    {
+      "id": "IN-LA",
+      "name": "Ladakh",
+      "src": "/attire/in-la.webp",
+      "sources": [
+        "https://www.sahapedia.org/ladakhi-dress-and-costume",
+        "https://www.bowers.org/index.php/collection/collections-blog/snakes-and-stones-perak-headdresses-from-ladakh"
+      ],
+      "prompt": "Use case: illustration-story. Asset type: one traditional attire illustration for the Bhusha section of an Indian cultural exhibition. Create a refined naturalistic editorial illustration of TWO adult Ladakhi people, man on the LEFT and woman on the RIGHT, standing comfortably side by side, facing the viewer, relaxed hands, warm understated expressions. Show one LADAKHI CEREMONIAL attire example, with accurate distinctive garments rather than generic Tibetan, Mongolian or Indian costumes. Man wears a long dark warm-brown woollen GONCHA / GOS robe, full-length almost to the ankles, with its characteristic overlapping front closure fastened to the side; the robe has fullness gathered at the waist by a broad woven dark red SKERAG sash, with natural volume above the sash, trousers visible below, and practical traditional dark felt-and-leather boots fully visible. Keep his head uncovered with short natural hair. Woman wears a deep burgundy SULMA dress with a fitted sleeveless upper bodice and a full finely gathered long skirt, cinched by a narrow dark red waist sash; a long-sleeved gold-toned brocade blouse is visible at the sleeves. She wears the distinctive ceremonial PERAK turquoise headdress: a substantial flat elongated tapered panel covered with orderly turquoise stones resting along the crown and continuing back, with dark side flaps framing the ears; it is not an upright crown, not a fan of feathers and not a tall conical hat. A restrained turquoise and coral necklace, a dark shoulder cape set back enough to show the dress, and traditional closed boots visible below the hem. Keep jewelry coherent and restrained. Soft warm ivory seamless studio background, subtle floor shadows, textured woven cloth, restrained fine painterly realism matching a museum editorial illustration collection. Portrait 2:3 canvas at 1024 x 1536. FULL LENGTH from above the complete headdress to below both pairs of boots. Every foot, hem, hand and headdress fully visible with about 8 percent clear background margin around figures. Newly generated educational artwork, not a documentary or recovered exhibition photograph. No scenery, no snow, no prayer objects, no weapons, no additional people, no text, no labels, no frame, no collage, no watermark.",
+      "kind": "generated-illustration",
+      "sourceImage": "/Users/vrajpanchal/.codex/generated_images/01a1c368-a9ea-74c2-965a-3a0d4793592e/exec-c5330d6e-cc88-470d-86ea-5bf043547051.png",
+      "verification": "Visually inspected: two adults, full-length attire, complete headwear where present, hands and both pairs of footwear visible, warm ivory background, no text or frame. Garments follow the prompted Kashmiri or Ladakhi ceremonial example; generated interpretation rather than a documentary photograph.",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 340404,
+      "sha256": "e84d69e0a59b0f8ea2772e0d1e212cd4646b4aa785227f38d5c02d24435a3227"
+    }
+  ]
+}

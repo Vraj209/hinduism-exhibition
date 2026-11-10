@@ -1,0 +1,70 @@
+/* Six small architectural exhibits, with all bilingual text present at rest. */
+.manyata-gallery { background: #110d0e; --niche-ivory: #f3e9d7; --niche-maroon: #662c36; --niche-gold: #b99659; }
+.manyata-room-light { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 28%, #89634214, transparent 65%); }
+.manyata-gallery .gallery-header { min-height: 88px; background: #110d0ef5; }
+.manyata-credits { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; color: var(--gallery-muted); font-size: 11px; }
+.manyata-gallery .manyata-scroll { top: calc(88px + env(safe-area-inset-top)); bottom: 0; padding-bottom: env(safe-area-inset-bottom); }
+.manyata-hero { position: relative; display: flex; align-items: center; justify-content: center; min-height: clamp(380px, 62svh, 620px); padding: 64px 6% 56px; }
+.manyata-hero .gallery-copy { opacity: 1; }
+.manyata-hero .gallery-copy h1 { font-size: clamp(52px, 6.4vw, 88px); }
+.manyata-hero .gallery-caption { max-width: 44ch; }
+.manyata-hero .gallery-scroll-cue { margin-top: 28px; }
+.belief-grid { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 68px clamp(32px, 4vw, 64px); width: min(1240px, 88%); margin: 0 auto; padding: 12px 0 32px; list-style: none; }
+.belief-reveal { min-width: 0; display: flex; }
+.belief-card { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 572px; padding: 84px 24px 56px; color: var(--niche-maroon); border-radius: 190px 190px 5px 5px; transition: transform 240ms ease; scroll-margin-block: 32px; }
+.belief-stone { position: absolute; inset: 0; border-radius: inherit; z-index: -2; background: linear-gradient(110deg, #e4d4b7, #f9f0df 12%, #f5e9d3 65%, #d8c7a9); border: 1px solid #d4be93; box-shadow: 0 20px 32px #0006, inset 0 2px 2px #fff9, inset 2px 0 3px #fff5, inset -3px 0 8px #7c5a2928; }
+.belief-stone::before { content: ""; position: absolute; inset: 8px; border-radius: 180px 180px 3px 3px; border: 1px solid #aa854d66; box-shadow: 0 1px 1px #fff9; }
+.belief-stone::after { content: ""; position: absolute; inset: 22px 20px 16px; border-radius: 160px 160px 2px 2px; background: radial-gradient(ellipse at 50% 4%, #fffdf4 2%, #f3e9d8 47%, #eee1cd 100%); box-shadow: inset 0 7px 20px #6c4d3020, inset 0 -2px 7px #fff9; }
+.belief-card::after { content: ""; position: absolute; inset: 22px 20px 16px; border-radius: 160px 160px 2px 2px; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% 5%, #fffef0aa, #fff9e900 72%); opacity: 0; transition: opacity 240ms ease; }
+.belief-carving { position: absolute; top: 3px; left: 0; right: 0; z-index: 0; pointer-events: none; }
+.manyata-niche-carving { display: block; width: 100%; height: auto; }
+.belief-medallion { position: relative; z-index: 1; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid color-mix(in srgb, var(--belief-accent), transparent 40%); border-radius: 50%; background: #fbf4e7; box-shadow: 0 2px 5px #65432016, inset 0 0 0 3px #f0e4ce; color: var(--niche-maroon); font-size: 12px; font-weight: 600; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.belief-visual { position: relative; display: grid; place-items: center; flex: 0 0 188px; width: 100%; margin: 4px 0 8px; }
+.belief-visual > [role="img"] { width: min(240px, 100%); }
+.manyata-motif { display: block; width: 100%; height: auto; }
+.belief-visual-image { isolation: isolate; }
+.belief-visual-image::before { content: ""; position: absolute; width: 200px; height: 165px; z-index: -1; background: radial-gradient(ellipse, color-mix(in srgb, var(--belief-accent), transparent 85%), transparent 72%); }
+.belief-devotional-frame { position: relative; display: flex; align-items: center; justify-content: center; }
+.belief-devotional-frame img { display: block; width: auto; height: auto; max-width: 100%; object-fit: contain; }
+.belief-devotional-avatar { width: min(218px, 100%); padding: 6px; background: #e9d5b0; border: 1px solid #bc965f; box-shadow: inset 0 0 0 2px #faf1db, 0 5px 12px #533b2626; }
+.belief-devotional-avatar::after { content: ""; position: absolute; inset: -4px; border: 1px solid #bd98585c; pointer-events: none; }
+.belief-devotional-murti { height: 184px; width: 132px; padding: 30px 11px 10px; background: linear-gradient(110deg, #b99553, #fbedd2 22%, #dfc99e 65%, #ad8649); border: 1px solid #ae874e; border-radius: 62px 62px 3px 3px; box-shadow: inset 0 0 0 3px #f7e5c4, 0 5px 12px #382b2928; }
+.belief-devotional-murti::before { content: ""; position: absolute; inset: 5px; border: 1px solid #a78148; border-radius: 56px 56px 1px 1px; pointer-events: none; }
+.belief-devotional-murti img { max-height: 142px; max-width: 100%; }
+.belief-copy { position: relative; z-index: 1; text-align: center; width: 100%; }
+.belief-copy h2 { font-family: var(--font-display), Georgia, serif; font-size: clamp(36px, 3.1vw, 43px); line-height: 1.1; font-weight: 600; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.belief-english { margin-top: 12px; color: #59473d; font-size: 16px; line-height: 1.55; }
+.belief-divider { display: block; height: 1px; width: 36px; margin: 22px auto 18px; background: var(--belief-accent); opacity: .6; }
+.belief-gujarati { font-family: var(--font-gujarati), "Noto Sans Gujarati", "Gujarati Sangam MN", sans-serif; font-size: 20px; font-weight: 450; font-stretch: normal; line-height: 1.85; letter-spacing: normal; color: #554239; text-wrap: balance; padding-inline: 4px; }
+.belief-ledge { position: absolute; left: -7px; right: -7px; bottom: -11px; height: 22px; border: 1px solid #c5ad83; border-radius: 2px 2px 3px 3px; background: linear-gradient(#fff2dc 0 20%, #e9d5b2 23% 55%, #c2a77c 59%, #ddc7a2 70%); box-shadow: 0 10px 15px #0007, 0 1px 1px #fff4 inset; }
+.belief-ledge span { position: absolute; left: 7px; right: 7px; bottom: -5px; height: 5px; border-radius: 0 0 2px 2px; background: #b79b72; box-shadow: 0 3px 4px #0004; }
+.manyata-gallery .belief-card:focus-visible { outline: 2px solid #ead3a6; outline-offset: 9px; transform: translateY(-4px); }
+.belief-card:focus-visible::after { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .belief-card:hover { transform: translateY(-4px); }
+  .belief-card:hover::after { opacity: 1; }
+}
+.manyata-end { display: flex; justify-content: space-between; align-items: center; gap: 32px; width: min(1240px, 88%); margin: 48px auto 0; padding: 24px 0 max(56px, env(safe-area-inset-bottom)); }
+.manyata-end .gallery-next-exhibition { font-size: 12px; gap: 20px; }
+@media (max-width: 1100px) {
+  .belief-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(820px, 88%); gap: 64px 48px; }
+  .belief-copy h2 { font-size: 40px; }
+}
+@media (max-width: 600px) {
+  .manyata-gallery .gallery-header { min-height: calc(72px + env(safe-area-inset-top)); left: 6%; right: 6%; }
+  .manyata-gallery .gallery-chapter { display: none; }
+  .manyata-gallery .manyata-scroll { top: calc(72px + env(safe-area-inset-top)); }
+  .manyata-hero { min-height: auto; padding: 64px 7% 48px; }
+  .manyata-hero .gallery-copy h1 { font-size: clamp(44px, 11vw, 64px); }
+  .manyata-hero .gallery-caption { font-size: 16px; }
+  .belief-grid { grid-template-columns: minmax(0, 1fr); width: min(380px, 84%); gap: 52px; padding-top: 16px; }
+  .belief-card { min-height: 568px; padding-inline: 22px; }
+  .belief-copy h2 { font-size: 40px; }
+  .belief-gujarati { font-size: 20px; }
+  .belief-english { font-size: 16px; }
+  .manyata-end { width: 84%; margin-top: 24px; gap: 16px; flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .manyata-gallery *, .manyata-gallery *::before, .manyata-gallery *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .manyata-gallery .belief-card:hover, .manyata-gallery .belief-card:focus-visible { transform: none; }
+}

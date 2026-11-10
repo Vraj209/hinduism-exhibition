@@ -38,7 +38,7 @@ test("rapid pavilion selections cancel stale arrivals and leave only the final g
   await page.goto("/#map");
   const canvas = page.locator(".campus-webgl canvas");
   await expect(canvas).toHaveAttribute("data-camera-phase", "overview");
-  for (const section of [0, 3, 1, 5]) {
+  for (const section of [0, 2, 3, 1, 5]) {
     await page.evaluate((slug) => { window.location.hash = `section-${slug}`; }, slugs[section]);
     await page.waitForTimeout(90);
   }
@@ -142,7 +142,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 320, height: 568 }
     await noWebGL(page);
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    for (const [section, story] of [[5, 3], [1, 3], [2, 3]]) {
+    for (const [section, story] of [[5, 3], [1, 3]]) {
       await page.goto(`/#section-${slugs[section]}/story-${story}`);
       const gallery = await galleryReady(page, section, story);
       const heading = gallery.locator(`[data-moment="${story}"] h2`);
@@ -190,7 +190,7 @@ test("the original fifty-eight desktop and mobile illustrations remain distinct 
 });
 
 for (let section = 0; section < titles.length; section++) {
-  if (section === 3) continue; // Photographic gallery accessibility is covered in festival-gallery.spec.ts.
+  if ([0, 2, 3, 4].includes(section)) continue; // Cultural exploration, beliefs, values and festivals have dedicated accessibility suites.
   test(`section ${section + 1} mobile gallery and full summary meet automatic WCAG checks`, async ({ page }) => {
     await noWebGL(page);
     await page.setViewportSize({ width: 390, height: 844 });
@@ -206,13 +206,13 @@ for (let section = 0; section < titles.length; section++) {
 }
 
 for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844 }]) {
-  test(`all fifteen narrative gallery stories pair correct imagery with their actual source at ${viewport.width}px`, async ({ page }) => {
+  test(`all six narrative gallery stories pair correct imagery with their actual source at ${viewport.width}px`, async ({ page }) => {
     test.setTimeout(60_000);
     await noWebGL(page);
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
     for (let section = 0; section < 6; section++) {
-      if (section === 3) continue;
+      if ([0, 2, 3, 4].includes(section)) continue;
       await page.goto(`/#section-${slugs[section]}/story-1`);
       const gallery = await galleryReady(page, section, 1);
       for (let story = 0; story < expectedMomentTitles[section].length; story++) {

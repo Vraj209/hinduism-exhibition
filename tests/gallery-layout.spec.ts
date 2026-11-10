@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { sectionSlugs } from "./exhibition-fixtures";
 
 for (const [width, height] of [[1440, 900], [1024, 768], [768, 680], [390, 844], [320, 740], [844, 390]]) {
-  test(`all five narrative galleries remain readable at ${width} by ${height}`, async ({ page }) => {
+  test(`both narrative galleries remain readable at ${width} by ${height}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -14,7 +14,7 @@ for (const [width, height] of [[1440, 900], [1024, 768], [768, 680], [390, 844],
       } as typeof native;
     });
     for (const [sectionIndex, slug] of sectionSlugs.entries()) {
-      if (sectionIndex === 3) continue; // The photographic gallery has separate composition checks.
+      if ([0, 2, 3, 4].includes(sectionIndex)) continue; // Cultural exploration, beliefs, values and festivals have separate composition checks.
       await page.goto(`/#section-${slug}`);
       const gallery = page.locator(".dome-gallery");
       await expect(gallery).toHaveAttribute("data-arrived", "true");
@@ -59,9 +59,11 @@ for (const [width, height] of [[1440, 900], [1024, 768], [768, 680], [390, 844],
             expect(a.right <= b.x || b.right <= a.x || a.bottom <= b.y || b.bottom <= a.y, label).toBe(true);
           }
         }
-        const capture = width === 1440 && ((sectionIndex === 0 && index === 0) || (sectionIndex === 5 && index === 3))
+        const capture = width === 1440 && ((sectionIndex === 1 && index === 0) || (sectionIndex === 5 && index === 3))
           || [1440, 390].includes(width) && index === 1;
-        if (capture) await page.screenshot({ path: `docs/design/dark-gallery/${width}-${slug}-${index}.png` });
+        if (capture && process.env.UPDATE_GALLERY_CAPTURES === "1") {
+          await page.screenshot({ path: `docs/design/dark-gallery/${width}-${slug}-${index}.png` });
+        }
       }
     }
   });

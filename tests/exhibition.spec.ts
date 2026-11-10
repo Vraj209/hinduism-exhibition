@@ -26,15 +26,6 @@ async function arrived(page: Page, section: number) {
   return gallery;
 }
 
-async function summary(page: Page) {
-  await page.locator(".gallery-scroll").evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: "instant" }));
-  await expect(page.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
-  await page.getByRole("button", { name: "Read Full Summary", exact: true }).click();
-  const dialog = page.locator(".gallery-summary");
-  await expect(dialog).toBeVisible();
-  return dialog;
-}
-
 test("six accessible destinations support keyboard entrance through the selected doorway", async ({
   page,
 }) => {
@@ -64,12 +55,9 @@ test("six accessible destinations support keyboard entrance through the selected
     "data-camera-position",
     "-17.000,2.300,18.000",
   );
-  await summary(page);
-  await expect(
-    page.getByText("Daily life and worship are presented as connected.", {
-      exact: true,
-    }),
-  ).toBeVisible();
+  await page.locator(".culture-explorer").scrollIntoViewIfNeeded();
+  await expect(page.locator(".culture-panel")).toHaveAttribute("data-state", "IN-GJ");
+  await expect(page.locator(".culture-panel h3")).toContainText("Gujarat");
   expect(errors).toEqual([]);
 });
 
@@ -80,7 +68,10 @@ test("the closing action follows all six sections in source order and returns to
   for (let i = 0; i < titles.length; i++) {
     const gallery = await arrived(page, i);
     await page.locator(".gallery-scroll").evaluate((element) => element.scrollTo({ top: element.scrollHeight, behavior: "instant" }));
-    if (i === 3) await expect(gallery.locator(".festival-end")).toBeInViewport();
+    if (i === 0) await expect(gallery.locator(".jivan-end")).toBeInViewport();
+    else if (i === 2) await expect(gallery.locator(".manyata-end")).toBeInViewport();
+    else if (i === 3) await expect(gallery.locator(".festival-end")).toBeInViewport();
+    else if (i === 4) await expect(gallery.locator(".values-end")).toBeInViewport();
     else await expect(gallery.locator(".gallery-closing")).toHaveAttribute("data-active", "true");
     const next = gallery.getByRole("link", { name: "Next Exhibition", exact: true });
     await expect(next).toHaveAttribute("href", `#section-${slugs[(i + 1) % 6]}`);

@@ -28,7 +28,8 @@ export const sections: ExhibitionSection[] = [
     slug: "hindu-jivan-shaili",
     title: "Hindu Jivan Shaili",
     theme: "The Hindu Way of Life",
-    message: "The way we live can itself be a form of worship.",
+    message:
+      "The way we live — what we eat, what we wear, what language we sing in — is itself a form of worship",
     summary:
       "The journey begins with everyday life. This section draws attention to what we eat, what we wear, and the language in which we sing. In the exhibition’s telling, these familiar expressions of daily life can themselves be a form of worship. The invitation is to look at ordinary habits with renewed attention and to recognise the place of devotion within them.",
     takeaways: [
@@ -69,7 +70,7 @@ export const sections: ExhibitionSection[] = [
     title: "Hindu Manyata",
     theme: "Beliefs & Worldview",
     message:
-      "The exhibition introduces Hindu belief through the journey of the atma, or soul.",
+      "Hinduism offers one of the world’s most detailed maps of the atma’s (soul’s) journey",
     summary:
       "Hindu Manyata introduces the exhibition’s account of belief and worldview through the atma, translated in the source as the soul. The takeaway uses the image of a detailed map to describe Hinduism’s understanding of the atma’s journey. This gives the section its central focus: a way of considering the soul and its journey.",
     takeaways: [
@@ -111,7 +112,7 @@ export const sections: ExhibitionSection[] = [
     title: "Hindu Mulyo",
     theme: "Core Values — Values to Light Our Lives",
     message:
-      "Values rooted in Hindu tradition come alive in everyday acts of kindness.",
+      "These are not Hindu values alone. They are human values — rooted in an ancient tradition, alive in every act of kindness today.",
     summary:
       "Hindu Mulyo brings the journey to the values we live. The exhibition presents these as human values rooted in an ancient tradition and made present through acts of kindness today. Its message connects inherited values with the choices people make in everyday life. Kindness is the concrete example given in the source: a way for values to become visible through action.",
     takeaways: [

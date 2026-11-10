@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { sectionTitles } from "./exhibition-fixtures";
 import { chooseSection, expectSectionChoices } from "./section-menu-helpers";
+import { chooseRegion } from "./region-menu-helpers";
 
 const metersPerUnit = (255 * 0.3048) / 24.8;
 
@@ -140,16 +141,26 @@ test("all six walking destinations enter their exhibition and return outside the
     await expect(world).toHaveAttribute("data-arrived", "true");
     await expect(world.locator(".interior-walk-toolbar")).toHaveCount(0);
     await expect(canvas).toHaveAttribute("data-walk-suspended", "true");
-    if (id === 4) {
+    if (id === 1) {
+      await world.locator(".culture-explorer").scrollIntoViewIfNeeded();
+      await chooseRegion(page, "Gujarat");
+      await expect(world.locator(".culture-panel h3")).toContainText("Gujarat");
+    } else if (id === 3) {
+      await world.getByRole("button", { name: "Explore the six beliefs", exact: true }).click();
+      await expect(world.locator(".belief-card")).toHaveCount(6);
+    } else if (id === 4) {
       await world.locator(".festival-photo-button").first().click();
       await expect(page.locator(".festival-lightbox")).toBeVisible();
+    } else if (id === 5) {
+      await world.getByRole("button", { name: "Explore the four values", exact: true }).click();
+      await expect(world.locator(".value-card")).toHaveCount(4);
     } else {
       await world.getByRole("button", { name: "Read Full Summary", exact: true }).click();
       await expect(page.locator(".gallery-summary")).toBeVisible();
     }
     await page.keyboard.press("w");
     expect(await position(canvas)).toEqual(outside);
-    await page.getByRole("button", { name: id === 4 ? "Close photographs" : "Close summary", exact: true }).click();
+    if (id !== 1 && id !== 3 && id !== 5) await page.getByRole("button", { name: id === 4 ? "Close photographs" : "Close summary", exact: true }).click();
     await world.getByRole("link", { name: "Back to Campus", exact: true }).click();
     await expect(world).toHaveCount(0);
     await expect(canvas).toHaveAttribute("data-walk-suspended", "false");
